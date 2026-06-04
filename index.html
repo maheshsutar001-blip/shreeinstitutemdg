@@ -290,6 +290,29 @@
             font-size: 14px;
         }
 
+        /* Success Message Styling */
+        #successBox {
+            display: none;
+            background-color: #e6f4ea;
+            border: 2px dashed #137333;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .wa-btn {
+            display: inline-block;
+            background-color: #25d366;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
         /* Effective Message Styles */
         .effective-msg-box h4 {
             color: #d9480f;
@@ -555,12 +578,11 @@
             </div>
         </section>
 
-        <!-- Enquiry Form Section -->
         <section id="enquiry">
             <h3>📝 Admission Enquiry Form</h3>
             <p style="margin-bottom: 20px; font-size: 14px; color: #666;">Fill out the details below to reserve your seat. Our admissions team will contact you shortly.</p>
             
-            <form id="enquiryForm" onsubmit="event.preventDefault(); sendEnquiryData();">
+            <form id="enquiryForm" onsubmit="event.preventDefault(); processEnquiry();">
                 <div class="grid">
                     <div class="form-group">
                         <label>Student Full Name</label>
@@ -595,8 +617,14 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" style="width: 100%; margin-top: 10px; background-color: #25d366;">🚀 Submit & Send on WhatsApp</button>
+                <button type="submit" id="submitBtn" style="width: 100%; margin-top: 10px;">Submit Details</button>
             </form>
+
+            <div id="successBox">
+                <p style="color: #137333; font-weight: bold; font-size: 16px;">🎉 Application Details Saved Successfully!</p>
+                <p style="margin-top: 5px; font-size: 14px; color: #444;">Please click the button below to send details on WhatsApp immediately:</p>
+                <a id="whatsappLink" href="#" target="_blank" class="wa-btn">💬 Click Here to Send on WhatsApp</a>
+            </div>
         </section>
 
     </div>
@@ -630,30 +658,32 @@
 
         let enquiryData = JSON.parse(localStorage.getItem('enquiries')) || [];
 
-        function sendEnquiryData() {
+        function processEnquiry() {
             const name = document.getElementById('enqName').value;
             const phone = document.getElementById('enqPhone').value;
             const std = document.getElementById('enqStd').value;
             const dob = document.getElementById('enqDob').value;
             const course = document.getElementById('enqCourse').value;
 
-            // Save locally in Excel list
+            // Save locally for Excel export
             const newRecord = { name, phone, std, dob, course };
             enquiryData.push(newRecord);
             localStorage.setItem('enquiries', JSON.stringify(enquiryData));
 
             // Create WhatsApp Message Format
-            const whatsappNumber = "918983383836"; // 91 is country code
+            const whatsappNumber = "918983383836";
             const message = "Hello Mahesh Sir,\nI want to enquire about admission at Shree Institute.\n\n*Details Below:*\n📝 *Student Name:* " + name + "\n📞 *Parent Mobile:* " + phone + "\n🏫 *Standard:* " + std + "\n📅 *Date of Birth:* " + dob + "\n🎯 *Selected Course:* " + course;
             
             const encodedMessage = encodeURIComponent(message);
             const whatsappURL = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodedMessage;
 
-            alert('✅ Application saved! Opening WhatsApp to send details directly to Mahesh Sir...');
+            // Set link and show the safe button
+            document.getElementById('whatsappLink').href = whatsappURL;
+            document.getElementById('successBox').style.display = "block";
             document.getElementById('enquiryForm').reset();
             
-            // Redirect to WhatsApp
-            window.open(whatsappURL, '_blank');
+            // Scroll to success box smoothly
+            document.getElementById('successBox').scrollIntoView({ behavior: 'smooth' });
         }
 
         function accessAdmin(type) {
