@@ -503,7 +503,7 @@
                 <div>
                     <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">Our Comprehensive High-Performance Programs:</p>
                     <ul class="course-bullets">
-                        <li>Regular Classes (1st to 10th Std - All Boards) with deep concept clearing.</li>
+                        <li>Regular Classes (1st to 10th Std - MSBTE/CBSE) with deep concept clearing.</li>
                         <li>Proactive Abacus & Brain Development for lightning-fast calculations.</li>
                         <li>Pro VedicMaths Mastery to solve complex equations within seconds.</li>
                         <li>Prowrite Hastakshar for beautiful, legible and score-boosting handwriting.</li>
@@ -533,7 +533,7 @@
                 </div>
                 <div class="card" style="justify-content: center; background: #ffffff;">
                     <h4>Key Highlights:</h4>
-                    <p style="margin-top: 10px; line-height: 1.6;">• 1st to 10th (All State/National Boards)<br>• Individual Attention to Every Student<br>• Comprehensive Mock Tests Every Sunday<br>• Focus on Core Foundation Building</p>
+                    <p style="margin-top: 10px; line-height: 1.6;">• 1st to 10th (MSBTE & CBSE Boards)<br>• Semi-English, Marathi, and English Medium<br>• Individual Attention to Every Student<br>• Comprehensive Mock Tests Every Sunday<br>• Focus on Core Foundation Building</p>
                 </div>
             </div>
         </section>
@@ -597,15 +597,32 @@
                         <input type="text" id="enqStd" required placeholder="e.g. 5th Std, 8th Std">
                     </div>
                     <div class="form-group">
+                        <label>Select Board</label>
+                        <select id="enqBoard" required>
+                            <option value="" disabled selected>--- Choose Board ---</option>
+                            <option value="MSBTE">MSBTE</option>
+                            <option value="CBSE">CBSE</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Medium</label>
+                        <select id="enqMedium" required>
+                            <option value="" disabled selected>--- Choose Medium ---</option>
+                            <option value="Semi-English">Semi-English (सेमी-इंग्लिश)</option>
+                            <option value="Marathi">Marathi (मराठी)</option>
+                            <option value="English">English (इंग्लिश)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Date of Birth</label>
                         <input type="date" id="enqDob" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="grid-column: span 1;">
                         <label>Select Desired Course</label>
                         <select id="enqCourse" required>
                             <option value="" disabled selected>--- Choose a Course ---</option>
-                            <option value="Regular Class (School Syllabus - Eng/Maths/Sci)">Regular Class (School Syllabus - Eng/Maths/Sci)</option>
-                            <option value="Basic Foundation Course (Read/Write/Basic Math)">Basic Foundation Course (Read/Write/Basic Math)</option>
+                            <option value="Regular Class (School Syllabus)">Regular Class (School Syllabus)</option>
+                            <option value="Basic Foundation Course">Basic Foundation Course (Read/Write/Basic Math)</option>
                             <option value="Scholarship Exam">Scholarship Exam</option>
                             <option value="Manthan Exam">Manthan Exam</option>
                             <option value="BDS Exam">BDS Exam</option>
@@ -632,93 +649,3 @@
     <footer>
         <p>© 2026 Shree Institute, Mandangad. All Rights Reserved.<br>Designed for Mahesh Sir.</p>
     </footer>
-
-    <script>
-        function toggleMenu() {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('active');
-        }
-        
-        function closeMenu() {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.remove('active');
-        }
-
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const slideInterval = 3000;
-
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-
-        setInterval(nextSlide, slideInterval);
-
-        let enquiryData = JSON.parse(localStorage.getItem('enquiries')) || [];
-
-        function processEnquiry() {
-            const name = document.getElementById('enqName').value;
-            const phone = document.getElementById('enqPhone').value;
-            const std = document.getElementById('enqStd').value;
-            const dob = document.getElementById('enqDob').value;
-            const course = document.getElementById('enqCourse').value;
-
-            // Save locally for Excel export
-            const newRecord = { name, phone, std, dob, course };
-            enquiryData.push(newRecord);
-            localStorage.setItem('enquiries', JSON.stringify(enquiryData));
-
-            // Create WhatsApp Message Format
-            const whatsappNumber = "918983383836";
-            const message = "Hello Mahesh Sir,\nI want to enquire about admission at Shree Institute.\n\n*Details Below:*\n📝 *Student Name:* " + name + "\n📞 *Parent Mobile:* " + phone + "\n🏫 *Standard:* " + std + "\n📅 *Date of Birth:* " + dob + "\n🎯 *Selected Course:* " + course;
-            
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodedMessage;
-
-            // Set link and show the safe button
-            document.getElementById('whatsappLink').href = whatsappURL;
-            document.getElementById('successBox').style.display = "block";
-            document.getElementById('enquiryForm').reset();
-            
-            // Scroll to success box smoothly
-            document.getElementById('successBox').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function accessAdmin(type) {
-            const password = prompt("🔐 Secure Login:\nPlease enter Admin Password (For Mahesh Sir Only):");
-            
-            if (password === '8983') {
-                if (type === 'enquiry') {
-                    exportEnquiryToExcel();
-                } else if (type === 'fees') {
-                    alert('💰 Fee Management System Loading...');
-                }
-            } else if (password !== null) {
-                alert('❌ Invalid Password! Please enter the correct password.');
-            }
-        }
-
-        function exportEnquiryToExcel() {
-            if (enquiryData.length === 0) {
-                alert("ℹ️ No new enquiries available currently.");
-                return;
-            }
-            
-            const excelRows = enquiryData.map(item => ({
-                "Student Name": item.name,
-                "Mobile Number": item.phone,
-                "Standard": item.std,
-                "Date of Birth": item.dob,
-                "Selected Course": item.course
-            }));
-
-            const worksheet = XLSX.utils.json_to_sheet(excelRows);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Enquiries");
-            XLSX.writeFile(workbook, "Shree_Institute_Enquiry_List.xlsx");
-        }
-    </script>
-</body>
-</html>
