@@ -649,3 +649,97 @@
     <footer>
         <p>© 2026 Shree Institute, Mandangad. All Rights Reserved.<br>Designed for Mahesh Sir.</p>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('active');
+        }
+        
+        function closeMenu() {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.remove('active');
+        }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideInterval = 3000;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, slideInterval);
+
+        let enquiryData = JSON.parse(localStorage.getItem('enquiries')) || [];
+
+        function processEnquiry() {
+            const name = document.getElementById('enqName').value;
+            const phone = document.getElementById('enqPhone').value;
+            const std = document.getElementById('enqStd').value;
+            const board = document.getElementById('enqBoard').value;
+            const medium = document.getElementById('enqMedium').value;
+            const dob = document.getElementById('enqDob').value;
+            const course = document.getElementById('enqCourse').value;
+
+            // Save locally for Excel export
+            const newRecord = { name, phone, std, board, medium, dob, course };
+            enquiryData.push(newRecord);
+            localStorage.setItem('enquiries', JSON.stringify(enquiryData));
+
+            // Create WhatsApp Message Format
+            const whatsappNumber = "918983383836";
+            const message = "Hello Mahesh Sir,\nI want to enquire about admission at Shree Institute.\n\n*Details Below:*\n📝 *Student Name:* " + name + "\n📞 *Parent Mobile:* " + phone + "\n🏫 *Standard:* " + std + "\n🏛️ *Board:* " + board + "\n🗣️ *Medium:* " + medium + "\n📅 *Date of Birth:* " + dob + "\n🎯 *Selected Course:* " + course;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodedMessage;
+
+            // Set link and show the safe button
+            document.getElementById('whatsappLink').href = whatsappURL;
+            document.getElementById('successBox').style.display = "block";
+            document.getElementById('enquiryForm').reset();
+            
+            // Scroll to success box smoothly
+            document.getElementById('successBox').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function accessAdmin(type) {
+            const password = prompt("🔐 Secure Login:\nPlease enter Admin Password (For Mahesh Sir Only):");
+            
+            if (password === '8983') {
+                if (type === 'enquiry') {
+                    exportEnquiryToExcel();
+                } else if (type === 'fees') {
+                    alert('💰 Fee Management System Loading...');
+                }
+            } else if (password !== null) {
+                alert('❌ Invalid Password! Please enter the correct password.');
+            }
+        }
+
+        function exportEnquiryToExcel() {
+            if (enquiryData.length === 0) {
+                alert("ℹ️ No new enquiries available currently.");
+                return;
+            }
+            
+            const excelRows = enquiryData.map(item => ({
+                "Student Name": item.name,
+                "Mobile Number": item.phone,
+                "Standard": item.std,
+                "Board": item.board,
+                "Medium": item.medium,
+                "Date of Birth": item.dob,
+                "Selected Course": item.course
+            }));
+
+            const worksheet = XLSX.utils.json_to_sheet(excelRows);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Enquiries");
+            XLSX.writeFile(workbook, "Shree_Institute_Enquiry_List.xlsx");
+        }
+    </script>
+</body>
+</html>
