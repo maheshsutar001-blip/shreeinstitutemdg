@@ -41,7 +41,30 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
         
-        /* Mobile Menu Toggle Button */
+        .right-nav-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Language Toggle Button Style */
+        .lang-btn {
+            background-color: #ffd700;
+            color: #102a43;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .lang-btn:hover {
+            background-color: white;
+            transform: scale(1.05);
+        }
+
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -114,7 +137,7 @@
             display: block;
         }
 
-        /* Rectangle Shape Background Slideshow */
+        /* Hero Slider */
         .hero-container-box {
             width: 90%;
             margin: 20px auto 0 auto;
@@ -188,7 +211,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
-        /* Main Content Sections */
+        /* Container & Sections */
         .container {
             width: 90%;
             margin: 30px auto;
@@ -201,6 +224,7 @@
             scroll-margin-top: 90px;
         }
         
+        #vision-mission { background-color: #ffffff; border-left: 8px solid #ffd700; }
         #message { background-color: #ffffff; border-left: 8px solid #102a43; }
         #regular { background-color: #e3fafc; border-left: 8px solid #0c8599; }
         #special { background-color: #f3f0ff; border-left: 8px solid #6f2dbd; }
@@ -234,6 +258,24 @@
             margin-bottom: 10px;
             font-size: 18px;
         }
+        .vision-mission-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed #cbd5e1;
+        }
+        .vision-mission-box h4 {
+            color: #102a43;
+            font-size: 19px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .vision-mission-box p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #475569;
+        }
         .section-img {
             width: 100%;
             height: 180px;
@@ -242,6 +284,61 @@
             margin-bottom: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+
+        /* Director Profile Styling */
+        .director-profile-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            align-items: flex-start;
+        }
+        .director-img-box {
+            flex: 0 0 170px;
+            text-align: center;
+        }
+        .director-img {
+            width: 170px;
+            height: 195px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 4px solid #102a43;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+        }
+        .director-info-box {
+            flex: 1;
+        }
+
+        /* Flash Message / Notice Bar Styling */
+        .flash-notice-bar {
+            background: linear-gradient(90deg, #d9480f, #e8590c);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(232, 89, 12, 0.2);
+            border-left: 6px solid #ffd700;
+            overflow: hidden;
+        }
+        .flash-tag {
+            background: #ffd700;
+            color: #102a43;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 15px;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        .flash-text-scroller {
+            width: 100%;
+        }
+
         .form-group {
             margin-bottom: 15px;
         }
@@ -279,7 +376,7 @@
             font-weight: bold;
         }
         .phone-link:hover {
-            text-decoration: underline;
+            text-underline-position: under;
         }
         footer {
             text-align: center;
@@ -290,30 +387,6 @@
             font-size: 14px;
         }
 
-        /* Success Message Styling */
-        #successBox {
-            display: none;
-            background-color: #e6f4ea;
-            border: 2px dashed #137333;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .wa-btn {
-            display: inline-block;
-            background-color: #25d366;
-            color: white;
-            padding: 12px 30px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 6px;
-            margin-top: 15px;
-            font-size: 16px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        /* Effective Message Styles */
         .effective-msg-box h4 {
             color: #d9480f;
             font-size: 20px;
@@ -354,14 +427,10 @@
             font-size: 15px;
         }
 
-        /* MOBILE VIEW STYLES */
+        /* Mobile Adjustments */
         @media (max-width: 991px) {
-            .logo {
-                font-size: 24px;
-            }
-            .menu-toggle {
-                display: flex;
-            }
+            .logo { font-size: 24px; }
+            .menu-toggle { display: flex; }
             nav {
                 position: absolute;
                 top: 100%;
@@ -371,65 +440,16 @@
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.3s ease-in-out;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             }
-            nav.active {
-                max-height: 500px;
-                overflow-y: auto;
-            }
-            nav ul {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 15px 20px;
-            }
-            nav ul li {
-                margin-left: 0;
-                margin-bottom: 15px;
-                width: 100%;
-            }
-            nav ul li a {
-                padding: 8px 0;
-                width: 100%;
-                font-size: 17px;
-            }
-            
-            /* Admin Dropdown for Mobile */
-            .dropdown {
-                width: 100%;
-            }
-            .dropdown-content {
-                position: relative;
-                box-shadow: none;
-                background-color: #1a3a5c;
-                margin-top: 5px;
-                border-radius: 4px;
-                display: block;
-            }
-            .dropdown-content a {
-                color: #ffffff;
-                border-bottom: 1px solid #244a70;
-                padding: 10px 15px;
-            }
-
-            .hero-slider-container {
-                height: 320px;
-            }
-            .hero-content h2 {
-                font-size: 24px;
-            }
-            .hero-content p {
-                font-size: 15px;
-            }
-            .success-tag {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-            section {
-                padding: 20px;
-            }
-            section h3 {
-                font-size: 19px;
-            }
+            nav.active { max-height: 500px; overflow-y: auto; }
+            nav ul { flex-direction: column; align-items: flex-start; padding: 15px 20px; }
+            nav ul li { margin-left: 0; margin-bottom: 15px; width: 100%; }
+            .dropdown-content { position: relative; background-color: #1a3a5c; display: none; box-shadow: none;}
+            .dropdown.open .dropdown-content { display: block; }
+            .dropdown-content a { color: white; border-bottom: 1px solid #244a70; }
+            .hero-slider-container { height: 320px; }
+            .hero-content h2 { font-size: 24px; }
+            .director-profile-wrapper { flex-direction: column; align-items: center; text-align: center; }
         }
     </style>
 </head>
@@ -439,22 +459,27 @@
         <div class="nav-container">
             <div class="logo">Shree Institute</div>
             
-            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="right-nav-box">
+                <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">🌐 English</button>
+
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
 
             <nav id="navbar">
                 <ul>
-                    <li><a href="#home" onclick="closeMenu()">Home</a></li>
-                    <li><a href="#message" onclick="closeMenu()">Why Choose Us?</a></li>
-                    <li><a href="#regular" onclick="closeMenu()">Regular Classes</a></li>
-                    <li><a href="#special" onclick="closeMenu()">Special Courses</a></li>
-                    <li><a href="#exams" onclick="closeMenu()">Competitive Exams</a></li>
-                    <li><a href="#enquiry" onclick="closeMenu()">Enquiry Now</a></li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" style="color: #ffd700;">Admin ▾</a>
+                    <li><a href="#home" id="nav-home" onclick="closeMenu()">मुख्य पृष्ठ / Home</a></li>
+                    <li><a href="#vision-mission" id="nav-vm" onclick="closeMenu()">ध्येय आणि उद्दिष्टे</a></li>
+                    <li><a href="#message" id="nav-why" onclick="closeMenu()">आमची वैशिष्ट्ये</a></li>
+                    <li><a href="#regular" id="nav-reg" onclick="closeMenu()">नियमित वर्ग</a></li>
+                    <li><a href="#special" id="nav-spec" onclick="closeMenu()">स्पेशल कोर्सेस</a></li>
+                    <li><a href="#exams" id="nav-comp" onclick="closeMenu()">स्पर्धा परीक्षा</a></li>
+                    <li><a href="#enquiry" id="nav-enq" onclick="closeMenu()">प्रवेश चौकशी</a></li>
+                    <li class="dropdown" id="adminDropdown">
+                        <a href="javascript:void(0)" onclick="toggleAdminDropdown()" style="color: #ffd700;">Admin ▾</a>
                         <div class="dropdown-content">
                             <a href="javascript:void(0)" onclick="accessAdmin('enquiry')">📥 Enquiry List</a>
                             <a href="javascript:void(0)" onclick="accessAdmin('fees')">💰 Fee Details</a>
@@ -471,275 +496,33 @@
             <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1200');"></div>
             <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1200');"></div>
             <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200');"></div>
 
             <div class="hero-content">
-                <h2>Shree Institute, Mandangad</h2>
-                <p>The Hub for Quality and Standard Education!</p>
-                <div class="success-tag">🎯 Unmatched 100% Success in Competitive Exams!</div>
+                <h2 id="hero-title">श्री इन्स्टिट्यूट, मंडणगड</h2>
+                <p id="hero-subtitle">दर्जेदार आणि दर्जेदार शिक्षणाचे केंद्र!</p>
+                <div class="success-tag" id="hero-tag">🎯 स्पर्धा परीक्षांमध्ये १००% यशाची खात्री!</div>
             </div>
         </div>
     </div>
 
     <div class="container">
         
+        <section id="vision-mission">
+            <h3 id="vm-section-title">👁️ आमचे ध्येय आणि उद्दिष्ट (Vision & Mission)</h3>
+            <div class="grid">
+                <div class="vision-mission-box">
+                    <h4 id="v-title">🌟 आमचे ध्येय (Our Vision)</h4>
+                    <p id="v-desc">ग्रामीण भागातील प्रत्येक विद्यार्थ्याला दर्जेदार, आधुनिक आणि स्पर्धात्मक शिक्षण देऊन त्यांना भविष्यातील आव्हानांसाठी सक्षम बनवणे आणि श्री इन्स्टिट्यूटला शैक्षणिक गुणवत्तेचे अग्रगण्य केंद्र बनवणे.</p>
+                </div>
+                <div class="vision-mission-box">
+                    <h4 id="m-title">🎯 आमचे उद्दिष्ट (Our Mission)</h4>
+                    <p id="m-desc">विद्यार्थ्यांमधील सुप्त गुणांचा विकास करणे, अभ्यासाची भीती दूर करून तंत्रशुद्ध व सोप्या पद्धतीने शिक्षण देणे, आणि १००% निकालाच्या परंपरेसह त्यांना स्पर्धा परीक्षांमध्ये यशाच्या शिखरावर पोहोचवणे.</p>
+                </div>
+            </div>
+        </section>
+
         <section id="message">
-            <h3>📢 Director's Invitation & Institute Profile</h3>
-            <div class="grid">
-                <div class="effective-msg-box">
-                    <h4>Secure Your Child's Bright Future Today!</h4>
-                    <p>
-                        Welcome to <strong>Shree Institute, Mandangad</strong>. We don't just teach; we shape careers and build rock-solid foundations. Our scientifically proven methodology guarantees a <strong>100% Success Result</strong> for our students by turning complex subjects into enjoyable learning experiences.
-                    </p>
-                    <div class="highlight-badge">
-                        🔥 ADMISSIONS OPEN FOR THE NEW BATCH! Give your child the ultimate competitive edge. Limited Seats Available!
-                    </div>
-                </div>
-                <div>
-                    <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">Our Comprehensive High-Performance Programs:</p>
-                    <ul class="course-bullets">
-                        <li>Regular Classes (1st to 10th Std - MSBTE/CBSE) with deep concept clearing.</li>
-                        <li>Proactive Abacus & Brain Development for lightning-fast calculations.</li>
-                        <li>Pro VedicMaths Mastery to solve complex equations within seconds.</li>
-                        <li>Prowrite Hastakshar for beautiful, legible and score-boosting handwriting.</li>
-                        <li>Elite Coaching for Scholarship, JNV Navodaya, NMMS, and Manthan Exams.</li>
-                    </ul>
-                    <p style="font-weight: bold; color: #28a745; font-size: 15px;">✓ Expert Faculty ✓ Personalized Attention ✓ Weekly Practice Tests</p>
-                </div>
-            </div>
-            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #dee2e6;">
-                <p style="font-size: 18px; font-weight: bold; color: #102a43;">- Mr. Mahesh Sutar Sir (Director)</p>
-                <p style="margin-top: 5px; font-weight: 500;">📞 Call Now for Admissions: <a href="tel:8983383836" class="phone-link">8983383836</a></p>
-            </div>
-        </section>
-
-        <section id="regular">
-            <h3>📖 Regular Classes (1st to 10th Std)</h3>
-            <div class="grid">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=500" alt="Science Experiments" class="section-img">
-                    <h4>Science & Experiments</h4>
-                    <p>Simplifying complex scientific concepts through live experiments and practical learning models.</p>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=500" alt="Maths and English" class="section-img">
-                    <h4>Maths & English</h4>
-                    <p>Mastering English grammar and clarifying intricate Mathematics theorems with effortless methods.</p>
-                </div>
-                <div class="card" style="justify-content: center; background: #ffffff;">
-                    <h4>Key Highlights:</h4>
-                    <p style="margin-top: 10px; line-height: 1.6;">• 1st to 10th (MSBTE & CBSE Boards)<br>• Semi-English, Marathi, and English Medium<br>• Individual Attention to Every Student<br>• Comprehensive Mock Tests Every Sunday<br>• Focus on Core Foundation Building</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="special">
-            <h3>✨ Our Special Skill Courses</h3>
-            <div class="grid">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?q=80&w=500" alt="Abacus Tool" class="section-img">
-                    <h4>Proactive Abacus & Brain Development</h4>
-                    <p>Using the advanced Abacus tool to stimulate both left and right brain development, resulting in rapid mental calculation.</p>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=500" alt="Mathematics Sutras" class="section-img">
-                    <h4>Pro VedicMaths & Sutras</h4>
-                    <p>Utilizing shortcut Vedic sutras to solve massive multiplications and divisions mentally within fractions of a second.</p>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?q=80&w=500" alt="Handwriting Art" class="section-img">
-                    <h4>Prowrite Hastakshar</h4>
-                    <p>Transforming handwriting into beautiful, cursive art to boost student confidence and maximize exam scores.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="exams">
-            <h3>🏆 Competitive Exams (4th, 5th & 8th Std)</h3>
-            <p style="margin-bottom: 20px; font-size: 16px; font-weight: bold; color: #d9480f;">🎯 Proven Record of 100% Success in Scholarship, Navodaya, NMMS, and Manthan Exams!</p>
-            <div class="grid">
-                <div class="card">
-                    <h4>Scholarship & Navodaya</h4>
-                    <p>Perfect training for 5th and 8th Std Scholarship Exams and Jawaharlal Navodaya Vidyalaya Entrance tests.</p>
-                </div>
-                <div class="card">
-                    <h4>NMMS & MTS</h4>
-                    <p>Rigorous preparation and strategies for 8th Std NMMS Scholarship and National Talent Search Examinations.</p>
-                </div>
-                <div class="card">
-                    <h4>Manthan Exam</h4>
-                    <p>State-level standard preparation curated with precise mock drill papers for the Manthan series.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="enquiry">
-            <h3>📝 Admission Enquiry Form</h3>
-            <p style="margin-bottom: 20px; font-size: 14px; color: #666;">Fill out the details below to reserve your seat. Our admissions team will contact you shortly.</p>
-            
-            <form id="enquiryForm" onsubmit="event.preventDefault(); processEnquiry();">
-                <div class="grid">
-                    <div class="form-group">
-                        <label>Student Full Name</label>
-                        <input type="text" id="enqName" required placeholder="Enter full name">
-                    </div>
-                    <div class="form-group">
-                        <label>Parent's Mobile Number</label>
-                        <input type="tel" id="enqPhone" required pattern="[0-9]{10}" placeholder="Enter 10-digit mobile number">
-                    </div>
-                    <div class="form-group">
-                        <label>Current Standard / Class</label>
-                        <input type="text" id="enqStd" required placeholder="e.g. 5th Std, 8th Std">
-                    </div>
-                    <div class="form-group">
-                        <label>Select Board</label>
-                        <select id="enqBoard" required>
-                            <option value="" disabled selected>--- Choose Board ---</option>
-                            <option value="MSBTE">MSBTE</option>
-                            <option value="CBSE">CBSE</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Select Medium</label>
-                        <select id="enqMedium" required>
-                            <option value="" disabled selected>--- Choose Medium ---</option>
-                            <option value="Semi-English">Semi-English (सेमी-इंग्लिश)</option>
-                            <option value="Marathi">Marathi (मराठी)</option>
-                            <option value="English">English (इंग्लिश)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="date" id="enqDob" required>
-                    </div>
-                    <div class="form-group" style="grid-column: span 1;">
-                        <label>Select Desired Course</label>
-                        <select id="enqCourse" required>
-                            <option value="" disabled selected>--- Choose a Course ---</option>
-                            <option value="Regular Class (School Syllabus)">Regular Class (School Syllabus)</option>
-                            <option value="Basic Foundation Course">Basic Foundation Course (Read/Write/Basic Math)</option>
-                            <option value="Scholarship Exam">Scholarship Exam</option>
-                            <option value="Manthan Exam">Manthan Exam</option>
-                            <option value="BDS Exam">BDS Exam</option>
-                            <option value="Navodaya JNV">Navodaya JNV</option>
-                            <option value="Sainik School Exam">Sainik School Exam</option>
-                            <option value="ABACUS">ABACUS</option>
-                            <option value="Vedic Maths">Vedic Maths</option>
-                            <option value="Handwriting">Handwriting</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" id="submitBtn" style="width: 100%; margin-top: 10px;">Submit Details</button>
-            </form>
-
-            <div id="successBox">
-                <p style="color: #137333; font-weight: bold; font-size: 16px;">🎉 Application Details Saved Successfully!</p>
-                <p style="margin-top: 5px; font-size: 14px; color: #444;">Please click the button below to send details on WhatsApp immediately:</p>
-                <a id="whatsappLink" href="#" target="_blank" class="wa-btn">💬 Click Here to Send on WhatsApp</a>
-            </div>
-        </section>
-
-    </div>
-
-    <footer>
-        <p>© 2026 Shree Institute, Mandangad. All Rights Reserved.<br>Designed for Mahesh Sir.</p>
-    </footer>
-
-    <script>
-        function toggleMenu() {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('active');
-        }
-        
-        function closeMenu() {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.remove('active');
-        }
-
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const slideInterval = 3000;
-
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-
-        setInterval(nextSlide, slideInterval);
-
-        let enquiryData = JSON.parse(localStorage.getItem('enquiries')) || [];
-
-        function processEnquiry() {
-            const name = document.getElementById('enqName').value;
-            const phone = document.getElementById('enqPhone').value;
-            const std = document.getElementById('enqStd').value;
-            const board = document.getElementById('enqBoard').value;
-            const medium = document.getElementById('enqMedium').value;
-            const dob = document.getElementById('enqDob').value;
-            const course = document.getElementById('enqCourse').value;
-
-            // Save locally for Excel export
-            const newRecord = { name, phone, std, board, medium, dob, course };
-            enquiryData.push(newRecord);
-            localStorage.setItem('enquiries', JSON.stringify(enquiryData));
-
-            // Create WhatsApp Message Format
-            const whatsappNumber = "918983383836";
-            const message = "Hello Mahesh Sir,\nI want to enquire about admission at Shree Institute.\n\n*Details Below:*\n📝 *Student Name:* " + name + "\n📞 *Parent Mobile:* " + phone + "\n🏫 *Standard:* " + std + "\n🏛️ *Board:* " + board + "\n🗣️ *Medium:* " + medium + "\n📅 *Date of Birth:* " + dob + "\n🎯 *Selected Course:* " + course;
-            
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodedMessage;
-
-            // Set link and show the safe button
-            document.getElementById('whatsappLink').href = whatsappURL;
-            document.getElementById('successBox').style.display = "block";
-            document.getElementById('enquiryForm').reset();
-            
-            // Scroll to success box smoothly
-            document.getElementById('successBox').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function accessAdmin(type) {
-            const password = prompt("🔐 Secure Login:\nPlease enter Admin Password (For Mahesh Sir Only):");
-            
-            if (password === '8983') {
-                if (type === 'enquiry') {
-                    exportEnquiryToExcel();
-                } else if (type === 'fees') {
-                    alert('💰 Fee Management System Loading...');
-                }
-            } else if (password !== null) {
-                alert('❌ Invalid Password! Please enter the correct password.');
-            }
-        }
-
-        function exportEnquiryToExcel() {
-            if (enquiryData.length === 0) {
-                alert("ℹ️ No new enquiries available currently.");
-                return;
-            }
-            
-            const excelRows = enquiryData.map(item => ({
-                "Student Name": item.name,
-                "Mobile Number": item.phone,
-                "Standard": item.std,
-                "Board": item.board,
-                "Medium": item.medium,
-                "Date of Birth": item.dob,
-                "Selected Course": item.course
-            }));
-
-            const worksheet = XLSX.utils.json_to_sheet(excelRows);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Enquiries");
-            XLSX.writeFile(workbook, "Shree_Institute_Enquiry_List.xlsx");
-        }
-    </script>
-</body>
-</html>
+            <h3 id="dir-section-title">📢 संचालकांचा संदेश आणि परिचय</h3>
+            <div class="director-profile-wrapper">
+                <div class="director-img-box">
+                    <img src="data:image/jpeg;base64,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
