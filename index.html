@@ -41,30 +41,6 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
         
-        .right-nav-box {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        /* Language Toggle Button Style */
-        .lang-btn {
-            background-color: #ffd700;
-            color: #102a43;
-            border: none;
-            padding: 8px 15px;
-            font-size: 14px;
-            font-weight: 700;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .lang-btn:hover {
-            background-color: white;
-            transform: scale(1.05);
-        }
-
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -285,58 +261,65 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        /* Director Profile Styling */
-        .director-profile-wrapper {
+        /* Director Layout Adjustments */
+        .director-layout-box {
             display: flex;
             flex-direction: row;
             gap: 25px;
             align-items: flex-start;
         }
-        .director-img-box {
-            flex: 0 0 170px;
+        .director-photo-container {
+            flex: 0 0 180px;
             text-align: center;
         }
-        .director-img {
-            width: 170px;
-            height: 195px;
+        .director-photo {
+            width: 180px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 12px;
-            border: 4px solid #102a43;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            border: 3px solid #102a43;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .director-info-box {
+        .director-details-container {
             flex: 1;
         }
 
-        /* Flash Message / Notice Bar Styling */
-        .flash-notice-bar {
+        /* Scrolling Flash Notice Bar Styles */
+        .flash-announcement-bar {
             background: linear-gradient(90deg, #d9480f, #e8590c);
             color: white;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             font-weight: bold;
             font-size: 15px;
             display: flex;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(232, 89, 12, 0.2);
+            box-shadow: 0 4px 12px rgba(232, 89, 12, 0.25);
             border-left: 6px solid #ffd700;
             overflow: hidden;
         }
-        .flash-tag {
+        .flash-announcement-label {
             background: #ffd700;
             color: #102a43;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 800;
             margin-right: 15px;
             white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            animation: pulse-glow 1.5s infinite;
         }
-        .flash-text-scroller {
+        .flash-scroller-content {
             width: 100%;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); box-shadow: 0 2px 8px rgba(255, 215, 0, 0.6); }
+            100% { transform: scale(1); }
         }
 
         .form-group {
@@ -449,7 +432,7 @@
             .dropdown-content a { color: white; border-bottom: 1px solid #244a70; }
             .hero-slider-container { height: 320px; }
             .hero-content h2 { font-size: 24px; }
-            .director-profile-wrapper { flex-direction: column; align-items: center; text-align: center; }
+            .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
         }
     </style>
 </head>
@@ -459,25 +442,21 @@
         <div class="nav-container">
             <div class="logo">Shree Institute</div>
             
-            <div class="right-nav-box">
-                <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">🌐 English</button>
-
-                <button class="menu-toggle" onclick="toggleMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
             <nav id="navbar">
                 <ul>
-                    <li><a href="#home" id="nav-home" onclick="closeMenu()">मुख्य पृष्ठ / Home</a></li>
-                    <li><a href="#vision-mission" id="nav-vm" onclick="closeMenu()">ध्येय आणि उद्दिष्टे</a></li>
-                    <li><a href="#message" id="nav-why" onclick="closeMenu()">आमची वैशिष्ट्ये</a></li>
-                    <li><a href="#regular" id="nav-reg" onclick="closeMenu()">नियमित वर्ग</a></li>
-                    <li><a href="#special" id="nav-spec" onclick="closeMenu()">स्पेशल कोर्सेस</a></li>
-                    <li><a href="#exams" id="nav-comp" onclick="closeMenu()">स्पर्धा परीक्षा</a></li>
-                    <li><a href="#enquiry" id="nav-enq" onclick="closeMenu()">प्रवेश चौकशी</a></li>
+                    <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                    <li><a href="#vision-mission" onclick="closeMenu()">Vision & Mission</a></li>
+                    <li><a href="#message" onclick="closeMenu()">Why Choose Us?</a></li>
+                    <li><a href="#regular" onclick="closeMenu()">Regular Classes</a></li>
+                    <li><a href="#special" onclick="closeMenu()">Special Courses</a></li>
+                    <li><a href="#exams" onclick="closeMenu()">Competitive Exams</a></li>
+                    <li><a href="#enquiry" onclick="closeMenu()">Enquiry Now</a></li>
                     <li class="dropdown" id="adminDropdown">
                         <a href="javascript:void(0)" onclick="toggleAdminDropdown()" style="color: #ffd700;">Admin ▾</a>
                         <div class="dropdown-content">
@@ -498,9 +477,9 @@
             <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200');"></div>
 
             <div class="hero-content">
-                <h2 id="hero-title">श्री इन्स्टिट्यूट, मंडणगड</h2>
-                <p id="hero-subtitle">दर्जेदार आणि दर्जेदार शिक्षणाचे केंद्र!</p>
-                <div class="success-tag" id="hero-tag">🎯 स्पर्धा परीक्षांमध्ये १००% यशाची खात्री!</div>
+                <h2>Shree Institute, Mandangad</h2>
+                <p>The Hub for Quality and Standard Education!</p>
+                <div class="success-tag">🎯 Unmatched 100% Success in Competitive Exams!</div>
             </div>
         </div>
     </div>
@@ -508,21 +487,215 @@
     <div class="container">
         
         <section id="vision-mission">
-            <h3 id="vm-section-title">👁️ आमचे ध्येय आणि उद्दिष्ट (Vision & Mission)</h3>
+            <h3>👁️ Our Vision & Mission</h3>
             <div class="grid">
                 <div class="vision-mission-box">
-                    <h4 id="v-title">🌟 आमचे ध्येय (Our Vision)</h4>
-                    <p id="v-desc">ग्रामीण भागातील प्रत्येक विद्यार्थ्याला दर्जेदार, आधुनिक आणि स्पर्धात्मक शिक्षण देऊन त्यांना भविष्यातील आव्हानांसाठी सक्षम बनवणे आणि श्री इन्स्टिट्यूटला शैक्षणिक गुणवत्तेचे अग्रगण्य केंद्र बनवणे.</p>
+                    <h4>🌟 Our Vision</h4>
+                    <p>ग्रामीण भागातील प्रत्येक विद्यार्थ्याला दर्जेदार, आधुनिक आणि स्पर्धात्मक शिक्षण देऊन त्यांना भविष्यातील आव्हानांसाठी सक्षम बनवणे आणि श्री इन्स्टिट्यूटला शैक्षणिक गुणवत्तेचे अग्रगण्य केंद्र बनवणे.</p>
                 </div>
                 <div class="vision-mission-box">
-                    <h4 id="m-title">🎯 आमचे उद्दिष्ट (Our Mission)</h4>
-                    <p id="m-desc">विद्यार्थ्यांमधील सुप्त गुणांचा विकास करणे, अभ्यासाची भीती दूर करून तंत्रशुद्ध व सोप्या पद्धतीने शिक्षण देणे, आणि १००% निकालाच्या परंपरेसह त्यांना स्पर्धा परीक्षांमध्ये यशाच्या शिखरावर पोहोचवणे.</p>
+                    <h4>🎯 Our Mission</h4>
+                    <p>विद्यार्थ्यांमधील सुप्त गुणांचा विकास करणे, अभ्यासाची भीती दूर करून तंत्रशुद्ध व सोप्या पद्धतीने शिक्षण देणे, आणि १००% निकालाच्या परंपरेसह त्यांना स्पर्धा परीक्षांमध्ये यशाच्या शिखरावर पोहोचवणे.</p>
                 </div>
             </div>
         </section>
 
         <section id="message">
-            <h3 id="dir-section-title">📢 संचालकांचा संदेश आणि परिचय</h3>
-            <div class="director-profile-wrapper">
-                <div class="director-img-box">
-                    <img src="data:image/jpeg;base64,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
+            <h3>📢 Director's Profile & Invitation</h3>
+            <div class="director-layout-box">
+                <div class="director-photo-container">
+                    <img src="mahesh_sir.jpg" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=180&h=200&fit=crop';" alt="Mr. Mahesh Sutar Sir" class="director-photo">
+                </div>
+                <div class="director-details-container">
+                    <div class="grid">
+                        <div class="effective-msg-box">
+                            <h4>Secure Your Child's Bright Future Today!</h4>
+                            <p>Welcome to <strong>Shree Institute, Mandangad</strong>. Our scientifically proven methodology guarantees a <strong>100% Success Result</strong> for our students by turning complex subjects into enjoyable learning experiences.</p>
+                            <div class="highlight-badge">🔥 ADMISSIONS OPEN FOR THE NEW BATCH! Limited Seats Available!</div>
+                        </div>
+                        <div>
+                            <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">Our High-Performance Programs:</p>
+                            <ul class="course-bullets">
+                                <li>Regular Classes (1st to 10th Std - MSBTE/CBSE)</li>
+                                <li>Proactive Abacus & Brain Development</li>
+                                <li>Pro VedicMaths Mastery</li>
+                                <li>Prowrite Hastakshar Handwriting Classes</li>
+                                <li>Elite Coaching for Scholarship, Navodaya, NMMS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #dee2e6;">
+                <p style="font-size: 18px; font-weight: bold; color: #102a43;">- Mr. Mahesh Sutar Sir (Director)</p>
+                <p style="margin-top: 5px; font-weight: 500;">📞 Call Now: <a href="tel:8983383836" class="phone-link">8983383836</a></p>
+            </div>
+        </section>
+
+        <section id="regular">
+            <h3>📖 Regular Classes (1st to 10th Std)</h3>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=500" class="section-img">
+                    <h4>Science & Experiments</h4>
+                    <p>Simplifying science through practical experiments.</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=500" class="section-img">
+                    <h4>Maths & English</h4>
+                    <p>Mastering English grammar and Mathematics theorems easily.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="special">
+            <h3>✨ Our Special Skill Courses</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>Proactive Abacus</h4>
+                    <p>Stimulate mental power and rapid calculation skills.</p>
+                </div>
+                <div class="card">
+                    <h4>Pro VedicMaths</h4>
+                    <p>Solve complex mathematical equations within seconds.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="exams">
+            <h3>🏆 Competitive Exams</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>Scholarship & Navodaya</h4>
+                    <p>Perfect training for 5th and 8th Std competitive tests.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="enquiry">
+            <h3>📝 Admission Enquiry Form</h3>
+            
+            <div class="flash-announcement-bar">
+                <div class="flash-announcement-label">🔥 ADMISSION OPEN</div>
+                <div class="flash-scroller-content">
+                    <marquee behavior="scroll" direction="left" scrollamount="6">
+                        🎯 श्री इन्स्टिट्यूट मंदणगड: नवीन बॅचसाठी मर्यादित जागा उपलब्ध! आजच आपला प्रवेश निश्चित करण्यासाठी खालील फॉर्म भरा आणि त्वरित व्हॉट्सॲपवर पाठवा! 🚀
+                    </marquee>
+                </div>
+            </div>
+
+            <form id="enquiryForm" onsubmit="event.preventDefault(); processEnquiry();">
+                <div class="grid">
+                    <div class="form-group">
+                        <label>Student Full Name</label>
+                        <input type="text" id="enqName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Parent's Mobile Number</label>
+                        <input type="tel" id="enqPhone" required pattern="[0-9]{10}">
+                    </div>
+                    <div class="form-group">
+                        <label>Current Standard</label>
+                        <input type="text" id="enqStd" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Board</label>
+                        <select id="enqBoard" required>
+                            <option value="" disabled selected>--- Choose ---</option>
+                            <option value="MSBTE">MSBTE</option>
+                            <option value="CBSE">CBSE</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Medium</label>
+                        <select id="enqMedium" required>
+                            <option value="" disabled selected>--- Choose ---</option>
+                            <option value="Semi-English">Semi-English</option>
+                            <option value="Marathi">Marathi</option>
+                            <option value="English">English</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="enqDob" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Course</label>
+                        <select id="enqCourse" required>
+                            <option value="" disabled selected>--- Choose ---</option>
+                            <option value="Regular Class">Regular Class</option>
+                            <option value="Scholarship Exam">Scholarship Exam</option>
+                            <option value="Navodaya JNV">Navodaya JNV</option>
+                            <option value="ABACUS">ABACUS</option>
+                            <option value="Vedic Maths">Vedic Maths</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" style="width: 100%; margin-top: 15px; background-color: #25d366;">🚀 Submit & Send to WhatsApp</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 Shree Institute, Mandangad. Designed for Mahesh Sir.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() { document.getElementById('navbar').classList.toggle('active'); }
+        function closeMenu() { document.getElementById('navbar').classList.remove('active'); }
+        function toggleAdminDropdown() { document.getElementById('adminDropdown').classList.toggle('open'); }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 3000);
+
+        function processEnquiry() {
+            const name = document.getElementById('enqName').value;
+            const phone = document.getElementById('enqPhone').value;
+            const std = document.getElementById('enqStd').value;
+            const board = document.getElementById('enqBoard').value;
+            const medium = document.getElementById('enqMedium').value;
+            const dob = document.getElementById('enqDob').value;
+            const course = document.getElementById('enqCourse').value;
+
+            let localData = JSON.parse(localStorage.getItem('enquiries')) || [];
+            localData.push({ name, phone, std, board, medium, dob, course });
+            localStorage.setItem('enquiries', JSON.stringify(localData));
+
+            const message = `Hello Mahesh Sir,\nI want to enquire about admission.\n\n*Details:*\n📝 *Name:* ${name}\n📞 *Mobile:* ${phone}\n🏫 *Std:* ${std}\n🏛️ *Board:* ${board}\n🗣️ *Medium:* ${medium}\n📅 *DOB:* ${dob}\n🎯 *Course:* ${course}`;
+            const url = "https://api.whatsapp.com/send?phone=918983383836&text=" + encodeURIComponent(message);
+            
+            document.getElementById('enquiryForm').reset();
+            window.open(url, '_blank');
+        }
+
+        function accessAdmin(type) {
+            closeMenu();
+            document.getElementById('adminDropdown').classList.remove('open');
+            
+            setTimeout(() => {
+                const password = prompt("🔐 Enter Admin Password:");
+                if (password === '8983') {
+                    if (type === 'enquiry') {
+                        const dynamicData = JSON.parse(localStorage.getItem('enquiries')) || [];
+                        if (dynamicData.length === 0) { alert("No entries found."); return; }
+                        
+                        const ws = XLSX.utils.json_to_sheet(dynamicData);
+                        const wb = XLSX.utils.book_new();
+                        XLSX.utils.book_append_sheet(wb, ws, "Enquiries");
+                        XLSX.writeFile(wb, "Shree_Institute_Enquiries.xlsx");
+                    } else {
+                        alert('Fees panel loading...');
+                    }
+                } else if (password !== null) {
+                    alert('❌ Wrong Password!');
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
