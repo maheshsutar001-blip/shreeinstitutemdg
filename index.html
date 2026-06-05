@@ -79,6 +79,38 @@
             color: #ffd700;
         }
 
+        /* Language Switcher Buttons Styling */
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+            margin-left: 20px;
+        }
+        .lang-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lang-btn:hover {
+            background-color: #ffd700;
+            color: #102a43;
+            border-color: #ffd700;
+        }
+        .lang-btn.active {
+            background-color: #ffd700;
+            color: #102a43;
+            border-color: #ffd700;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
         /* Admin Dropdown Styling */
         .dropdown {
             display: inline-block;
@@ -410,10 +442,15 @@
             font-size: 15px;
         }
 
+        /* Language content hiding classes */
+        .lang-mr { display: block; }
+        .lang-en { display: none; }
+
         /* Mobile Adjustments */
         @media (max-width: 991px) {
             .logo { font-size: 24px; }
             .menu-toggle { display: flex; }
+            .nav-container { position: relative; }
             nav {
                 position: absolute;
                 top: 100%;
@@ -424,9 +461,10 @@
                 overflow: hidden;
                 transition: max-height 0.3s ease-in-out;
             }
-            nav.active { max-height: 500px; overflow-y: auto; }
+            nav.active { max-height: 600px; overflow-y: auto; }
             nav ul { flex-direction: column; align-items: flex-start; padding: 15px 20px; }
             nav ul li { margin-left: 0; margin-bottom: 15px; width: 100%; }
+            .lang-switcher { margin-left: 0; margin-top: 10px; width: 100%; justify-content: flex-start; }
             .dropdown-content { position: relative; background-color: #1a3a5c; display: none; box-shadow: none;}
             .dropdown.open .dropdown-content { display: block; }
             .dropdown-content a { color: white; border-bottom: 1px solid #244a70; }
@@ -464,6 +502,12 @@
                             <a href="javascript:void(0)" onclick="accessAdmin('fees')">💰 Fee Details</a>
                         </div>
                     </li>
+                    <li>
+                        <div class="lang-switcher">
+                            <button class="lang-btn active" id="btn-mr" onclick="changeLanguage('mr')">मराठी</button>
+                            <button class="lang-btn" id="btn-en" onclick="changeLanguage('en')">English</button>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -477,9 +521,14 @@
             <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200');"></div>
 
             <div class="hero-content">
-                <h2>Shree Institute, Mandangad</h2>
-                <p>The Hub for Quality and Standard Education!</p>
-                <div class="success-tag">🎯 Unmatched 100% Success in Competitive Exams!</div>
+                <h2 id="hero-title" class="lang-mr">श्री इन्स्टिट्यूट, मंदणगड</h2>
+                <h2 id="hero-title-en" class="lang-en">Shree Institute, Mandangad</h2>
+                
+                <p id="hero-sub" class="lang-mr">दर्जेदार आणि दर्जेदार शिक्षणाचे केंद्र!</p>
+                <p id="hero-sub-en" class="lang-en">The Hub for Quality and Standard Education!</p>
+                
+                <div id="hero-badge" class="lang-mr" class="success-tag">🎯 स्पर्धा परीक्षांमध्ये अद्वितीय १००% यश!</div>
+                <div id="hero-badge-en" class="lang-en" class="success-tag">🎯 Unmatched 100% Success in Competitive Exams!</div>
             </div>
         </div>
     </div>
@@ -488,35 +537,59 @@
         
         <!-- VISION & MISSION SECTION -->
         <section id="vision-mission">
-            <h3>👁️ Our Vision & Mission</h3>
+            <h3 class="lang-mr">👁️ आमचे व्हिजन आणि मिशन</h3>
+            <h3 class="lang-en">👁️ Our Vision & Mission</h3>
             <div class="grid">
                 <div class="vision-mission-box">
-                    <h4>🌟 Our Vision</h4>
-                    <p>ग्रामीण भागातील प्रत्येक विद्यार्थ्याला दर्जेदार, आधुनिक आणि स्पर्धात्मक शिक्षण देऊन त्यांना भविष्यातील आव्हानांसाठी सक्षम बनवणे आणि श्री इन्स्टिट्यूटला शैक्षणिक गुणवत्तेचे अग्रगण्य केंद्र बनवणे.</p>
+                    <h4 class="lang-mr">🌟 आमचे व्हिजन (Vision)</h4>
+                    <h4 class="lang-en">🌟 Our Vision</h4>
+                    <p class="lang-mr">ग्रामीण भागातील प्रत्येक विद्यार्थ्याला दर्जेदार, आधुनिक आणि स्पर्धात्मक शिक्षण देऊन त्यांना भविष्यातील आव्हानांसाठी सक्षम बनवणे आणि श्री इन्स्टिट्यूटला शैक्षणिक गुणवत्तेचे अग्रगण्य केंद्र बनवणे.</p>
+                    <p class="lang-en">To empower every student in rural areas by providing quality, modern, and competitive education to face future challenges, and making Shree Institute a leading hub of educational excellence.</p>
                 </div>
                 <div class="vision-mission-box">
-                    <h4>🎯 Our Mission</h4>
-                    <p>विद्यार्थ्यांमधील सुप्त गुणांचा विकास करणे, अभ्यासाची भीती दूर करून तंत्रशुद्ध व सोप्या पद्धतीने शिक्षण देणे, आणि १००% निकालाच्या परंपरेसह त्यांना स्पर्धा परीक्षांमध्ये यशाच्या शिखरावर पोहोचवणे.</p>
+                    <h4 class="lang-mr">🎯 आमचे मिशन (Mission)</h4>
+                    <h4 class="lang-en">🎯 Our Mission</h4>
+                    <p class="lang-mr">विद्यार्थ्यांमधील सुप्त गुणांचा विकास करणे, अभ्यासाची भीती दूर करून तंत्रशुद्ध व सोप्या पद्धतीने शिक्षण देणे, आणि १००% निकालाच्या परंपरेसह त्यांना स्पर्धा परीक्षांमध्ये यशाच्या शिखरावर पोहोचवणे.</p>
+                    <p class="lang-en">To develop the hidden talents of students, eliminate the fear of studies by teaching in a systematic and easy way, and lead them to the pinnacle of success in competitive exams with a tradition of 100% results.</p>
                 </div>
             </div>
         </section>
 
         <!-- DIRECTOR PROFILE SECTION -->
         <section id="message">
-            <h3>📢 Director's Profile & Invitation</h3>
+            <h3 class="lang-mr">📢 संचलकांचे मनोगत आणि आमंत्रण</h3>
+            <h3 class="lang-en">📢 Director's Profile & Invitation</h3>
             <div class="director-layout-box">
                 <div class="director-photo-container">
-                    <!-- ACCURATE VERBATIM IMAGE PATH FIXED HERE -->
-                    <img src="WhatsApp Image 2026-06-05 at 08.27.16_3.jpeg" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=180&h=200&fit=crop';" alt="Mr. Mahesh Sutar Sir" class="director-photo">
+                    <!-- OLD ONERROR FALLBACK REMOVED AS REQUESTED -->
+                    <img src="WhatsApp Image 2026-06-05 at 08.27.16.jpeg" alt="Mr. Mahesh Sutar Sir" class="director-photo">
                 </div>
                 <div class="director-details-container">
                     <div class="grid">
-                        <div class="effective-msg-box">
+                        <!-- Marathi Version -->
+                        <div class="effective-msg-box lang-mr">
+                            <h4>आजच तुमच्या पाल्याचे उज्ज्वल भविष्य सुरक्षित करा!</h4>
+                            <p><strong>श्री इन्स्टिट्यूट, मंदणगड</strong> मध्ये आपले सहर्ष स्वागत. आमची वैज्ञानिकदृष्ट्या सिद्ध झालेली शिकवण्याची पद्धत क्लिष्ट विषयांना मनोरंजक बनवून विद्यार्थ्यांसाठी <strong>१००% यशस्वी निकालाची</strong> humee देते.</p>
+                            <div class="highlight-badge">🔥 नवीन बॅचसाठी प्रवेश सुरू! मर्यादित जागा उपलब्ध!</div>
+                        </div>
+                        <div class="lang-mr">
+                            <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">आमचे उच्च-कामगिरी कार्यक्रम:</p>
+                            <ul class="course-bullets">
+                                <li>नियमित वर्ग (पहिली ते दहावी - MSBTE/CBSE)</li>
+                                <li>प्रोकॅक्टिव्ह अबॅकस आणि ब्रेन डेव्हलपमेंट</li>
+                                <li>प्रो वैदिक मॅथ्स मास्टरी (VedicMaths)</li>
+                                <li>प्रोराईट हस्ताक्षर वर्ग (Handwriting)</li>
+                                <li>स्कॉलरशिप, नवोदय, NMMS साठी उत्कृष्ट कोचिंग</li>
+                            </ul>
+                        </div>
+
+                        <!-- English Version -->
+                        <div class="effective-msg-box lang-en">
                             <h4>Secure Your Child's Bright Future Today!</h4>
                             <p>Welcome to <strong>Shree Institute, Mandangad</strong>. Our scientifically proven methodology guarantees a <strong>100% Success Result</strong> for our students by turning complex subjects into enjoyable learning experiences.</p>
                             <div class="highlight-badge">🔥 ADMISSIONS OPEN FOR THE NEW BATCH! Limited Seats Available!</div>
                         </div>
-                        <div>
+                        <div class="lang-en">
                             <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">Our High-Performance Programs:</p>
                             <ul class="course-bullets">
                                 <li>Regular Classes (1st to 10th Std - MSBTE/CBSE)</li>
@@ -536,48 +609,62 @@
         </section>
 
         <section id="regular">
-            <h3>📖 Regular Classes (1st to 10th Std)</h3>
+            <h3 class="lang-mr">📖 नियमित वर्ग (पहिली ते दहावी)</h3>
+            <h3 class="lang-en">📖 Regular Classes (1st to 10th Std)</h3>
             <div class="grid">
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=500" class="section-img">
-                    <h4>Science & Experiments</h4>
-                    <p>Simplifying science through practical experiments.</p>
+                    <h4 class="lang-mr">विज्ञान आणि प्रयोग</h4>
+                    <h4 class="lang-en">Science & Experiments</h4>
+                    <p class="lang-mr">प्रात्यक्षिक प्रयोगांद्वारे विज्ञान सोपे करणे.</p>
+                    <p class="lang-en">Simplifying science through practical experiments.</p>
                 </div>
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=500" class="section-img">
-                    <h4>Maths & English</h4>
-                    <p>Mastering English grammar and Mathematics theorems easily.</p>
+                    <h4 class="lang-mr">गणित आणि इंग्रजी</h4>
+                    <h4 class="lang-en">Maths & English</h4>
+                    <p class="lang-mr">इंग्रजी व्याकरण आणि गणिताचे सिद्धांत सहज आत्मसात करणे.</p>
+                    <p class="lang-en">Mastering English grammar and Mathematics theorems easily.</p>
                 </div>
             </div>
         </section>
 
         <section id="special">
-            <h3>✨ Our Special Skill Courses</h3>
+            <h3 class="lang-mr">✨ आमचे विशेष कौशल्य अभ्यासक्रम</h3>
+            <h3 class="lang-en">✨ Our Special Skill Courses</h3>
             <div class="grid">
                 <div class="card">
-                    <h4>Proactive Abacus</h4>
-                    <p>Stimulate mental power and rapid calculation skills.</p>
+                    <h4 class="lang-mr">प्रोकॅक्टिव्ह अबॅकस (Abacus)</h4>
+                    <h4 class="lang-en">Proactive Abacus</h4>
+                    <p class="lang-mr">मानसिक गती आणि जलद गणना कौशल्ये वाढवणे.</p>
+                    <p class="lang-en">Stimulate mental power and rapid calculation skills.</p>
                 </div>
                 <div class="card">
-                    <h4>Pro VedicMaths</h4>
-                    <p>Solve complex mathematical equations within seconds.</p>
+                    <h4 class="lang-mr">प्रो वैदिक मॅथ्स (VedicMaths)</h4>
+                    <h4 class="lang-en">Pro VedicMaths</h4>
+                    <p class="lang-mr">काही सेकंदात जटिल गणितीय समीकरणे सोडवा.</p>
+                    <p class="lang-en">Solve complex mathematical equations within seconds.</p>
                 </div>
             </div>
         </section>
 
         <section id="exams">
-            <h3>🏆 Competitive Exams</h3>
+            <h3 class="lang-mr">🏆 स्पर्धा परीक्षा</h3>
+            <h3 class="lang-en">🏆 Competitive Exams</h3>
             <div class="grid">
                 <div class="card">
-                    <h4>Scholarship & Navodaya</h4>
-                    <p>Perfect training for 5th and 8th Std competitive tests.</p>
+                    <h4 class="lang-mr">स्कॉलरशिप आणि नवोदय</h4>
+                    <h4 class="lang-en">Scholarship & Navodaya</h4>
+                    <p class="lang-mr">५ वी आणि ८ वी च्या स्पर्धा परीक्षांसाठी परिपूर्ण प्रशिक्षण.</p>
+                    <p class="lang-en">Perfect training for 5th and 8th Std competitive tests.</p>
                 </div>
             </div>
         </section>
 
         <!-- ENQUIRY SECTION -->
         <section id="enquiry">
-            <h3>📝 Admission Enquiry Form</h3>
+            <h3 class="lang-mr">📝 प्रवेश चौकशी फॉर्म</h3>
+            <h3 class="lang-en">📝 Admission Enquiry Form</h3>
             
             <div class="flash-announcement-bar">
                 <div class="flash-announcement-label">🔥 ADMISSION OPEN</div>
@@ -648,6 +735,26 @@
         function toggleMenu() { document.getElementById('navbar').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navbar').classList.remove('active'); }
         function toggleAdminDropdown() { document.getElementById('adminDropdown').classList.toggle('open'); }
+
+        // Language toggle function
+        function changeLanguage(lang) {
+            const mrElements = document.querySelectorAll('.lang-mr');
+            const enElements = document.querySelectorAll('.lang-en');
+            const btnMr = document.getElementById('btn-mr');
+            const btnEn = document.getElementById('btn-en');
+
+            if (lang === 'mr') {
+                mrElements.forEach(el => el.style.display = 'block');
+                enElements.forEach(el => el.style.display = 'none');
+                btnMr.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                mrElements.forEach(el => el.style.display = 'none');
+                enElements.forEach(el => el.style.display = 'block');
+                btnMr.classList.remove('active');
+                btnEn.classList.add('active');
+            }
+        }
 
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
