@@ -410,6 +410,86 @@
             font-size: 15px;
         }
 
+        /* --- ADMIN PANEL MODAL --- */
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .admin-modal-content {
+            background-color: white;
+            width: 100%;
+            max-width: 900px;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .admin-modal-header {
+            background-color: #102a43;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-modal-header h3 {
+            color: #ffd700;
+            font-size: 22px;
+        }
+        .close-modal-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .admin-modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .admin-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+        .admin-table th, .admin-table td {
+            padding: 12px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .admin-table th {
+            background-color: #f1f5f9;
+            color: #102a43;
+            font-weight: bold;
+        }
+        .admin-table tr:hover {
+            background-color: #f8fafc;
+        }
+        .btn-success { background-color: #28a745; }
+        .btn-success:hover { background-color: #218838; }
+        .btn-danger { background-color: #dc3545; padding: 6px 12px; font-size: 13px;}
+        .btn-danger:hover { background-color: #c82333; }
+
         /* Mobile Adjustments */
         @media (max-width: 991px) {
             .logo { font-size: 24px; }
@@ -461,8 +541,8 @@
                     <li class="dropdown" id="adminDropdown">
                         <a href="javascript:void(0)" onclick="toggleAdminDropdown()" style="color: #ffd700;">Admin ▾</a>
                         <div class="dropdown-content">
-                            <a href="javascript:void(0)" onclick="accessAdmin('enquiry')">📥 Enquiry List</a>
-                            <a href="javascript:void(0)" onclick="accessAdmin('fees')">💰 Fee Details</a>
+                            <a href="javascript:void(0)" onclick="accessAdmin('enquiry')">📥 Enquiry Dashboard</a>
+                            <a href="javascript:void(0)" onclick="accessAdmin('fees')">💰 Fee Ledger & Calc</a>
                         </div>
                     </li>
                 </ul>
@@ -472,10 +552,10 @@
 
     <div class="hero-container-box" id="home">
         <div class="hero-slider-container">
-            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200');"></div>
+            <!-- अपडेटेड नवीन फोटो लिंक्स -->
+            <div class="slide active" style="background-image: url('WhatsApp Image 2026-06-06 at 19.20.02 (1).jpeg');"></div>
+            <div class="slide" style="background-image: url('WhatsApp Image 2026-06-06 at 19.20.02.jpeg');"></div>
+            <div class="slide" style="background-image: url('WhatsApp Image 2026-06-06 at 19.20.03.jpeg');"></div>
 
             <div class="hero-content">
                 <h2>Shree Institute, Mandangad</h2>
@@ -640,6 +720,19 @@
         </section>
     </div>
 
+    <!-- --- DYNAMIC ADMINISTRATIVE CONTROL PANEL MODAL --- -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3 id="modalTitle">Admin Control Panel</h3>
+                <button class="close-modal-btn" onclick="closeAdminModal()">&times;</button>
+            </div>
+            <div class="admin-modal-body" id="modalBody">
+                <!-- Content injected dynamically via JavaScript based on choices -->
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>© 2026 Shree Institute, Mandangad. Designed for Mahesh Sir.</p>
     </footer>
@@ -652,9 +745,11 @@
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+            if (slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
         }, 3000);
 
         function processEnquiry() {
@@ -677,6 +772,11 @@
             window.open(url, '_blank');
         }
 
+        /* --- ADVANCED ADMIN SYSTEM CORE JS --- */
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
         function accessAdmin(type) {
             closeMenu();
             document.getElementById('adminDropdown').classList.remove('open');
@@ -684,21 +784,188 @@
             setTimeout(() => {
                 const password = prompt("🔐 Enter Admin Password:");
                 if (password === '8983') {
-                    if (type === 'enquiry') {
-                        const dynamicData = JSON.parse(localStorage.getItem('enquiries')) || [];
-                        if (dynamicData.length === 0) { alert("No entries found."); return; }
-                        
-                        const ws = XLSX.utils.json_to_sheet(dynamicData);
-                        const wb = XLSX.utils.book_new();
-                        XLSX.utils.book_append_sheet(wb, ws, "Enquiries");
-                        XLSX.writeFile(wb, "Shree_Institute_Enquiries.xlsx");
-                    } else {
-                        alert('Fees panel loading...');
-                    }
+                    showAdminDashboard(type);
                 } else if (password !== null) {
                     alert('❌ Wrong Password!');
                 }
             }, 100);
+        }
+
+        function showAdminDashboard(type) {
+            const modal = document.getElementById('adminModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            modal.style.display = 'flex';
+            
+            if (type === 'enquiry') {
+                title.innerText = "📥 Student Admission Enquiries";
+                renderEnquiryPanel(body);
+            } else if (type === 'fees') {
+                title.innerText = "💰 Fee Management Registry & Calculator";
+                renderFeesPanel(body);
+            }
+        }
+
+        /* Enquiries Dashboard Logic */
+        function renderEnquiryPanel(container) {
+            const data = JSON.parse(localStorage.getItem('enquiries')) || [];
+            if (data.length === 0) {
+                container.innerHTML = `<p style="text-align:center; font-weight:bold; color:#666;">No customer entries located in local database storage.</p>`;
+                return;
+            }
+
+            let tableRows = data.map((item, idx) => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td><a href="tel:${item.phone}" style="color:#102a43; font-weight:600;">${item.phone}</a></td>
+                    <td>${item.std}</td>
+                    <td>${item.board}</td>
+                    <td>${item.medium}</td>
+                    <td>${item.dob}</td>
+                    <td><strong>${item.course}</strong></td>
+                    <td><button class="btn-danger" onclick="deleteRecord('enquiries', ${idx}, 'enquiry')">Delete</button></td>
+                </tr>
+            `).join('');
+
+            container.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                    <p style="font-weight:600;">Total Records Gathered: ${data.length}</p>
+                    <button class="btn-success" onclick="exportToExcel('enquiries', 'Shree_Institute_Enquiries')">📥 Download Excel Sheet (.xlsx)</button>
+                </div>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Std</th>
+                                <th>Board</th>
+                                <th>Medium</th>
+                                <th>DOB</th>
+                                <th>Course</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        /* Interactive Fee Management and Calculator Logic */
+        function renderFeesPanel(container) {
+            const data = JSON.parse(localStorage.getItem('fee_records')) || [];
+            
+            let tableRows = data.map((item, idx) => `
+                <tr>
+                    <td>${item.studentName}</td>
+                    <td>${item.studentStd}</td>
+                    <td>₹${item.totalFees}</td>
+                    <td>₹${item.amountPaid}</td>
+                    <td style="color: ${item.balance > 0 ? '#dc3545' : '#28a745'}; font-weight:bold;">₹${item.balance}</td>
+                    <td>${item.dateRecorded}</td>
+                    <td><button class="btn-danger" onclick="deleteRecord('fee_records', ${idx}, 'fees')">Delete</button></td>
+                </tr>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); background:#f8fafc; padding:20px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:20px;">
+                    <div class="form-group">
+                        <label>Student Full Name</label>
+                        <input type="text" id="feeStudentName" placeholder="e.g. Rahul Sutar">
+                    </div>
+                    <div class="form-group">
+                        <label>Standard / Course</label>
+                        <input type="text" id="feeStudentStd" placeholder="e.g. 5th Std / Abacus">
+                    </div>
+                    <div class="form-group">
+                        <label>Total Fee Structure (₹)</label>
+                        <input type="number" id="feeTotal" oninput="calculateLiveBalance()" placeholder="0000">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount Settled / Paid (₹)</label>
+                        <input type="number" id="feePaid" oninput="calculateLiveBalance()" placeholder="0000">
+                    </div>
+                    <div class="form-group">
+                        <label>Calculated Outstandings (Balance)</label>
+                        <div id="liveBalanceBox" style="padding:12px; background:white; border:1px solid #ccc; border-radius:6px; font-weight:bold; font-size:16px; color:#333;">₹0</div>
+                    </div>
+                </div>
+                <button onclick="saveFeeRecord()" class="btn-success" style="width:100%; margin-bottom:25px;">➕ Commit & Save New Fee Entry to Log</button>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-top:2px solid #f0f4f8; padding-top:20px;">
+                    <p style="font-weight:600;">Registered Student Ledgers: ${data.length}</p>
+                    <button class="btn-success" onclick="exportToExcel('fee_records', 'Shree_Institute_FeeRegistry')">📥 Download Fee Sheet Ledger (.xlsx)</button>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Class Info</th>
+                                <th>Total Billable</th>
+                                <th>Total Paid</th>
+                                <th>Remaining Balance</th>
+                                <th>Last Tx Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>${tableRows.length > 0 ? tableRows : '<tr><td colspan="7" style="text-align:center; color:#888;">No active account statements found on device.</td></tr>'}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function calculateLiveBalance() {
+            const total = parseFloat(document.getElementById('feeTotal').value) || 0;
+            const paid = parseFloat(document.getElementById('feePaid').value) || 0;
+            const balance = total - paid;
+            const box = document.getElementById('liveBalanceBox');
+            box.innerText = "₹" + balance;
+            box.style.color = balance > 0 ? '#dc3545' : '#28a745';
+        }
+
+        function saveFeeRecord() {
+            const name = document.getElementById('feeStudentName').value.trim();
+            const std = document.getElementById('feeStudentStd').value.trim();
+            const total = parseFloat(document.getElementById('feeTotal').value) || 0;
+            const paid = parseFloat(document.getElementById('feePaid').value) || 0;
+
+            if(!name || !std || total <= 0) {
+                alert("⚠️ Please fill out the Student Name, Class, and Total Fees parameters correctly.");
+                return;
+            }
+
+            const balance = total - paid;
+            const today = new Date().toLocaleDateString();
+
+            let data = JSON.parse(localStorage.getItem('fee_records')) || [];
+            data.push({ studentName: name, studentStd: std, totalFees: total, amountPaid: paid, balance: balance, dateRecorded: today });
+            localStorage.setItem('fee_records', JSON.stringify(data));
+            
+            // Refresh Dashboard Content Panel view
+            renderFeesPanel(document.getElementById('modalBody'));
+        }
+
+        function deleteRecord(storageKey, index, panelType) {
+            if(confirm("Are you absolutely sure you want to permanently clear out this system record row?")) {
+                let data = JSON.parse(localStorage.getItem(storageKey)) || [];
+                data.splice(index, 1);
+                localStorage.setItem(storageKey, JSON.stringify(data));
+                showAdminDashboard(panelType);
+            }
+        }
+
+        function exportToExcel(storageKey, filename) {
+            const dynamicData = JSON.parse(localStorage.getItem(storageKey)) || [];
+            if (dynamicData.length === 0) { alert("No executable balance sheet arrays detected to extract."); return; }
+            
+            const ws = XLSX.utils.json_to_sheet(dynamicData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Records");
+            XLSX.writeFile(wb, `${filename}.xlsx`);
         }
     </script>
 </body>
