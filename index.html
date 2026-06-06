@@ -89,7 +89,7 @@
             background-color: #ffffff;
             min-width: 180px;
             box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1001;
+            z-index: 1011;
             top: 100%;
             left: 0;
             border-radius: 6px;
@@ -116,7 +116,7 @@
         /* Hero Container Box - Centered with margins on left & right */
         .hero-container-box {
             width: 90%;
-            max-width: 1000px; /* मर्यादित रुंदी जेणेकरून साईडला जागा दिसेल */
+            max-width: 1000px;
             margin: 25px auto 0 auto;
             background-color: #ffffff;
             padding: 15px;
@@ -128,7 +128,7 @@
         .hero-slider-container {
             position: relative;
             width: 100%;
-            height: 450px; /* योग्य उंची */
+            height: 450px;
             overflow: hidden;
             border-radius: 8px;
             background-color: #eaeaea;
@@ -147,7 +147,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #102a43; /* इमेज मागे गडद बॅकग्राउंड */
+            background-color: #102a43;
         }
         .slide.active {
             opacity: 1;
@@ -156,27 +156,31 @@
         .slide img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* फोटो क्रॉप न होता मूळ आकारात आणि चौकटीत बसेल */
+            object-fit: contain;
         }
 
-        /* Small Text Info Over Slide */
+        /* Small Text Info Over Slide - Enhanced for Bigger Text */
         .hero-banner-info {
-            background: rgba(16, 42, 67, 0.85);
+            background: rgba(16, 42, 67, 0.9);
             color: white;
-            padding: 10px 15px;
+            padding: 15px 20px;
             text-align: center;
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
             margin-top: -4px;
         }
         .hero-banner-info h2 {
-            font-size: 22px;
+            font-size: 32px; /* इन्स्टिट्यूटचे नाव मोठे केले */
             color: #ffd700;
-            margin-bottom: 2px;
+            margin-bottom: 5px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .hero-banner-info p {
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 18px; /* खालील टॅगलाईन सुद्धा थोडी मोठी केली */
+            font-weight: 600;
+            color: #f0f4f8;
         }
 
         /* Container & Sections */
@@ -504,6 +508,8 @@
             .dropdown-content { position: relative; background-color: #1a3a5c; display: none; box-shadow: none;}
             .dropdown.open .dropdown-content { display: block; }
             .dropdown-content a { color: white; border-bottom: 1px solid #244a70; }
+            .hero-banner-info h2 { font-size: 24px; } /* मोबाईलवर स्क्रीननुसार आकार योग्य बसेल */
+            .hero-banner-info p { font-size: 15px; }
             .hero-slider-container { height: 320px; }
             .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
         }
@@ -542,7 +548,7 @@
         </div>
     </header>
 
-    <!-- व्यवस्थित केलेला न्यू फोटो स्लाईडर बॉक्स (दोन्ही बाजूला स्पेससह) -->
+    <!-- फोटो स्लाईडर बॉक्स -->
     <div class="hero-container-box" id="home">
         <div class="hero-slider-container">
             <div class="slide active">
@@ -555,6 +561,7 @@
                 <img src="WhatsApp Image 2026-06-06 at 19.20.03.jpeg" alt="Shree Institute Banner 3">
             </div>
         </div>
+        <!-- मोठा केलेला इन्स्टिट्यूट नेम सेक्शन -->
         <div class="hero-banner-info">
             <h2>Shree Institute, Mandangad</h2>
             <p>🎯 Unmatched Success in Education & Competitive Exams!</p>
@@ -716,7 +723,7 @@
         </section>
     </div>
 
-    <!-- --- DYNAMIC ADMINISTRATIVE CONTROL PANEL MODAL --- -->
+    <!-- --- ADMIN PANEL MODAL --- -->
     <div class="admin-modal" id="adminModal">
         <div class="admin-modal-content">
             <div class="admin-modal-header">
@@ -724,7 +731,6 @@
                 <button class="close-modal-btn" onclick="closeAdminModal()">&times;</button>
             </div>
             <div class="admin-modal-body" id="modalBody">
-                <!-- Content injected dynamically via JavaScript based on choices -->
             </div>
         </div>
     </div>
@@ -746,7 +752,7 @@
                 currentSlide = (currentSlide + 1) % slides.length;
                 slides[currentSlide].classList.add('active');
             }
-        }, 4000); // इमेज पूर्ण दिसण्यासाठी वेळ ४ सेकंद केला आहे
+        }, 4000);
 
         function processEnquiry() {
             const name = document.getElementById('enqName').value;
@@ -768,7 +774,6 @@
             window.open(url, '_blank');
         }
 
-        /* --- ADVANCED ADMIN SYSTEM CORE JS --- */
         function closeAdminModal() {
             document.getElementById('adminModal').style.display = 'none';
         }
@@ -803,7 +808,6 @@
             }
         }
 
-        /* Enquiries Dashboard Logic */
         function renderEnquiryPanel(container) {
             const data = JSON.parse(localStorage.getItem('enquiries')) || [];
             if (data.length === 0) {
@@ -849,7 +853,6 @@
             `;
         }
 
-        /* Interactive Fee Management and Calculator Logic */
         function renderFeesPanel(container) {
             const data = JSON.parse(localStorage.getItem('fee_records')) || [];
             
@@ -941,7 +944,6 @@
             data.push({ studentName: name, studentStd: std, totalFees: total, amountPaid: paid, balance: balance, dateRecorded: today });
             localStorage.setItem('fee_records', JSON.stringify(data));
             
-            // Refresh Dashboard Content Panel view
             renderFeesPanel(document.getElementById('modalBody'));
         }
 
