@@ -113,84 +113,77 @@
             display: block;
         }
 
-        /* Hero Slider */
+        /* Hero Container Box - Centered with margins on left & right */
         .hero-container-box {
             width: 90%;
-            margin: 20px auto 0 auto;
+            max-width: 1000px; /* मर्यादित रुंदी जेणेकरून साईडला जागा दिसेल */
+            margin: 25px auto 0 auto;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+        
+        /* Fixed Aspect Ratio Slider Container */
         .hero-slider-container {
             position: relative;
             width: 100%;
-            height: 380px;
+            height: 450px; /* योग्य उंची */
             overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            background-color: #eaeaea;
         }
+        
+        /* Slides containing standard Image Tags instead of broad backgrounds */
         .slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             opacity: 0;
-            transition: opacity 1.2s ease-in-out;
+            transition: opacity 1s ease-in-out;
             z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #102a43; /* इमेज मागे गडद बॅकग्राउंड */
         }
         .slide.active {
             opacity: 1;
             z-index: 2;
         }
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .slide img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(16, 42, 67, 0.8), rgba(36, 74, 112, 0.8));
+            object-fit: contain; /* फोटो क्रॉप न होता मूळ आकारात आणि चौकटीत बसेल */
         }
-        .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
+
+        /* Small Text Info Over Slide */
+        .hero-banner-info {
+            background: rgba(16, 42, 67, 0.85);
+            color: white;
+            padding: 10px 15px;
             text-align: center;
-            color: white;
-            width: 90%;
-            max-width: 800px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            margin-top: -4px;
         }
-        .hero-content h2 {
-            font-size: 32px;
-            margin-bottom: 12px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-        }
-        .hero-content p {
-            font-size: 18px;
-            font-weight: bold;
+        .hero-banner-info h2 {
+            font-size: 22px;
             color: #ffd700;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-            margin-bottom: 10px;
+            margin-bottom: 2px;
         }
-        .success-tag {
-            display: inline-block;
-            background-color: #28a745;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 25px;
-            margin-top: 10px;
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        .hero-banner-info p {
+            font-size: 15px;
+            font-weight: 500;
         }
 
         /* Container & Sections */
         .container {
             width: 90%;
-            margin: 30px auto;
+            max-width: 1000px;
+            margin: 25px auto;
         }
         section {
             padding: 25px;
@@ -512,7 +505,6 @@
             .dropdown.open .dropdown-content { display: block; }
             .dropdown-content a { color: white; border-bottom: 1px solid #244a70; }
             .hero-slider-container { height: 320px; }
-            .hero-content h2 { font-size: 24px; }
             .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
         }
     </style>
@@ -550,18 +542,22 @@
         </div>
     </header>
 
+    <!-- व्यवस्थित केलेला न्यू फोटो स्लाईडर बॉक्स (दोन्ही बाजूला स्पेससह) -->
     <div class="hero-container-box" id="home">
         <div class="hero-slider-container">
-            <!-- अपडेटेड नवीन फोटो लिंक्स -->
-            <div class="slide active" style="background-image: url('WhatsApp Image 2026-06-06 at 19.20.02 (1).jpeg');"></div>
-            <div class="slide" style="background-image: url('WhatsApp Image 2026-06-06 at 19.20.02.jpeg');"></div>
-            <div class="slide" style="background-image: url('WhatsApp Image 2026-06-06 at 19.20.03.jpeg');"></div>
-
-            <div class="hero-content">
-                <h2>Shree Institute, Mandangad</h2>
-                <p>The Hub for Quality and Standard Education!</p>
-                <div class="success-tag">🎯 Unmatched 100% Success in Competitive Exams!</div>
+            <div class="slide active">
+                <img src="WhatsApp Image 2026-06-06 at 19.20.02 (1).jpeg" alt="Shree Institute Banner 1">
             </div>
+            <div class="slide">
+                <img src="WhatsApp Image 2026-06-06 at 19.20.02.jpeg" alt="Shree Institute Banner 2">
+            </div>
+            <div class="slide">
+                <img src="WhatsApp Image 2026-06-06 at 19.20.03.jpeg" alt="Shree Institute Banner 3">
+            </div>
+        </div>
+        <div class="hero-banner-info">
+            <h2>Shree Institute, Mandangad</h2>
+            <p>🎯 Unmatched Success in Education & Competitive Exams!</p>
         </div>
     </div>
 
@@ -750,7 +746,7 @@
                 currentSlide = (currentSlide + 1) % slides.length;
                 slides[currentSlide].classList.add('active');
             }
-        }, 3000);
+        }, 4000); // इमेज पूर्ण दिसण्यासाठी वेळ ४ सेकंद केला आहे
 
         function processEnquiry() {
             const name = document.getElementById('enqName').value;
