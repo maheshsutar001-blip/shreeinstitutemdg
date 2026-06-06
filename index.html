@@ -20,25 +20,26 @@
         header {
             background: linear-gradient(135deg, #102a43, #244a70);
             color: white;
-            padding: 15px 0;
+            padding: 10px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         .nav-container {
-            width: 90%;
+            width: 92%;
             margin: auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .logo {
-            font-size: 28px; 
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #ffd700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        
+        /* नवीन सिम (Yes I Am) लोगो कंटेनर */
+        .logo-container {
+            width: 460px;
+            height: auto;
+            display: flex;
+            align-items: center;
         }
         
         .menu-toggle {
@@ -63,13 +64,13 @@
             align-items: center;
         }
         nav ul li {
-            margin-left: 20px;
+            margin-left: 15px;
             position: relative;
         }
         nav ul li a {
             color: white;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             transition: color 0.3s;
             padding: 10px 0;
@@ -113,7 +114,7 @@
             display: block;
         }
 
-        /* Hero Container Box - Centered with margins on left & right */
+        /* Hero Container Box */
         .hero-container-box {
             width: 90%;
             max-width: 1000px;
@@ -124,7 +125,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
-        /* Fixed Aspect Ratio Slider Container */
+        /* Slider Container */
         .hero-slider-container {
             position: relative;
             width: 100%;
@@ -134,7 +135,6 @@
             background-color: #eaeaea;
         }
         
-        /* Slides containing standard Image Tags instead of broad backgrounds */
         .slide {
             position: absolute;
             top: 0;
@@ -159,7 +159,7 @@
             object-fit: contain;
         }
 
-        /* Small Text Info Over Slide - Enhanced for Bigger Text */
+        /* Banner Info */
         .hero-banner-info {
             background: rgba(16, 42, 67, 0.9);
             color: white;
@@ -170,7 +170,7 @@
             margin-top: -4px;
         }
         .hero-banner-info h2 {
-            font-size: 32px; /* इन्स्टिट्यूटचे नाव मोठे केले */
+            font-size: 32px;
             color: #ffd700;
             margin-bottom: 5px;
             font-weight: 800;
@@ -178,7 +178,7 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .hero-banner-info p {
-            font-size: 18px; /* खालील टॅगलाईन सुद्धा थोडी मोठी केली */
+            font-size: 18px;
             font-weight: 600;
             color: #f0f4f8;
         }
@@ -489,9 +489,10 @@
 
         /* Mobile Adjustments */
         @media (max-width: 991px) {
-            .logo { font-size: 24px; }
+            .logo-container { width: 100%; max-width: 360px; }
             .menu-toggle { display: flex; }
-            .nav-container { position: relative; }
+            .nav-container { position: relative; flex-direction: column; align-items: flex-start; gap: 10px;}
+            .menu-toggle { position: absolute; right: 0; top: 15px; }
             nav {
                 position: absolute;
                 top: 100%;
@@ -508,7 +509,7 @@
             .dropdown-content { position: relative; background-color: #1a3a5c; display: none; box-shadow: none;}
             .dropdown.open .dropdown-content { display: block; }
             .dropdown-content a { color: white; border-bottom: 1px solid #244a70; }
-            .hero-banner-info h2 { font-size: 24px; } /* मोबाईलवर स्क्रीननुसार आकार योग्य बसेल */
+            .hero-banner-info h2 { font-size: 24px; }
             .hero-banner-info p { font-size: 15px; }
             .hero-slider-container { height: 320px; }
             .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
@@ -519,7 +520,35 @@
 
     <header>
         <div class="nav-container">
-            <div class="logo">Shree Institute</div>
+            <!-- 🎨 S.I.M. (Yes, I Am) नवीन ब्रँडेड लोगो कोड -->
+            <div class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 140" width="100%">
+                  <defs>
+                    <linearGradient id="navLogoGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFE259" />
+                      <stop offset="60%" stop-color="#FFA751" />
+                      <stop offset="100%" stop-color="#FF7300" />
+                    </linearGradient>
+                  </defs>
+                  <g transform="translate(10, 10)">
+                    <!-- विश्वासाचे वर्तुळ -->
+                    <circle cx="55" cy="55" r="48" fill="none" stroke="url(#navLogoGold)" stroke-width="3" stroke-dasharray="6,3" opacity="0.7"/>
+                    <circle cx="55" cy="55" r="42" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/>
+                    <!-- डाऊट सोल्व्हिंग डबल टिक (✓✓) -->
+                    <path d="M 32,58 L 45,70 L 78,35" fill="none" stroke="url(#navLogoGold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M 42,68 L 52,78 L 82,42" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- SIM ब्रँड बॅज -->
+                    <rect x="25" y="88" width="60" height="18" rx="4" fill="url(#navLogoGold)"/>
+                    <text x="55" y="101" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" fill="#102a43" text-anchor="middle" letter-spacing="1">S I M</text>
+                  </g>
+                  <!-- इन्स्टिट्यूटचे नाव आणि टॅगलाईन -->
+                  <text x="135" y="48" font-family="'Segoe UI', Roboto, sans-serif" font-size="36" font-weight="800" fill="#FFE259" letter-spacing="0.5">
+                    <tspan fill="#FFE259">S</tspan>HREE <tspan fill="#FFFFFF" font-size="30" font-weight="600">INSTITUTE</tspan>
+                  </text>
+                  <text x="135" y="80" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">MANDANGAD <tspan fill="#FFE259" font-weight="800">(S.I.M.)</tspan></text>
+                  <text x="135" y="106" font-family="'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="600" fill="#9fb3c8" font-style="italic">"Your Doubts, Our Mission... Yes, I Am There!"</text>
+                </svg>
+            </div>
             
             <button class="menu-toggle" onclick="toggleMenu()">
                 <span></span>
@@ -532,10 +561,10 @@
                     <li><a href="#home" onclick="closeMenu()">Home</a></li>
                     <li><a href="#vision-mission" onclick="closeMenu()">Vision & Mission</a></li>
                     <li><a href="#message" onclick="closeMenu()">Why Choose Us?</a></li>
-                    <li><a href="#regular" onclick="closeMenu()">Regular Classes</a></li>
-                    <li><a href="#special" onclick="closeMenu()">Special Courses</a></li>
-                    <li><a href="#exams" onclick="closeMenu()">Competitive Exams</a></li>
-                    <li><a href="#enquiry" onclick="closeMenu()">Admission Enquiry</a></li>
+                    <li><a href="#regular" onclick="closeMenu()">Regular</a></li>
+                    <li><a href="#special" onclick="closeMenu()">Skills</a></li>
+                    <li><a href="#exams" onclick="closeMenu()">Exams</a></li>
+                    <li><a href="#enquiry" onclick="closeMenu()">Enquiry</a></li>
                     <li class="dropdown" id="adminDropdown">
                         <a href="javascript:void(0)" onclick="toggleAdminDropdown()" style="color: #ffd700;">Admin ▾</a>
                         <div class="dropdown-content">
@@ -561,7 +590,6 @@
                 <img src="WhatsApp Image 2026-06-06 at 19.20.03.jpeg" alt="Shree Institute Banner 3">
             </div>
         </div>
-        <!-- मोठा केलेला इन्स्टिट्यूट नेम सेक्शन -->
         <div class="hero-banner-info">
             <h2>Shree Institute, Mandangad</h2>
             <p>🎯 Unmatched Success in Education & Competitive Exams!</p>
