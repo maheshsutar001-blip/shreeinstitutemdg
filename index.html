@@ -5,23 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shree Institute, Mandangad</title>
 
-    <!-- =================================================== -->
-    <!-- START: GOOGLE ANALYTICS CODE (ADDED FOR MAHESH SIR) -->
-    <!-- =================================================== -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HCPYWYCW0H"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-HCPYWYCW0H');
     </script>
-    <!-- =================================================== -->
-    <!-- END: GOOGLE ANALYTICS CODE -->
-    <!-- =================================================== -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -32,14 +28,38 @@
         body {
             background-color: #f0f4f8;
             color: #333;
+            position: relative;
         }
-        /* Header & Navigation */
+        
+        /* 🔥 FLOATING ACTION ADMISSION BUTTON AT TOP */
+        .top-admission-bar {
+            background: linear-gradient(90deg, #ff4500, #ff8c00);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            animation: pulseBg 2s infinite;
+            display: block;
+            text-decoration: none;
+        }
+        @keyframes pulseBg {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+            100% { filter: brightness(1); }
+        }
+
         header {
             background: linear-gradient(135deg, #0a192f, #172a45);
             color: white;
             padding: 10px 0;
             position: sticky;
-            top: 0;
+            top: 45px; /* Adjusted due to top bar */
             z-index: 1000;
             box-shadow: 0 5px 25px rgba(0,0,0,0.35);
             border-bottom: 4px solid #f59f00;
@@ -52,178 +72,42 @@
             align-items: center;
         }
         
-        /* New Structural Logo Container */
-        .logo-container {
-            width: 530px;
-            height: auto;
-            display: flex;
-            align-items: center;
-        }
+        .logo-container { width: 530px; height: auto; display: flex; align-items: center; }
         
-        /* Slogan Glow Animation */
         @keyframes subtlePulse {
             0% { opacity: 0.9; }
             50% { opacity: 1; transform: scale(1.01); }
             100% { opacity: 0.9; }
         }
-        .motto-banner {
-            animation: subtlePulse 3s infinite ease-in-out;
-        }
+        .motto-banner { animation: subtlePulse 3s infinite ease-in-out; }
         
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 5px;
-        }
-        .menu-toggle span {
-            width: 28px;
-            height: 3px;
-            background-color: white;
-            margin: 4px 0;
-            transition: 0.3s;
-        }
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; background: none; border: none; padding: 5px; }
+        .menu-toggle span { width: 28px; height: 3px; background-color: white; margin: 4px 0; transition: 0.3s; }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            align-items: center;
-        }
-        nav ul li {
-            margin-left: 15px;
-            position: relative;
-                }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 600;
-            transition: color 0.3s;
-            padding: 10px 0;
-            display: inline-block;
-        }
-        nav ul li a:hover {
-            color: #ffe259;
-        }
+        nav ul { display: flex; list-style: none; align-items: center; }
+        nav ul li { margin-left: 15px; position: relative; }
+        nav ul li a { color: white; text-decoration: none; font-size: 15px; font-weight: 600; transition: color 0.3s; padding: 10px 0; display: inline-block; }
+        nav ul li a:hover { color: #ffe259; }
 
         /* Admin Dropdown Styling */
-        .dropdown {
-            display: inline-block;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #ffffff;
-            min-width: 180px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1011;
-            top: 100%;
-            left: 0;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .dropdown-content a {
-            color: #102a43;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 15px;
-            font-weight: bold;
-            border-bottom: 1px solid #f0f4f8;
-            transition: background 0.3s;
-        }
-        .dropdown-content a:hover {
-            background-color: #ffe259;
-            color: #102a43;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+        .dropdown { display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 220px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1011; top: 100%; left: 0; border-radius: 6px; overflow: hidden; }
+        .dropdown-content a { color: #102a43; padding: 12px 16px; text-decoration: none; display: block; font-size: 14px; font-weight: bold; border-bottom: 1px solid #f0f4f8; transition: background 0.3s; }
+        .dropdown-content a:hover { background-color: #ffe259; color: #102a43; }
+        .dropdown:hover .dropdown-content { display: block; }
 
-        /* Hero Container Box */
-        .hero-container-box {
-            width: 90%;
-            max-width: 1000px;
-            margin: 25px auto 0 auto;
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        /* Slider Container */
-        .hero-slider-container {
-            position: relative;
-            width: 100%;
-            height: 450px;
-            overflow: hidden;
-            border-radius: 8px;
-            background-color: #eaeaea;
-        }
-        
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #102a43;
-        }
-        .slide.active {
-            opacity: 1;
-            z-index: 2;
-        }
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .hero-container-box { width: 90%; max-width: 1000px; margin: 25px auto 0 auto; background-color: #ffffff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .hero-slider-container { position: relative; width: 100%; height: 450px; overflow: hidden; border-radius: 8px; background-color: #eaeaea; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; z-index: 1; display: flex; justify-content: center; align-items: center; background-color: #102a43; }
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Banner Info */
-        .hero-banner-info {
-            background: rgba(10, 25, 47, 0.95);
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-            margin-top: -4px;
-        }
-        .hero-banner-info h2 {
-            font-size: 32px;
-            color: #ffe259;
-            margin-bottom: 5px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        .hero-banner-info p {
-            font-size: 18px;
-            font-weight: 600;
-            color: #f0f4f8;
-        }
+        .hero-banner-info { background: rgba(10, 25, 47, 0.95); color: white; padding: 15px 20px; text-align: center; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; margin-top: -4px; }
+        .hero-banner-info h2 { font-size: 32px; color: #ffe259; margin-bottom: 5px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-banner-info p { font-size: 18px; font-weight: 600; color: #f0f4f8; }
 
-        /* Container & Sections */
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 25px auto;
-        }
-        section {
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            scroll-margin-top: 110px;
-        }
+        .container { width: 90%; max-width: 1000px; margin: 25px auto; }
+        section { padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); scroll-margin-top: 150px; }
         
         #vision-mission { background-color: #ffffff; border-left: 8px solid #ffe259; }
         #message { background-color: #ffffff; border-left: 8px solid #102a43; }
@@ -232,314 +116,58 @@
         #exams { background-color: #fff9db; border-left: 8px solid #f59f00; }
         #enquiry { background-color: #fff4e6; border-left: 8px solid #e8590c; }
         
-        section h3 {
-            color: #102a43;
-            font-size: 22px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(0,0,0,0.1);
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            align-items: stretch;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .card h4 {
-            color: #102a43;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .vision-mission-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px dashed #cbd5e1;
-        }
-        .vision-mission-box h4 {
-            color: #102a43;
-            font-size: 19px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .vision-mission-box p {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #475569;
-        }
-        .section-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+        section h3 { color: #102a43; font-size: 22px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(0,0,0,0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: stretch; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
+        .card h4 { color: #102a43; margin-bottom: 10px; font-size: 18px; }
+        
+        .director-layout-box { display: flex; flex-direction: row; gap: 25px; align-items: flex-start; }
+        .director-photo-container { flex: 0 0 190px; text-align: center; }
+        .director-photo { width: 190px; height: 210px; object-fit: cover; border-radius: 10px; border: 3px solid #102a43; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .director-details-container { flex: 1; }
 
-        /* Director Layout Box */
-        .director-layout-box {
-            display: flex;
-            flex-direction: row;
-            gap: 25px;
-            align-items: flex-start;
-        }
-        .director-photo-container {
-            flex: 0 0 190px;
-            text-align: center;
-        }
-        .director-photo {
-            width: 190px;
-            height: 210px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 3px solid #102a43;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .director-details-container {
-            flex: 1;
-        }
+        .flash-announcement-bar { background: linear-gradient(90deg, #d9480f, #e8590c); color: white; padding: 12px; border-radius: 8px; margin-bottom: 22px; font-weight: bold; font-size: 15px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(232, 89, 12, 0.25); border-left: 6px solid #ffe259; overflow: hidden; }
+        .flash-announcement-label { background: #ffe259; color: #102a43; padding: 5px 12px; border-radius: 4px; font-size: 13px; text-transform: uppercase; font-weight: 800; margin-right: 15px; white-space: nowrap; }
 
-        /* Flash Announcement Bar */
-        .flash-announcement-bar {
-            background: linear-gradient(90deg, #d9480f, #e8590c);
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 22px;
-            font-weight: bold;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(232, 89, 12, 0.25);
-            border-left: 6px solid #ffe259;
-            overflow: hidden;
-        }
-        .flash-announcement-label {
-            background: #ffe259;
-            color: #102a43;
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-size: 13px;
-            text-transform: uppercase;
-            font-weight: 800;
-            margin-right: 15px;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            animation: pulse-glow 1.5s infinite;
-        }
-        .flash-scroller-content {
-            width: 100%;
-        }
-
-        @keyframes pulse-glow {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); box-shadow: 0 2px 8px rgba(255, 226, 89, 0.6); }
-            100% { transform: scale(1); }
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 15px;
-            background-color: white;
-        }
-        button {
-            background-color: #e8590c;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #b84306;
-        }
-        .phone-link {
-            color: #102a43;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .phone-link:hover {
-            text-underline-position: under;
-        }
-        footer {
-            text-align: center;
-            padding: 25px;
-            background: #0a192f;
-            color: white;
-            margin-top: 40px;
-            font-size: 14px;
-            border-top: 4px solid #f59f00;
-        }
-
-        .effective-msg-box h4 {
-            color: #d9480f;
-            font-size: 20px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-        .effective-msg-box p {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #444;
-            margin-bottom: 15px;
-        }
-        .course-bullets {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-        .course-bullets li {
-            font-size: 15px;
-            font-weight: 600;
-            color: #102a43;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: flex-start;
-        }
-        .course-bullets li::before {
-            content: "⚡";
-            margin-right: 10px;
-        }
-        .highlight-badge {
-            background-color: #e6f4ea;
-            color: #137333;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            border-left: 5px solid #137333;
-            margin-bottom: 15px;
-            font-size: 15px;
-        }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; background-color: white; }
+        button { background-color: #e8590c; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background 0.3s; }
+        button:hover { background-color: #b84306; }
+        
+        footer { text-align: center; padding: 25px; background: #0a192f; color: white; margin-top: 40px; font-size: 14px; border-top: 4px solid #f59f00; }
 
         /* --- ADMIN PANEL MODAL --- */
-        .admin-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .admin-modal-content {
-            background-color: white;
-            width: 100%;
-            max-width: 900px;
-            max-height: 85vh;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .admin-modal-header {
-            background-color: #102a43;
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .admin-modal-header h3 {
-            color: #ffe259;
-            font-size: 22px;
-        }
-        .close-modal-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .admin-modal-body {
-            padding: 25px;
-            overflow-y: auto;
-            flex: 1;
-        }
-        .admin-table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 20px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-        }
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 14px;
-        }
-        .admin-table th, .admin-table td {
-            padding: 12px;
-            border-bottom: 1px solid #cbd5e1;
-        }
-        .admin-table th {
-            background-color: #f1f5f9;
-            color: #102a43;
-            font-weight: bold;
-        }
-        .admin-table tr:hover {
-            background-color: #f8fafc;
-        }
-        .btn-success { background-color: #28a745; }
+        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .admin-modal-content { background-color: white; width: 100%; max-width: 950px; max-height: 90vh; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; }
+        .admin-modal-header { background-color: #102a43; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-modal-header h3 { color: #ffe259; font-size: 22px; }
+        .close-modal-btn { background: none; border: none; color: white; font-size: 28px; cursor: pointer; font-weight: bold; }
+        .admin-modal-body { padding: 25px; overflow-y: auto; flex: 1; }
+        .admin-table-wrapper { width: 100%; overflow-x: auto; margin-top: 20px; border: 1px solid #cbd5e1; border-radius: 6px; }
+        .admin-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+        .admin-table th, .admin-table td { padding: 12px; border-bottom: 1px solid #cbd5e1; }
+        .admin-table th { background-color: #f1f5f9; color: #102a43; font-weight: bold; }
+        
+        .btn-success { background-color: #28a745; color: white;}
         .btn-success:hover { background-color: #218838; }
-        .btn-danger { background-color: #dc3545; padding: 6px 12px; font-size: 13px;}
-        .btn-danger:hover { background-color: #c82333; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-danger { background-color: #dc3545; color: white; padding: 6px 12px; font-size: 13px; }
 
-        /* Mobile Adjustments */
+        /* Receipt Format for PDF Hidden on UI */
+        #receiptTemplate { display: none; padding: 30px; background: white; color: black; font-family: monospace; }
+
         @media (max-width: 991px) {
             .logo-container { width: 100%; max-width: 420px; }
             .menu-toggle { display: flex; }
             .nav-container { position: relative; flex-direction: column; align-items: flex-start; gap: 10px;}
             .menu-toggle { position: absolute; right: 0; top: 18px; }
-            nav {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #0a192f;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease-in-out;
-            }
+            nav { position: absolute; top: 100%; left: 0; width: 100%; background: #0a192f; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
             nav.active { max-height: 600px; overflow-y: auto; }
             nav ul { flex-direction: column; align-items: flex-start; padding: 15px 20px; }
             nav ul li { margin-left: 0; margin-bottom: 15px; width: 100%; }
             .dropdown-content { position: relative; background-color: #1a3a5c; display: none; box-shadow: none;}
             .dropdown.open .dropdown-content { display: block; }
-            .dropdown-content a { color: white; border-bottom: 1px solid #244a70; }
-            .hero-banner-info h2 { font-size: 24px; }
-            .hero-banner-info p { font-size: 15px; }
             .hero-slider-container { height: 320px; }
             .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
         }
@@ -547,53 +175,46 @@
 </head>
 <body>
 
+    <!-- 🔥 CLICKABLE EFFECTIVE TOP BANNER -->
+    <a href="#enquiry" class="top-admission-bar">
+        ⚡ 🔥 ADMISSION OPEN! Please Click Here To Open Admission Form & Secure Your Seat! 🎯
+    </a>
+
     <header>
         <div class="nav-container">
-            <!-- 🎨 UPDATED LOGO WITH "YES, I'M THERE!" -->
             <div class="logo-container">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 130" width="100%">
                   <defs>
                     <linearGradient id="torchOrange" x1="0%" y1="100%" x2="0%" y2="0%">
-                      <stop offset="0%" stop-color="#FF4500" />
-                      <stop offset="60%" stop-color="#FFA500" />
-                      <stop offset="100%" stop-color="#FFE259" />
+                      <stop offset="0%" stop-color="#FF4500" stop-opacity="1"/>
+                      <stop offset="100%" stop-color="#FFE259" stop-opacity="1"/>
                     </linearGradient>
                     <linearGradient id="goldText" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#FFE259" />
-                      <stop offset="100%" stop-color="#FFA751" />
+                      <stop offset="0%" stop-color="#FFE259" stop-opacity="1"/>
+                      <stop offset="100%" stop-color="#FFA751" stop-opacity="1"/>
                     </linearGradient>
                   </defs>
-                  
-                  <!-- LOGO ICON (Knowledge Flame) -->
                   <g transform="translate(15, 15)">
                     <path d="M30,85 C35,65 20,45 35,20 C45,5 65,15 55,35 C70,15 80,30 75,50 C70,70 55,85 30,85 Z" fill="url(#torchOrange)" />
-                    <path d="M15,90 Q 52,70 90,90 M15,100 Q 52,82 90,100" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
-                    <circle cx="52" cy="50" r="6" fill="#0a192f"/>
+                    <path d="M15,90 Q 52,70 90,90" fill="none" stroke="#FFFFFF" stroke-width="3"/>
                   </g>
-                  
-                  <!-- TYPOGRAPHY -->
-                  <text x="135" y="42" font-family="'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#FFFFFF" letter-spacing="1">
+                  <text x="135" y="42" font-family="sans-serif" font-size="34" font-weight="900" fill="#FFFFFF">
                     SHREE <tspan fill="url(#goldText)">INSTITUTE</tspan>
                   </text>
-                  
-                  <text x="135" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" fill="#A0AEC0" letter-spacing="4">
-                    MANDANGAD <tspan fill="#FFE259" font-weight="800">(S.I.M.)</tspan>
+                  <text x="135" y="70" font-family="sans-serif" font-size="15" font-weight="700" fill="#A0AEC0">
+                    MANDANGAD <tspan fill="#FFE259">(S.I.M.)</tspan>
                   </text>
-                  
-                  <!-- NEW DEDICATED SLOGAN FOCUS BANNER -->
                   <g class="motto-banner" transform="translate(135, 84)">
                     <rect x="0" y="0" width="485" height="28" rx="4" fill="#172a45" stroke="url(#goldText)" stroke-width="1.5"/>
-                    <text x="15" y="19" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">
-                      Your Doubts, Our Mission... <tspan fill="#FFE259" font-weight="900">YES, I'M THERE!</tspan>
+                    <text x="15" y="19" font-family="sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">
+                      Your Doubts, Our Mission... <tspan fill="#FFE259">YES, I'M THERE!</tspan>
                     </text>
                   </g>
                 </svg>
             </div>
             
             <button class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
 
             <nav id="navbar">
@@ -601,15 +222,12 @@
                     <li><a href="#home" onclick="closeMenu()">Home</a></li>
                     <li><a href="#vision-mission" onclick="closeMenu()">Vision & Mission</a></li>
                     <li><a href="#message" onclick="closeMenu()">Why Choose Us?</a></li>
-                    <li><a href="#regular" onclick="closeMenu()">Regular</a></li>
-                    <li><a href="#special" onclick="closeMenu()">Skills</a></li>
-                    <li><a href="#exams" onclick="closeMenu()">Exams</a></li>
-                    <li><a href="#enquiry" onclick="closeMenu()">Enquiry</a></li>
+                    <li><a href="#enquiry" onclick="closeMenu()">Enquiry Form</a></li>
                     <li class="dropdown" id="adminDropdown">
-                        <a href="javascript:void(0)" onclick="toggleAdminDropdown()" style="color: #ffe259;">Admin ▾</a>
+                        <a href="javascript:void(0)" onclick="toggleAdminDropdown()" style="color: #ffe259;">Admin Panel ▾</a>
                         <div class="dropdown-content">
                             <a href="javascript:void(0)" onclick="accessAdmin('enquiry')">📥 Enquiry Dashboard</a>
-                            <a href="javascript:void(0)" onclick="accessAdmin('fees')">💰 Fee Ledger & Calc</a>
+                            <a href="javascript:void(0)" onclick="accessAdmin('admissions')">🎓 Student Directory & Fees</a>
                         </div>
                     </li>
                 </ul>
@@ -617,18 +235,11 @@
         </div>
     </header>
 
-    <!-- Photo Slider Box -->
     <div class="hero-container-box" id="home">
         <div class="hero-slider-container">
-            <div class="slide active">
-                <img src="WhatsApp Image 2026-06-06 at 19.20.02 (1).jpeg" alt="Shree Institute Banner 1">
-            </div>
-            <div class="slide">
-                <img src="WhatsApp Image 2026-06-06 at 19.20.02.jpeg" alt="Shree Institute Banner 2">
-            </div>
-            <div class="slide">
-                <img src="WhatsApp Image 2026-06-06 at 19.20.03.jpeg" alt="Shree Institute Banner 3">
-            </div>
+            <div class="slide active"><img src="WhatsApp Image 2026-06-06 at 19.20.02 (1).jpeg"></div>
+            <div class="slide"><img src="WhatsApp Image 2026-06-06 at 19.20.02.jpeg"></div>
+            <div class="slide"><img src="WhatsApp Image 2026-06-06 at 19.20.03.jpeg"></div>
         </div>
         <div class="hero-banner-info">
             <h2>Shree Institute, Mandangad</h2>
@@ -638,125 +249,38 @@
 
     <div class="container">
         
-        <!-- VISION & MISSION SECTION -->
         <section id="vision-mission">
             <h3>👁️ Our Vision & Mission</h3>
             <div class="grid">
-                <div class="vision-mission-box">
+                <div class="card">
                     <h4>🌟 Our Vision</h4>
-                    <p>To empower every student in rural areas by providing quality, modern, and competitive education to face future challenges, and making Shree Institute a leading hub of educational excellence.</p>
+                    <p>To empower every student in rural areas by providing quality, modern, and competitive education.</p>
                 </div>
-                <div class="vision-mission-box">
+                <div class="card">
                     <h4>🎯 Our Mission</h4>
-                    <p>To develop the hidden talents of students, eliminate the fear of studies by teaching in a systematic and easy way, and lead them to the pinnacle of success in competitive exams with a tradition of 100% results.</p>
+                    <p>To develop the hidden talents of students and lead them to the pinnacle of success with a tradition of 100% results.</p>
                 </div>
             </div>
         </section>
 
-        <!-- DIRECTOR PROFILE SECTION -->
-        <section id="message">
-            <h3>📢 Director's Profile & Invitation</h3>
-            <div class="director-layout-box">
-                <div class="director-photo-container">
-                    <img src="WhatsApp Image 2026-06-05 at 08.27.16.jpeg" alt="Mr. Mahesh Sutar Sir" class="director-photo">
-                </div>
-                <div class="director-details-container">
-                    <div class="grid">
-                        <div class="effective-msg-box">
-                            <h4>Secure Your Child's Bright Future Today!</h4>
-                            <p>Welcome to <strong>Shree Institute, Mandangad</strong>. Our scientifically proven methodology guarantees a <strong>100% Success Result</strong> for our students by turning complex subjects into enjoyable learning experiences.</p>
-                            <div class="highlight-badge">🔥 ADMISSIONS OPEN FOR THE NEW BATCH! Limited Seats Available!</div>
-                        </div>
-                        <div>
-                            <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">Our High-Performance Programs:</p>
-                            <ul class="course-bullets">
-                                <li>Regular Classes (1st to 10th Std - MSBTE/CBSE)</li>
-                                <li>Proactive Abacus & Brain Development</li>
-                                <li>Pro VedicMaths Mastery</li>
-                                <li>Prowrite Hastakshar Handwriting Classes</li>
-                                <li>Elite Coaching for Scholarship, Navodaya, NMMS</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #dee2e6;">
-                <p style="font-size: 18px; font-weight: bold; color: #102a43;">- Mr. Mahesh Sutar Sir (Director)</p>
-                <p style="margin-top: 5px; font-weight: 500;">📞 Call Now: <a href="tel:8983383836" class="phone-link">8983383836</a></p>
-            </div>
-        </section>
-
-        <section id="regular">
-            <h3>📖 Regular Classes (1st to 10th Std)</h3>
-            <div class="grid">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=500" class="section-img">
-                    <h4>Science & Experiments</h4>
-                    <p>Simplifying science concepts through exciting practical experiments.</p>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=500" class="section-img">
-                    <h4>Maths & English</h4>
-                    <p>Mastering English grammar and Mathematics theorems easily.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="special">
-            <h3>✨ Our Special Skill Courses</h3>
-            <div class="grid">
-                <div class="card">
-                    <h4>Proactive Abacus</h4>
-                    <p>Stimulate mental power and rapid calculation skills.</p>
-                </div>
-                <div class="card">
-                    <h4>Pro VedicMaths</h4>
-                    <p>Solve complex mathematical equations within seconds.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="exams">
-            <h3>🏆 Competitive Exams</h3>
-            <div class="grid">
-                <div class="card">
-                    <h4>Scholarship & Navodaya</h4>
-                    <p>Perfect training and standard coaching for 5th and 8th Std competitive tests.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ENQUIRY SECTION -->
+        <!-- PUBLIC ENQUIRY FORM -->
         <section id="enquiry">
-            <h3>📝 Admission Enquiry Form</h3>
-            
+            <h3>📝 Student Admission Enquiry Form</h3>
             <div class="flash-announcement-bar">
                 <div class="flash-announcement-label">🔥 ADMISSION OPEN</div>
-                <div class="flash-scroller-content">
-                    <marquee behavior="scroll" direction="left" scrollamount="6">
-                        🎯 Shree Institute Mandangad: Limited seats available for the new batch! Fill the form below to secure admission and send via WhatsApp! 🚀
-                    </marquee>
-                </div>
+                <marquee behavior="scroll" direction="left" scrollamount="6">
+                    🎯 Shree Institute Mandangad: Fill the form below to secure admission and send via WhatsApp! 🚀
+                </marquee>
             </div>
 
             <form id="enquiryForm" onsubmit="event.preventDefault(); processEnquiry();">
                 <div class="grid">
-                    <div class="form-group">
-                        <label>Student Full Name</label>
-                        <input type="text" id="enqName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Parent's Mobile Number</label>
-                        <input type="tel" id="enqPhone" required pattern="[0-9]{10}">
-                    </div>
-                    <div class="form-group">
-                        <label>Current Standard</label>
-                        <input type="text" id="enqStd" required>
-                    </div>
+                    <div class="form-group"><label>Student Full Name</label><input type="text" id="enqName" required></div>
+                    <div class="form-group"><label>Parent's Mobile Number</label><input type="tel" id="enqPhone" required pattern="[0-9]{10}"></div>
+                    <div class="form-group"><label>Current Standard</label><input type="text" id="enqStd" required></div>
                     <div class="form-group">
                         <label>Select Board</label>
                         <select id="enqBoard" required>
-                            <option value="" disabled selected>--- Choose ---</option>
                             <option value="MSBTE">MSBTE</option>
                             <option value="CBSE">CBSE</option>
                         </select>
@@ -764,20 +288,15 @@
                     <div class="form-group">
                         <label>Select Medium</label>
                         <select id="enqMedium" required>
-                            <option value="" disabled selected>--- Choose ---</option>
                             <option value="Semi-English">Semi-English</option>
                             <option value="Marathi">Marathi</option>
                             <option value="English">English</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="date" id="enqDob" required>
-                    </div>
+                    <div class="form-group"><label>Date of Birth</label><input type="date" id="enqDob" required></div>
                     <div class="form-group">
                         <label>Select Course</label>
                         <select id="enqCourse" required>
-                            <option value="" disabled selected>--- Choose ---</option>
                             <option value="Regular Class">Regular Class</option>
                             <option value="Scholarship Exam">Scholarship Exam</option>
                             <option value="Navodaya JNV">Navodaya JNV</option>
@@ -786,12 +305,12 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" style="width: 100%; margin-top: 15px; background-color: #25d366;">🚀 Submit & Send to WhatsApp</button>
+                <button type="submit" style="width: 100%; margin-top: 15px; background-color: #25d366;">🚀 Submit & Send Enquiry to WhatsApp</button>
             </form>
         </section>
     </div>
 
-    <!-- --- ADMIN PANEL MODAL --- -->
+    <!-- --- ADMIN DYNAMIC CONTROL PANEL MODAL --- -->
     <div class="admin-modal" id="adminModal">
         <div class="admin-modal-content">
             <div class="admin-modal-header">
@@ -799,7 +318,33 @@
                 <button class="close-modal-btn" onclick="closeAdminModal()">&times;</button>
             </div>
             <div class="admin-modal-body" id="modalBody">
+                <!-- Content will dynamically load here -->
             </div>
+        </div>
+    </div>
+
+    <!-- HIDDEN RECEIPT PRINTER LAYOUT -->
+    <div id="receiptTemplate">
+        <div style="text-align: center; border-bottom: 2px dashed #000; padding-bottom: 10px;">
+            <h2>SHREE INSTITUTE, MANDANGAD</h2>
+            <p>Your Doubts, Our Mission... YES, I'M THERE!</p>
+            <p>Mo. 8983383836</p>
+        </div>
+        <div style="margin: 20px 0; line-height: 1.8;">
+            <p><strong>Receipt No:</strong> <span id="rcptNo"></span></p>
+            <p><strong>Date:</strong> <span id="rcptDate"></span></p>
+            <p><strong>Student ID:</strong> <span id="rcptId"></span></p>
+            <p><strong>Name:</strong> <span id="rcptName"></span></p>
+            <p><strong>Course / Std:</strong> <span id="rcptCourse"></span></p>
+            <p><strong>Fee Structure:</strong> <span id="rcptType"></span></p>
+            <hr style="border-top: 1px dashed #000; margin: 10px 0;">
+            <p><strong>Total Fee Amount:</strong> ₹<span id="rcptTotal"></span></p>
+            <p><strong>Paid Amount:</strong> ₹<span id="rcptPaid"></span></p>
+            <p style="color: red;"><strong>Remaining Pending Balance:</strong> ₹<span id="rcptPending"></span></p>
+        </div>
+        <div style="text-align: center; margin-top: 30px; border-top: 2px dashed #000; padding-top: 10px;">
+            <p>Thank You for Your Payment!</p>
+            <p><em>Mahesh Sutar Sir (Director)</em></p>
         </div>
     </div>
 
@@ -811,7 +356,9 @@
         function toggleMenu() { document.getElementById('navbar').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navbar').classList.remove('active'); }
         function toggleAdminDropdown() { document.getElementById('adminDropdown').classList.toggle('open'); }
+        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
 
+        // Hero Image Slider Code
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         setInterval(() => {
@@ -822,6 +369,7 @@
             }
         }, 4000);
 
+        // Process Enquiry Form
         function processEnquiry() {
             const name = document.getElementById('enqName').value;
             const phone = document.getElementById('enqPhone').value;
@@ -831,38 +379,343 @@
             const dob = document.getElementById('enqDob').value;
             const course = document.getElementById('enqCourse').value;
 
-            let localData = JSON.parse(localStorage.getItem('enquiries')) || [];
-            localData.push({ name, phone, std, board, medium, dob, course });
-            localStorage.setItem('enquiries', JSON.stringify(localData));
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+            enquiries.push({ name, phone, std, board, medium, dob, course, date: new Date().toLocaleDateString() });
+            localStorage.setItem('enquiries', JSON.stringify(enquiries));
 
-            const message = `Hello Mahesh Sir,\nI want to enquire about admission.\n\n*Details:*\n📝 *Name:* ${name}\n📞 *Mobile:* ${phone}\n🏫 *Std:* ${std}\n🏛️ *Board:* ${board}\n🗣️ *Medium:* ${medium}\n📅 *DOB:* ${dob}\n🎯 *Course:* ${course}`;
-            const url = "https://api.whatsapp.com/send?phone=918983383836&text=" + encodeURIComponent(message);
-            
+            const message = `Hello Mahesh Sir,\nI want to enquire about admission.\n\n*Student Details:*\n📝 *Name:* ${name}\n📞 *Mobile:* ${phone}\n🏫 *Std:* ${std}\n🏛️ *Board:* ${board}\n🗣️ *Medium:* ${medium}\n📅 *DOB:* ${dob}\n🎯 *Course:* ${course}`;
+            window.open("https://api.whatsapp.com/send?phone=918983383836&text=" + encodeURIComponent(message), '_blank');
             document.getElementById('enquiryForm').reset();
-            window.open(url, '_blank');
         }
 
-        function closeAdminModal() {
-            document.getElementById('adminModal').style.display = 'none';
-        }
-
+        // Security gate for admin
         function accessAdmin(type) {
             closeMenu();
             document.getElementById('adminDropdown').classList.remove('open');
-            
             setTimeout(() => {
                 const password = prompt("🔐 Enter Admin Password:");
                 if (password === '8983') {
                     showAdminDashboard(type);
                 } else if (password !== null) {
-                    alert('❌ Wrong Password!');
+                    alert('❌ Access Denied: Wrong Password!');
                 }
             }, 100);
         }
 
+        // Master Route Controller for Admin Dashboard Panels
         function showAdminDashboard(type) {
             const modal = document.getElementById('adminModal');
-            // ... (बाकीचे डॅशबोर्डचे लॉजिक पुढे सुरू राहील)
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            modal.style.display = 'flex';
+
+            if (type === 'enquiry') {
+                title.innerText = "📥 Student Enquiries Dashboard";
+                let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+                
+                if(enquiries.length === 0) {
+                    body.innerHTML = "<p>No active enquiries found.</p>";
+                    return;
+                }
+
+                let html = `<div class="admin-table-wrapper"><table class="admin-table">
+                    <tr><th>Date</th><th>Name</th><th>Phone</th><th>Class</th><th>Course</th><th>Action</th></tr>`;
+                enquiries.forEach((item, index) => {
+                    html += `<tr>
+                        <td>${item.date || ''}</td>
+                        <td><strong>${item.name}</strong></td>
+                        <td>${item.phone}</td>
+                        <td>${item.std} (${item.medium})</td>
+                        <td><span style="color:#e8590c; font-weight:bold;">${item.course}</span></td>
+                        <td><button class="btn-success" style="padding:5px 10px; font-size:12px;" onclick="convertEnqToAdmission(${index})">🎓 Accept Admission</button></td>
+                    </tr>`;
+                });
+                html += `</table></div>`;
+                body.innerHTML = html;
+
+            } else if (type === 'admissions') {
+                title.innerText = "🎓 Student Ledger & Registration Hub";
+                renderAdmissionsTab(body);
+            }
+        }
+
+        // Render Admissions and Fee Dashboard Interface
+        function renderAdmissionsTab(body) {
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+
+            let html = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                <button class="btn-success" onclick="openNewAdmissionForm()">➕ Register Direct New Student</button>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="searchBox" placeholder="🔍 Search by ID or Student Name..." onkeyup="filterStudents()" style="width:280px; padding:8px;">
+                </div>
+            </div>
+            
+            <h4>📋 Registered Student Directory</h4>
+            <div class="admin-table-wrapper">
+                <table class="admin-table" id="studentTable">
+                    <thead>
+                        <tr><th>Student ID</th><th>Name</th><th>Standard/Course</th><th>Fee Type</th><th>Financials (Total / Paid / Balance)</th><th>Manage Profile</th></tr>
+                    </thead>
+                    <tbody id="studentTableBody">`;
+            
+            if(students.length === 0) {
+                html += `<tr><td colspan="6" style="text-align:center;">No students registered yet. Click button above to add.</td></tr>`;
+            } else {
+                students.forEach((st, idx) => {
+                    let pending = parseFloat(st.totalFee) - parseFloat(st.paidFee);
+                    html += `<tr>
+                        <td><mark><strong>${st.id}</strong></mark></td>
+                        <td><strong>${st.name}</strong><br><small>📞 ${st.phone}</small></td>
+                        <td>${st.std} - ${st.course}</td>
+                        <td><span style="font-weight:bold; color:#6f2dbd;">${st.feeType}</span></td>
+                        <td>
+                            Total: ₹${st.totalFee}<br>
+                            Paid: <span style="color:green;font-weight:bold;">₹${st.paidFee}</span><br>
+                            Bal: <span style="color:red;font-weight:bold;">₹${pending}</span>
+                        </td>
+                        <td>
+                            <button class="btn-primary" style="padding:5px 10px; font-size:12px;" onclick="openFeeUpdateModal('${st.id}')">💰 Update Fees / Print Receipt</button>
+                        </td>
+                    </tr>`;
+                });
+            }
+            
+            html += `</tbody></table></div>`;
+            body.innerHTML = html;
+        }
+
+        // Setup Single Window Form View for Manual Admissions with Autocomplete Feature
+        function openNewAdmissionForm() {
+            const body = document.getElementById('modalBody');
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+
+            let selectOptions = `<option value="">-- Choose Profile to Autofill (Optional) --</option>`;
+            enquiries.forEach((enq, idx) => {
+                selectOptions += `<option value="${idx}">${enq.name} (${enq.course})</option>`;
+            });
+
+            let formHtml = `
+            <button onclick="showAdminDashboard('admissions')" style="margin-bottom:15px; background-color:#6c757d;">⬅️ Back to Student List</button>
+            <div style="background:#f8fafc; padding:20px; border-radius:8px; border:1px solid #cbd5e1;">
+                <h3 style="margin-bottom:15px; color:#102a43;">Register Student Details</h3>
+                
+                <div class="form-group" style="background:#fff9db; padding:10px; border-radius:5px; margin-bottom:20px;">
+                    <label>⚡ Autofill From Enquiries List?</label>
+                    <select id="autofillSelect" onchange="triggerAutofill(this.value)">${selectOptions}</select>
+                </div>
+
+                <div class="grid">
+                    <div class="form-group"><label>Full Name</label><input type="text" id="admName" required></div>
+                    <div class="form-group"><label>Parent Mobile</label><input type="tel" id="admPhone" required></div>
+                    <div class="form-group"><label>Standard</label><input type="text" id="admStd" required></div>
+                    <div class="form-group"><label>Board</label><input type="text" id="admBoard" value="MSBTE"></div>
+                    <div class="form-group"><label>Medium</label><input type="text" id="admMedium" value="Semi-English"></div>
+                    <div class="form-group"><label>Date of Birth</label><input type="date" id="admDob"></div>
+                    <div class="form-group"><label>Course Allocated</label><input type="text" id="admCourse" required></div>
+                    <div class="form-group">
+                        <label>Fee Payment Type</label>
+                        <select id="admFeeType">
+                            <option value="Monthly Fee">Monthly Fee</option>
+                            <option value="Yearly / Term-Wise">Yearly / Term-Wise</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Total Agreed Fees Amount (₹)</label><input type="number" id="admTotalFee" value="0"></div>
+                    <div class="form-group"><label>Initial Paid Fees Amount (₹)</label><input type="number" id="admPaidFee" value="0"></div>
+                </div>
+                <button class="btn-success" style="width:100%; margin-top:15px;" onclick="saveNewAdmission()">💾 Confirm Admission & Generate ID</button>
+            </div>`;
+            body.innerHTML = formHtml;
+        }
+
+        // Convert Enquiry Directly from Table Hook
+        function convertEnqToAdmission(index) {
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+            let item = enquiries[index];
+            openNewAdmissionForm();
+            
+            // Populating data
+            document.getElementById('admName').value = item.name;
+            document.getElementById('admPhone').value = item.phone;
+            document.getElementById('admStd').value = item.std;
+            document.getElementById('admBoard').value = item.board;
+            document.getElementById('admMedium').value = item.medium;
+            document.getElementById('admDob').value = item.dob;
+            document.getElementById('admCourse').value = item.course;
+        }
+
+        // Trigger Autofill Event when select list changes
+        function triggerAutofill(index) {
+            if(index === "") return;
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+            let item = enquiries[index];
+
+            document.getElementById('admName').value = item.name;
+            document.getElementById('admPhone').value = item.phone;
+            document.getElementById('admStd').value = item.std;
+            document.getElementById('admBoard').value = item.board;
+            document.getElementById('admMedium').value = item.medium;
+            document.getElementById('admDob').value = item.dob;
+            document.getElementById('admCourse').value = item.course;
+        }
+
+        // Save Form State to Local Storage Database & Increment Unique Auto Generated Serial ID Token
+        function saveNewAdmission() {
+            const name = document.getElementById('admName').value;
+            const phone = document.getElementById('admPhone').value;
+            const std = document.getElementById('admStd').value;
+            const board = document.getElementById('admBoard').value;
+            const medium = document.getElementById('admMedium').value;
+            const dob = document.getElementById('admDob').value;
+            const course = document.getElementById('admCourse').value;
+            const feeType = document.getElementById('admFeeType').value;
+            const totalFee = document.getElementById('admTotalFee').value || 0;
+            const paidFee = document.getElementById('admPaidFee').value || 0;
+
+            if(!name || !phone) { alert("Please complete required details!"); return; }
+
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            let currentIdIndex = students.length + 1;
+            let generatedId = `SIM-2026-${String(currentIdIndex).padStart(3, '0')}`;
+
+            students.push({
+                id: generatedId, name, phone, std, board, medium, dob, course, feeType, totalFee, paidFee
+            });
+            localStorage.setItem('students', JSON.stringify(students));
+            alert(`🎉 Admission Successful! Student ID: ${generatedId}`);
+            showAdminDashboard('admissions');
+        }
+
+        // Live Real-Time Search Filter Function for Directories UI Engine
+        function filterStudents() {
+            let input = document.getElementById('searchBox').value.toUpperCase();
+            let table = document.getElementById('studentTable');
+            let tr = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < tr.length; i++) {
+                let tdId = tr[i].getElementsByTagName('td')[0];
+                let tdName = tr[i].getElementsByTagName('td')[1];
+                if (tdId || tdName) {
+                    let txtId = tdId.textContent || tdId.innerText;
+                    let txtName = tdName.textContent || tdName.innerText;
+                    if (txtId.toUpperCase().indexOf(input) > -1 || txtName.toUpperCase().indexOf(input) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        // Render Student Profile Ledger For Specific Fee Payments Handling
+        function openFeeUpdateModal(studentId) {
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            let st = students.find(s => s.id === studentId);
+            if(!st) return;
+
+            let pending = parseFloat(st.totalFee) - parseFloat(st.paidFee);
+            const body = document.getElementById('modalBody');
+
+            let html = `
+            <button onclick="showAdminDashboard('admissions')" style="margin-bottom:15px; background-color:#6c757d;">⬅️ Back to Student List</button>
+            <div style="background:#fff; padding:20px; border-radius:8px; border:1px solid #007bff;">
+                <h3 style="color:#102a43; border-bottom:2px solid #f59f00; padding-bottom:5px;">💰 Fees Account Management Profile</h3>
+                <p style="margin-top:10px;"><strong>Student ID:</strong> ${st.id} | <strong>Name:</strong> ${st.name}</p>
+                <p><strong>Course Target:</strong> ${st.std} (${st.course}) | <strong>Fee Billing Scheme:</strong> ${st.feeType}</p>
+                
+                <hr style="margin:15px 0;">
+                
+                <div style="background:#f1f5f9; padding:15px; border-radius:6px; margin-bottom:20px;">
+                    <div class="grid">
+                        <div><p>Total Class Fees Setup:</p><strong>₹${st.totalFee}</strong></div>
+                        <div><p>Total Cumulative Fees Paid:</p><strong style="color:green;">₹${st.paidFee}</strong></div>
+                        <div><p>Current Account Balance Due:</p><strong style="color:red;">₹${pending}</strong></div>
+                    </div>
+                </div>
+
+                <div style="background:#fff4e6; padding:15px; border-radius:6px; border-left:5px solid #e8590c;">
+                    <h4>➕ Record New Collection Payment</h4>
+                    <div class="grid" style="margin-top:10px;">
+                        <div class="form-group">
+                            <label>Amount Now Receiving (₹)</label>
+                            <input type="number" id="amtReceived" value="0">
+                        </div>
+                    </div>
+                    <button class="btn-success" onclick="executePaymentTransaction('${st.id}')">💾 Post Payment & Generate Receipt Docs</button>
+                </div>
+            </div>`;
+            body.innerHTML = html;
+        }
+
+        // Execute Mathematical Balance Calculation and Save Final Transactions State
+        function executePaymentTransaction(studentId) {
+            let amt = parseFloat(document.getElementById('amtReceived').value) || 0;
+            if (amt <= 0) { alert("Please input valid amount!"); return; }
+
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            let index = students.findIndex(s => s.id === studentId);
+            
+            let currentPaid = parseFloat(students[index].paidFee) || 0;
+            let total = parseFloat(students[index].totalFee) || 0;
+            let newPaid = currentPaid + amt;
+            let finalPending = total - newPaid;
+
+            students[index].paidFee = newPaid;
+            localStorage.setItem('students', JSON.stringify(students));
+
+            alert("💰 Transaction Posted Successfully!");
+
+            // Trigger Instant Receipt Variables Pipeline
+            document.getElementById('rcptNo').innerText = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('rcptDate').innerText = new Date().toLocaleDateString();
+            document.getElementById('rcptId').innerText = students[index].id;
+            document.getElementById('rcptName').innerText = students[index].name;
+            document.getElementById('rcptCourse').innerText = `${students[index].std} - ${students[index].course}`;
+            document.getElementById('rcptType').innerText = students[index].feeType;
+            document.getElementById('rcptTotal').innerText = total;
+            document.getElementById('rcptPaid').innerText = newPaid;
+            document.getElementById('rcptPending').innerText = finalPending;
+
+            // Trigger Whatsapp notification construct string builder
+            let billingClause = "";
+            if(students[index].feeType === "Monthly Fee") {
+                billingClause = `\n📌 *महत्त्वाची सूचना:* ही आपली *Monthly Fee* असल्याने कृपया प्रत्येक महिन्याच्या *१० तारखेच्या आत* फी जमा करावी.`;
+            } else {
+                billingClause = `\n📌 *महत्त्वाची सूचना:* ही आपली *Term/Yearly Fee* नियमांनुसार वेळेत जमा करावी.`;
+            }
+
+            let waMsg = `प्रिय पालक,\n*Shree Institute, Mandangad* कडून विद्यार्थ्याची फी पावती खालीलप्रमाणे:\n\n🧑‍द्यार्थी नाव: *${students[index].name}*\n🆔 Student ID: *${students[index].id}*\n\n📊 *फी तपशील:*\n💵 एकूण फी: *₹${total}*\n✅ आतापर्यंत भरलेली फी: *₹${newPaid}*\n🛑 शिल्लक बाकी फी: *₹${finalPending}*\n${billingClause}\n\nधन्यवाद!\n*महेश सुतार सर (डायरेक्टर)*\n📞 8983383836`;
+            let waUrl = "https://api.whatsapp.com/send?phone=91" + students[index].phone + "&text=" + encodeURIComponent(waMsg);
+
+            // Re-render Receipt Prompt View Screen
+            const body = document.getElementById('modalBody');
+            body.innerHTML = `
+                <div style="text-align:center; padding:30px;">
+                    <h2 style="color:green;">💸 Payment Posted Successfully!</h2>
+                    <p style="margin:15px 0;">What would you like to do next?</p>
+                    <div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+                        <a href="${waUrl}" target="_blank" class="btn-success" style="padding:12px 20px; text-decoration:none; border-radius:6px; font-weight:bold;">💬 Send Fee Alert Message on WhatsApp</a>
+                        <button class="btn-primary" onclick="downloadReceiptPDF('${students[index].id}')">📄 Download & Print PDF Receipt</button>
+                        <button onclick="showAdminDashboard('admissions')" style="background:#6c757d;">⬅️ Return to Dashboard</button>
+                    </div>
+                </div>`;
+        }
+
+        // PDF Generation Framework Integration Method
+        function downloadReceiptPDF(studentId) {
+            const element = document.getElementById('receiptTemplate');
+            element.style.display = "block"; // Temporarily make visible for render viewport capturing 
+            const opt = {
+                margin:       1,
+                filename:     `Receipt_${studentId}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save().then(()=>{
+                element.style.display = "none"; // rehide
+            });
         }
     </script>
 </body>
