@@ -31,27 +31,35 @@
             position: relative;
         }
         
-        /* 🔥 FLOATING ACTION ADMISSION BUTTON AT TOP */
-        .top-admission-bar {
-            background: linear-gradient(90deg, #ff4500, #ff8c00);
+        /* 🔥 NEW HIGHLY ATTRACTIVE FLOATING ADMISSION BUTTON */
+        .floating-admission-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #ff4500, #e8590c);
             color: white;
-            text-align: center;
-            padding: 12px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            position: sticky;
-            top: 0;
-            z-index: 1001;
-            animation: pulseBg 2s infinite;
-            display: block;
             text-decoration: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 16px;
+            box-shadow: 0 10px 25px rgba(232, 89, 12, 0.5);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 3px solid #ffe259;
+            animation: bounceGlow 2s infinite ease-in-out;
+            transition: transform 0.3s;
         }
-        @keyframes pulseBg {
-            0% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
-            100% { filter: brightness(1); }
+        .floating-admission-btn:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #e8590c, #ff4500);
+        }
+        @keyframes bounceGlow {
+            0% { transform: translateY(0); box-shadow: 0 10px 25px rgba(232, 89, 12, 0.5); }
+            50% { transform: translateY(-12px); box-shadow: 0 15px 35px rgba(255, 69, 0, 0.7); }
+            100% { transform: translateY(0); box-shadow: 0 10px 25px rgba(232, 89, 12, 0.5); }
         }
 
         header {
@@ -59,7 +67,7 @@
             color: white;
             padding: 10px 0;
             position: sticky;
-            top: 45px; /* Adjusted due to top bar */
+            top: 0;
             z-index: 1000;
             box-shadow: 0 5px 25px rgba(0,0,0,0.35);
             border-bottom: 4px solid #f59f00;
@@ -121,10 +129,18 @@
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
         .card h4 { color: #102a43; margin-bottom: 10px; font-size: 18px; }
         
+        /* 🔔 DIRECTOR SECTION STYLES RESTORED */
         .director-layout-box { display: flex; flex-direction: row; gap: 25px; align-items: flex-start; }
         .director-photo-container { flex: 0 0 190px; text-align: center; }
         .director-photo { width: 190px; height: 210px; object-fit: cover; border-radius: 10px; border: 3px solid #102a43; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .director-details-container { flex: 1; }
+        .effective-msg-box h4 { color: #d9480f; font-size: 20px; margin-bottom: 15px; text-transform: uppercase; font-weight: 700; }
+        .effective-msg-box p { font-size: 15px; line-height: 1.7; color: #444; margin-bottom: 15px; }
+        .course-bullets { list-style: none; margin-bottom: 20px; }
+        .course-bullets li { font-size: 15px; font-weight: 600; color: #102a43; margin-bottom: 10px; display: flex; align-items: flex-start; }
+        .course-bullets li::before { content: "⚡"; margin-right: 10px; }
+        .highlight-badge { background-color: #e6f4ea; color: #137333; padding: 12px; border-radius: 6px; font-weight: bold; border-left: 5px solid #137333; margin-bottom: 15px; font-size: 15px; }
+        .phone-link { color: #102a43; text-decoration: none; font-weight: bold; }
 
         .flash-announcement-bar { background: linear-gradient(90deg, #d9480f, #e8590c); color: white; padding: 12px; border-radius: 8px; margin-bottom: 22px; font-weight: bold; font-size: 15px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(232, 89, 12, 0.25); border-left: 6px solid #ffe259; overflow: hidden; }
         .flash-announcement-label { background: #ffe259; color: #102a43; padding: 5px 12px; border-radius: 4px; font-size: 13px; text-transform: uppercase; font-weight: 800; margin-right: 15px; white-space: nowrap; }
@@ -170,14 +186,15 @@
             .dropdown.open .dropdown-content { display: block; }
             .hero-slider-container { height: 320px; }
             .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
+            .floating-admission-btn { bottom: 15px; right: 15px; padding: 12px 18px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 🔥 CLICKABLE EFFECTIVE TOP BANNER -->
-    <a href="#enquiry" class="top-admission-bar">
-        ⚡ 🔥 ADMISSION OPEN! Please Click Here To Open Admission Form & Secure Your Seat! 🎯
+    <!-- 🔥 FLOATING HIGHLY ATTRACTIVE ACTION ADMISSION BUTTON -->
+    <a href="#enquiry" class="floating-admission-btn">
+        🔥 Register Now! (Admission Open) 🎯
     </a>
 
     <header>
@@ -260,6 +277,39 @@
                     <h4>🎯 Our Mission</h4>
                     <p>To develop the hidden talents of students and lead them to the pinnacle of success with a tradition of 100% results.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- 🔔 DIRECTOR PROFILE SECTION (FULLY RESTORED) -->
+        <section id="message">
+            <h3>📢 Director's Profile & Invitation</h3>
+            <div class="director-layout-box">
+                <div class="director-photo-container">
+                    <img src="WhatsApp Image 2026-06-05 at 08.27.16.jpeg" alt="Mr. Mahesh Sutar Sir" class="director-photo">
+                </div>
+                <div class="director-details-container">
+                    <div class="grid">
+                        <div class="effective-msg-box">
+                            <h4>Secure Your Child's Bright Future Today!</h4>
+                            <p>Welcome to <strong>Shree Institute, Mandangad</strong>. Our scientifically proven methodology guarantees a <strong>100% Success Result</strong> for our students by turning complex subjects into enjoyable learning experiences.</p>
+                            <div class="highlight-badge">🔥 ADMISSIONS OPEN FOR THE NEW BATCH! Limited Seats Available!</div>
+                        </div>
+                        <div>
+                            <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">Our High-Performance Programs:</p>
+                            <ul class="course-bullets">
+                                <li>Regular Classes (1st to 10th Std - MSBTE/CBSE)</li>
+                                <li>Proactive Abacus & Brain Development</li>
+                                <li>Pro VedicMaths Mastery</li>
+                                <li>Prowrite Handwriting Classes</li>
+                                <li>Elite Coaching for Scholarship, Navodaya, NMMS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #dee2e6;">
+                <p style="font-size: 18px; font-weight: bold; color: #102a43;">- Mr. Mahesh Sutar Sir (Director)</p>
+                <p style="margin-top: 5px; font-weight: 500;">📞 Call Now: <a href="tel:8983383836" class="phone-link">8983383836</a></p>
             </div>
         </section>
 
@@ -442,8 +492,7 @@
         // Render Admissions and Fee Dashboard Interface
         function renderAdmissionsTab(body) {
             let students = JSON.parse(localStorage.getItem('students')) || [];
-            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
-
+            
             let html = `
             <div style="display:flex; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                 <button class="btn-success" onclick="openNewAdmissionForm()">➕ Register Direct New Student</button>
@@ -535,7 +584,6 @@
             let item = enquiries[index];
             openNewAdmissionForm();
             
-            // Populating data
             document.getElementById('admName').value = item.name;
             document.getElementById('admPhone').value = item.phone;
             document.getElementById('admStd').value = item.std;
@@ -560,7 +608,7 @@
             document.getElementById('admCourse').value = item.course;
         }
 
-        // Save Form State to Local Storage Database & Increment Unique Auto Generated Serial ID Token
+        // Save Form State to Local Storage
         function saveNewAdmission() {
             const name = document.getElementById('admName').value;
             const phone = document.getElementById('admPhone').value;
@@ -587,7 +635,7 @@
             showAdminDashboard('admissions');
         }
 
-        // Live Real-Time Search Filter Function for Directories UI Engine
+        // Search Filter
         function filterStudents() {
             let input = document.getElementById('searchBox').value.toUpperCase();
             let table = document.getElementById('studentTable');
@@ -608,7 +656,7 @@
             }
         }
 
-        // Render Student Profile Ledger For Specific Fee Payments Handling
+        // Render Student Profile Ledger For Fee Payments
         function openFeeUpdateModal(studentId) {
             let students = JSON.parse(localStorage.getItem('students')) || [];
             let st = students.find(s => s.id === studentId);
@@ -648,7 +696,7 @@
             body.innerHTML = html;
         }
 
-        // Execute Mathematical Balance Calculation and Save Final Transactions State
+        // Execute Payment
         function executePaymentTransaction(studentId) {
             let amt = parseFloat(document.getElementById('amtReceived').value) || 0;
             if (amt <= 0) { alert("Please input valid amount!"); return; }
@@ -666,7 +714,7 @@
 
             alert("💰 Transaction Posted Successfully!");
 
-            // Trigger Instant Receipt Variables Pipeline
+            // Trigger Receipt Data Setup
             document.getElementById('rcptNo').innerText = Math.floor(100000 + Math.random() * 900000);
             document.getElementById('rcptDate').innerText = new Date().toLocaleDateString();
             document.getElementById('rcptId').innerText = students[index].id;
@@ -677,7 +725,6 @@
             document.getElementById('rcptPaid').innerText = newPaid;
             document.getElementById('rcptPending').innerText = finalPending;
 
-            // Trigger Whatsapp notification construct string builder
             let billingClause = "";
             if(students[index].feeType === "Monthly Fee") {
                 billingClause = `\n📌 *महत्त्वाची सूचना:* ही आपली *Monthly Fee* असल्याने कृपया प्रत्येक महिन्याच्या *१० तारखेच्या आत* फी जमा करावी.`;
@@ -688,7 +735,6 @@
             let waMsg = `प्रिय पालक,\n*Shree Institute, Mandangad* कडून विद्यार्थ्याची फी पावती खालीलप्रमाणे:\n\n🧑‍द्यार्थी नाव: *${students[index].name}*\n🆔 Student ID: *${students[index].id}*\n\n📊 *फी तपशील:*\n💵 एकूण फी: *₹${total}*\n✅ आतापर्यंत भरलेली फी: *₹${newPaid}*\n🛑 शिल्लक बाकी फी: *₹${finalPending}*\n${billingClause}\n\nधन्यवाद!\n*महेश सुतार सर (डायरेक्टर)*\n📞 8983383836`;
             let waUrl = "https://api.whatsapp.com/send?phone=91" + students[index].phone + "&text=" + encodeURIComponent(waMsg);
 
-            // Re-render Receipt Prompt View Screen
             const body = document.getElementById('modalBody');
             body.innerHTML = `
                 <div style="text-align:center; padding:30px;">
@@ -702,10 +748,10 @@
                 </div>`;
         }
 
-        // PDF Generation Framework Integration Method
+        // PDF Download
         function downloadReceiptPDF(studentId) {
             const element = document.getElementById('receiptTemplate');
-            element.style.display = "block"; // Temporarily make visible for render viewport capturing 
+            element.style.display = "block"; 
             const opt = {
                 margin:       1,
                 filename:     `Receipt_${studentId}.pdf`,
@@ -714,7 +760,7 @@
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
             html2pdf().set(opt).from(element).save().then(()=>{
-                element.style.display = "none"; // rehide
+                element.style.display = "none"; 
             });
         }
     </script>
