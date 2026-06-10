@@ -18,30 +18,41 @@
         }
         /* Header & Navigation */
         header {
-            background: linear-gradient(135deg, #102a43, #244a70);
+            background: linear-gradient(135deg, #061322, #16304d);
             color: white;
-            padding: 15px 0;
+            padding: 12px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            border-bottom: 3px solid #ffe259;
         }
         .nav-container {
-            width: 90%;
+            width: 94%;
             margin: auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .logo {
-            font-size: 28px; 
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #ffd700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        
+        /* Ultra Enhanced SIM Logo Container */
+        .logo-container {
+            width: 530px;
+            height: auto;
+            display: flex;
+            align-items: center;
         }
         
-        /* Mobile Menu Toggle Button */
+        /* Smooth Neon Text Pulse for 'YES I AM THERE' */
+        @keyframes goldGlowPulse {
+            0% { fill: #FFE259; filter: drop-shadow(0px 0px 2px #FF7300); }
+            50% { fill: #FFF; filter: drop-shadow(0px 0px 8px #FFE259); }
+            100% { fill: #FFE259; filter: drop-shadow(0px 0px 2px #FF7300); }
+        }
+        .motto-glow-text {
+            animation: goldGlowPulse 2.5s infinite ease-in-out;
+        }
+        
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -64,20 +75,20 @@
             align-items: center;
         }
         nav ul li {
-            margin-left: 20px;
+            margin-left: 15px;
             position: relative;
         }
         nav ul li a {
             color: white;
             text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 600;
             transition: color 0.3s;
             padding: 10px 0;
             display: inline-block;
         }
         nav ul li a:hover {
-            color: #ffd700;
+            color: #ffe259;
         }
 
         /* Admin Dropdown Styling */
@@ -90,7 +101,7 @@
             background-color: #ffffff;
             min-width: 180px;
             box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1001;
+            z-index: 1011;
             top: 100%;
             left: 0;
             border-radius: 6px;
@@ -107,100 +118,97 @@
             transition: background 0.3s;
         }
         .dropdown-content a:hover {
-            background-color: #ffd700;
+            background-color: #ffe259;
             color: #102a43;
         }
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        /* Rectangle Shape Background Slideshow */
+        /* Hero Container Box */
         .hero-container-box {
             width: 90%;
-            margin: 20px auto 0 auto;
+            max-width: 1000px;
+            margin: 25px auto 0 auto;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+        
+        /* Slider Container */
         .hero-slider-container {
             position: relative;
             width: 100%;
-            height: 380px;
+            height: 450px;
             overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            background-color: #eaeaea;
         }
+        
         .slide {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             opacity: 0;
-            transition: opacity 1.2s ease-in-out;
+            transition: opacity 1s ease-in-out;
             z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #102a43;
         }
         .slide.active {
             opacity: 1;
             z-index: 2;
         }
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .slide img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(16, 42, 67, 0.8), rgba(36, 74, 112, 0.8));
-        }
-        .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            text-align: center;
-            color: white;
-            width: 90%;
-            max-width: 800px;
-        }
-        .hero-content h2 {
-            font-size: 32px;
-            margin-bottom: 12px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-        }
-        .hero-content p {
-            font-size: 18px;
-            font-weight: bold;
-            color: #ffd700;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-            margin-bottom: 10px;
-        }
-        .success-tag {
-            display: inline-block;
-            background-color: #28a745;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 25px;
-            margin-top: 10px;
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            object-fit: contain;
         }
 
-        /* Main Content Sections */
+        /* Banner Info */
+        .hero-banner-info {
+            background: rgba(6, 19, 34, 0.95);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            margin-top: -4px;
+        }
+        .hero-banner-info h2 {
+            font-size: 32px;
+            color: #ffe259;
+            margin-bottom: 5px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero-banner-info p {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0f4f8;
+        }
+
+        /* Container & Sections */
         .container {
             width: 90%;
-            margin: 30px auto;
+            max-width: 1000px;
+            margin: 25px auto;
         }
         section {
             padding: 25px;
             border-radius: 12px;
             margin-bottom: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            scroll-margin-top: 90px;
+            scroll-margin-top: 110px;
         }
         
+        #vision-mission { background-color: #ffffff; border-left: 8px solid #ffe259; }
         #message { background-color: #ffffff; border-left: 8px solid #102a43; }
         #regular { background-color: #e3fafc; border-left: 8px solid #0c8599; }
         #special { background-color: #f3f0ff; border-left: 8px solid #6f2dbd; }
@@ -234,6 +242,24 @@
             margin-bottom: 10px;
             font-size: 18px;
         }
+        .vision-mission-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed #cbd5e1;
+        }
+        .vision-mission-box h4 {
+            color: #102a43;
+            font-size: 19px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .vision-mission-box p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #475569;
+        }
         .section-img {
             width: 100%;
             height: 180px;
@@ -242,6 +268,68 @@
             margin-bottom: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+
+        /* Director Layout Box */
+        .director-layout-box {
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            align-items: flex-start;
+        }
+        .director-photo-container {
+            flex: 0 0 190px;
+            text-align: center;
+        }
+        .director-photo {
+            width: 190px;
+            height: 210px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid #102a43;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .director-details-container {
+            flex: 1;
+        }
+
+        /* Flash Announcement Bar */
+        .flash-announcement-bar {
+            background: linear-gradient(90deg, #d9480f, #e8590c);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(232, 89, 12, 0.25);
+            border-left: 6px solid #ffe259;
+            overflow: hidden;
+        }
+        .flash-announcement-label {
+            background: #ffe259;
+            color: #102a43;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-right: 15px;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            animation: pulse-glow 1.5s infinite;
+        }
+        .flash-scroller-content {
+            width: 100%;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); box-shadow: 0 2px 8px rgba(255, 226, 89, 0.6); }
+            100% { transform: scale(1); }
+        }
+
         .form-group {
             margin-bottom: 15px;
         }
@@ -279,18 +367,18 @@
             font-weight: bold;
         }
         .phone-link:hover {
-            text-decoration: underline;
+            text-underline-position: under;
         }
         footer {
             text-align: center;
             padding: 25px;
-            background: #102a43;
+            background: #061322;
             color: white;
             margin-top: 40px;
             font-size: 14px;
+            border-top: 3px solid #ffe259;
         }
 
-        /* Effective Message Styles */
         .effective-msg-box h4 {
             color: #d9480f;
             font-size: 20px;
@@ -331,84 +419,112 @@
             font-size: 15px;
         }
 
-        /* ==========================================================================
-           MOBILE VIEW STYLES
-           ========================================================================== */
+        /* --- ADMIN PANEL MODAL --- */
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .admin-modal-content {
+            background-color: white;
+            width: 100%;
+            max-width: 900px;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .admin-modal-header {
+            background-color: #102a43;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-modal-header h3 {
+            color: #ffe259;
+            font-size: 22px;
+        }
+        .close-modal-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .admin-modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .admin-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+        .admin-table th, .admin-table td {
+            padding: 12px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .admin-table th {
+            background-color: #f1f5f9;
+            color: #102a43;
+            font-weight: bold;
+        }
+        .admin-table tr:hover {
+            background-color: #f8fafc;
+        }
+        .btn-success { background-color: #28a745; }
+        .btn-success:hover { background-color: #218838; }
+        .btn-danger { background-color: #dc3545; padding: 6px 12px; font-size: 13px;}
+        .btn-danger:hover { background-color: #c82333; }
+
+        /* Mobile Adjustments */
         @media (max-width: 991px) {
-            .logo {
-                font-size: 24px;
-            }
-            .menu-toggle {
-                display: flex;
-            }
+            .logo-container { width: 100%; max-width: 390px; }
+            .menu-toggle { display: flex; }
+            .nav-container { position: relative; flex-direction: column; align-items: flex-start; gap: 10px;}
+            .menu-toggle { position: absolute; right: 0; top: 18px; }
             nav {
                 position: absolute;
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: #102a43;
+                background: #061322;
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.3s ease-in-out;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             }
-            nav.active {
-                max-height: 500px;
-                overflow-y: auto;
-            }
-            nav ul {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 15px 20px;
-            }
-            nav ul li {
-                margin-left: 0;
-                margin-bottom: 15px;
-                width: 100%;
-            }
-            nav ul li a {
-                padding: 8px 0;
-                width: 100%;
-                font-size: 17px;
-            }
-            
-            /* Admin Dropdown for Mobile */
-            .dropdown {
-                width: 100%;
-            }
-            .dropdown-content {
-                position: relative;
-                box-shadow: none;
-                background-color: #1a3a5c;
-                margin-top: 5px;
-                border-radius: 4px;
-                display: block;
-            }
-            .dropdown-content a {
-                color: #ffffff;
-                border-bottom: 1px solid #244a70;
-                padding: 10px 15px;
-            }
-
-            .hero-slider-container {
-                height: 320px;
-            }
-            .hero-content h2 {
-                font-size: 24px;
-            }
-            .hero-content p {
-                font-size: 15px;
-            }
-            .success-tag {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-            section {
-                padding: 20px;
-            }
-            section h3 {
-                font-size: 19px;
-            }
+            nav.active { max-height: 600px; overflow-y: auto; }
+            nav ul { flex-direction: column; align-items: flex-start; padding: 15px 20px; }
+            nav ul li { margin-left: 0; margin-bottom: 15px; width: 100%; }
+            .dropdown-content { position: relative; background-color: #1a3a5c; display: none; box-shadow: none;}
+            .dropdown.open .dropdown-content { display: block; }
+            .dropdown-content a { color: white; border-bottom: 1px solid #244a70; }
+            .hero-banner-info h2 { font-size: 24px; }
+            .hero-banner-info p { font-size: 15px; }
+            .hero-slider-container { height: 320px; }
+            .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
         }
     </style>
 </head>
@@ -416,10 +532,65 @@
 
     <header>
         <div class="nav-container">
-            <div class="logo">Shree Institute</div>
+            <!-- 🎨 ULTRA-ENHANCED PREMIER "YES, I AM THERE" SIM BRAND LOGO -->
+            <div class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 140" width="100%">
+                  <defs>
+                    <!-- Gold Metallic Gradients -->
+                    <linearGradient id="metallicGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFF3B0" />
+                      <stop offset="30%" stop-color="#FFE259" />
+                      <stop offset="70%" stop-color="#FFA751" />
+                      <stop offset="100%" stop-color="#FF7300" />
+                    </linearGradient>
+                    <linearGradient id="silverWhite" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#FFFFFF" />
+                      <stop offset="100%" stop-color="#E2E8F0" />
+                    </linearGradient>
+                    <!-- Advanced Shadow/Glow Vector Filter -->
+                    <filter id="premiumGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="3" result="blur" />
+                      <feColorMatrix type="matrix" values="1 0 0 0 1  0 1 0 0 0.6  0 0 1 0 0  0 0 0 0.8 0" />
+                      <feMerge>
+                        <feMergeNode />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  
+                  <!-- ENHANCED BRAND SHIELD ICON -->
+                  <g transform="translate(18, 10)">
+                    <!-- Outer Hexagonal Trust Boundary -->
+                    <polygon points="55,5 98,30 98,80 55,105 12,80 12,30" fill="none" stroke="url(#metallicGold)" stroke-width="2" opacity="0.4"/>
+                    <!-- Inner Core Circle of Continuous Support -->
+                    <circle cx="55" cy="55" r="38" fill="none" stroke="url(#silverWhite)" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.3"/>
+                    
+                    <!-- The Powerful Double Right Checkmark (Symbol of Solved Doubts & Care) -->
+                    <path d="M 28,56 L 44,70 L 82,32" fill="none" stroke="url(#metallicGold)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#premiumGlow)"/>
+                    <path d="M 38,66 L 48,77 L 85,38" fill="none" stroke="url(#silverWhite)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <!-- Solid SIM Banner Base Badge -->
+                    <rect x="18" y="92" width="74" height="20" rx="4" fill="url(#metallicGold)" filter="url(#premiumGlow)"/>
+                    <text x="55" y="107" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" fill="#061322" text-anchor="middle" letter-spacing="1.5">S I M</text>
+                  </g>
+                  
+                  <!-- CORE BRAND TEXT TYPOGRAPHY -->
+                  <text x="150" y="44" font-family="'Segoe UI', Roboto, sans-serif" font-size="36" font-weight="900" fill="url(#metallicGold)" letter-spacing="0.5">
+                    S<tspan fill="#FFFFFF" font-size="30" font-weight="700">HREE </tspan>I<tspan fill="#FFFFFF" font-size="30" font-weight="700">NSTITUTE</tspan>
+                  </text>
+                  
+                  <text x="150" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#E2E8F0" letter-spacing="1.2">
+                    MANDANGAD <tspan fill="url(#metallicGold)" font-size="17" font-weight="900">(S.I.M.)</tspan>
+                  </text>
+                  
+                  <!-- HIGH RESPONSE LIVE MOTTO TEXT (Enhanced Pulse Feel) -->
+                  <text x="150" y="106" font-family="'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="700" fill="#FFA751" letter-spacing="0.2">
+                    "Your Doubts, Our Mission... <tspan class="motto-glow-text" font-weight="900" font-style="normal">YES, I AM THERE!"</tspan>
+                  </text>
+                </svg>
+            </div>
             
-            <!-- Mobile Menu Toggle Button -->
-            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">
+            <button class="menu-toggle" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -428,16 +599,17 @@
             <nav id="navbar">
                 <ul>
                     <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                    <li><a href="#vision-mission" onclick="closeMenu()">Vision & Mission</a></li>
                     <li><a href="#message" onclick="closeMenu()">Why Choose Us?</a></li>
-                    <li><a href="#regular" onclick="closeMenu()">Regular Classes</a></li>
-                    <li><a href="#special" onclick="closeMenu()">Special Courses</a></li>
-                    <li><a href="#exams" onclick="closeMenu()">Competitive Exams</a></li>
-                    <li><a href="#enquiry" onclick="closeMenu()">Enquiry Now</a></li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" style="color: #ffd700;">Admin ▾</a>
+                    <li><a href="#regular" onclick="closeMenu()">Regular</a></li>
+                    <li><a href="#special" onclick="closeMenu()">Skills</a></li>
+                    <li><a href="#exams" onclick="closeMenu()">Exams</a></li>
+                    <li><a href="#enquiry" onclick="closeMenu()">Enquiry</a></li>
+                    <li class="dropdown" id="adminDropdown">
+                        <a href="javascript:void(0)" onclick="toggleAdminDropdown()" style="color: #ffe259;">Admin ▾</a>
                         <div class="dropdown-content">
-                            <a href="javascript:void(0)" onclick="accessAdmin('enquiry')">📥 Enquiry List</a>
-                            <a href="javascript:void(0)" onclick="accessAdmin('fees')">💰 Fee Details</a>
+                            <a href="javascript:void(0)" onclick="accessAdmin('enquiry')">📥 Enquiry Dashboard</a>
+                            <a href="javascript:void(0)" onclick="accessAdmin('fees')">💰 Fee Ledger & Calc</a>
                         </div>
                     </li>
                 </ul>
@@ -445,256 +617,421 @@
         </div>
     </header>
 
-    <!-- Rectangle Shape Slideshow Section -->
+    <!-- फोटो स्लाईडर बॉक्स -->
     <div class="hero-container-box" id="home">
         <div class="hero-slider-container">
-            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1200');"></div>
-            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200');"></div>
-
-            <div class="hero-content">
-                <h2>Shree Institute, Mandangad</h2>
-                <p>The Hub for Quality and Standard Education!</p>
-                <div class="success-tag">🎯 Unmatched 100% Success in Competitive Exams!</div>
+            <div class="slide active">
+                <img src="WhatsApp Image 2026-06-06 at 19.20.02 (1).jpeg" alt="Shree Institute Banner 1">
             </div>
+            <div class="slide">
+                <img src="WhatsApp Image 2026-06-06 at 19.20.02.jpeg" alt="Shree Institute Banner 2">
+            </div>
+            <div class="slide">
+                <img src="WhatsApp Image 2026-06-06 at 19.20.03.jpeg" alt="Shree Institute Banner 3">
+            </div>
+        </div>
+        <div class="hero-banner-info">
+            <h2>Shree Institute, Mandangad</h2>
+            <p>🎯 Unmatched Success in Education & Competitive Exams!</p>
         </div>
     </div>
 
     <div class="container">
         
-        <!-- Director's Invitation & Profile -->
-        <section id="message">
-            <h3>📢 Director's Invitation & Institute Profile</h3>
+        <!-- VISION & MISSION SECTION -->
+        <section id="vision-mission">
+            <h3>👁️ Our Vision & Mission</h3>
             <div class="grid">
-                <div class="effective-msg-box">
-                    <h4>Secure Your Child's Bright Future Today!</h4>
-                    <p>
-                        Welcome to <strong>Shree Institute, Mandangad</strong>. We don't just teach; we shape careers and build rock-solid foundations. Our scientifically proven methodology guarantees a <strong>100% Success Result</strong> for our students by turning complex subjects into enjoyable learning experiences.
-                    </p>
-                    <div class="highlight-badge">
-                        🔥 ADMISSIONS OPEN FOR THE NEW BATCH! Give your child the ultimate competitive edge. Limited Seats Available!
-                    </div>
+                <div class="vision-mission-box">
+                    <h4>🌟 Our Vision</h4>
+                    <p>To empower every student in rural areas by providing quality, modern, and competitive education to face future challenges, and making Shree Institute a leading hub of educational excellence.</p>
                 </div>
-                <div>
-                    <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">Our Comprehensive High-Performance Programs:</p>
-                    <ul class="course-bullets">
-                        <li>Regular Classes (1st to 10th Std - All Boards) with deep concept clearing.</li>
-                        <li>Proactive Abacus & Brain Development for lightning-fast calculations.</li>
-                        <li>Pro VedicMaths Mastery to solve complex equations within seconds.</li>
-                        <li>Prowrite Hastakshar for beautiful, legible and score-boosting handwriting.</li>
-                        <li>Elite Coaching for Scholarship, JNV Navodaya, NMMS, and Manthan Exams.</li>
-                    </ul>
-                    <p style="font-weight: bold; color: #28a745; font-size: 15px;">✓ Expert Faculty ✓ Personalized Attention ✓ Weekly Practice Tests</p>
+                <div class="vision-mission-box">
+                    <h4>🎯 Our Mission</h4>
+                    <p>To develop the hidden talents of students, eliminate the fear of studies by teaching in a systematic and easy way, and lead them to the pinnacle of success in competitive exams with a tradition of 100% results.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIRECTOR PROFILE SECTION -->
+        <section id="message">
+            <h3>📢 Director's Profile & Invitation</h3>
+            <div class="director-layout-box">
+                <div class="director-photo-container">
+                    <img src="WhatsApp Image 2026-06-05 at 08.27.16.jpeg" alt="Mr. Mahesh Sutar Sir" class="director-photo">
+                </div>
+                <div class="director-details-container">
+                    <div class="grid">
+                        <div class="effective-msg-box">
+                            <h4>Secure Your Child's Bright Future Today!</h4>
+                            <p>Welcome to <strong>Shree Institute, Mandangad</strong>. Our scientifically proven methodology guarantees a <strong>100% Success Result</strong> for our students by turning complex subjects into enjoyable learning experiences.</p>
+                            <div class="highlight-badge">🔥 ADMISSIONS OPEN FOR THE NEW BATCH! Limited Seats Available!</div>
+                        </div>
+                        <div>
+                            <p style="font-weight: bold; color: #102a43; margin-bottom: 10px; font-size: 17px;">Our High-Performance Programs:</p>
+                            <ul class="course-bullets">
+                                <li>Regular Classes (1st to 10th Std - MSBTE/CBSE)</li>
+                                <li>Proactive Abacus & Brain Development</li>
+                                <li>Pro VedicMaths Mastery</li>
+                                <li>Prowrite Hastakshar Handwriting Classes</li>
+                                <li>Elite Coaching for Scholarship, Navodaya, NMMS</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #dee2e6;">
                 <p style="font-size: 18px; font-weight: bold; color: #102a43;">- Mr. Mahesh Sutar Sir (Director)</p>
-                <p style="margin-top: 5px; font-weight: 500;">📞 Call Now for Admissions: <a href="tel:8983383836" class="phone-link">8983383836</a></p>
+                <p style="margin-top: 5px; font-weight: 500;">📞 Call Now: <a href="tel:8983383836" class="phone-link">8983383836</a></p>
             </div>
         </section>
 
-        <!-- Regular Classes Section -->
         <section id="regular">
             <h3>📖 Regular Classes (1st to 10th Std)</h3>
             <div class="grid">
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=500" alt="Science Experiments" class="section-img">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=500" class="section-img">
                     <h4>Science & Experiments</h4>
-                    <p>Simplifying complex scientific concepts through live experiments and practical learning models.</p>
+                    <p>Simplifying science concepts through exciting practical experiments.</p>
                 </div>
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=500" alt="Maths and English" class="section-img">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=500" class="section-img">
                     <h4>Maths & English</h4>
-                    <p>Mastering English grammar and clarifying intricate Mathematics theorems with effortless methods.</p>
-                </div>
-                <div class="card" style="justify-content: center; background: #ffffff;">
-                    <h4>Key Highlights:</h4>
-                    <p style="margin-top: 10px; line-height: 1.6;">• 1st to 10th (All State/National Boards)<br>• Individual Attention to Every Student<br>• Comprehensive Mock Tests Every Sunday<br>• Focus on Core Foundation Building</p>
+                    <p>Mastering English grammar and Mathematics theorems easily.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Special Courses Section -->
         <section id="special">
             <h3>✨ Our Special Skill Courses</h3>
             <div class="grid">
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?q=80&w=500" alt="Abacus Tool" class="section-img">
-                    <h4>Proactive Abacus & Brain Development</h4>
-                    <p>Using the advanced Abacus tool to stimulate both left and right brain development, resulting in rapid mental calculation.</p>
+                    <h4>Proactive Abacus</h4>
+                    <p>Stimulate mental power and rapid calculation skills.</p>
                 </div>
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=500" alt="Mathematics Sutras" class="section-img">
-                    <h4>Pro VedicMaths & Sutras</h4>
-                    <p>Utilizing shortcut Vedic sutras to solve massive multiplications and divisions mentally within fractions of a second.</p>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?q=80&w=500" alt="Handwriting Art" class="section-img">
-                    <h4>Prowrite Hastakshar</h4>
-                    <p>Transforming handwriting into beautiful, cursive art to boost student confidence and maximize exam scores.</p>
+                    <h4>Pro VedicMaths</h4>
+                    <p>Solve complex mathematical equations within seconds.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Competitive Exams Section -->
         <section id="exams">
-            <h3>🏆 Competitive Exams (4th, 5th & 8th Std)</h3>
-            <p style="margin-bottom: 20px; font-size: 16px; font-weight: bold; color: #d9480f;">🎯 Proven Record of 100% Success in Scholarship, Navodaya, NMMS, and Manthan Exams!</p>
+            <h3>🏆 Competitive Exams</h3>
             <div class="grid">
                 <div class="card">
                     <h4>Scholarship & Navodaya</h4>
-                    <p>Perfect training for 5th and 8th Std Scholarship Exams and Jawaharlal Navodaya Vidyalaya Entrance tests.</p>
-                </div>
-                <div class="card">
-                    <h4>NMMS & MTS</h4>
-                    <p>Rigorous preparation and strategies for 8th Std NMMS Scholarship and National Talent Search Examinations.</p>
-                </div>
-                <div class="card">
-                    <h4>Manthan Exam</h4>
-                    <p>State-level standard preparation curated with precise mock drill papers for the Manthan series.</p>
+                    <p>Perfect training and standard coaching for 5th and 8th Std competitive tests.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Enquiry Form Section -->
+        <!-- ENQUIRY SECTION -->
         <section id="enquiry">
             <h3>📝 Admission Enquiry Form</h3>
-            <p style="margin-bottom: 20px; font-size: 14px; color: #666;">Fill out the details below to reserve your seat. Our admissions team will contact you shortly.</p>
             
-            <form id="enquiryForm" onsubmit="event.preventDefault(); addEnquiryRecord();">
+            <div class="flash-announcement-bar">
+                <div class="flash-announcement-label">🔥 ADMISSION OPEN</div>
+                <div class="flash-scroller-content">
+                    <marquee behavior="scroll" direction="left" scrollamount="6">
+                        🎯 Shree Institute Mandangad: Limited seats available for the new batch! Fill the form below to secure admission and send via WhatsApp! 🚀
+                    </marquee>
+                </div>
+            </div>
+
+            <form id="enquiryForm" onsubmit="event.preventDefault(); processEnquiry();">
                 <div class="grid">
                     <div class="form-group">
                         <label>Student Full Name</label>
-                        <input type="text" id="enqName" required placeholder="Enter full name">
+                        <input type="text" id="enqName" required>
                     </div>
                     <div class="form-group">
-                        <label>Current Standard / Class</label>
-                        <input type="text" id="enqStd" required placeholder="e.g. 5th Std, 8th Std">
+                        <label>Parent's Mobile Number</label>
+                        <input type="tel" id="enqPhone" required pattern="[0-9]{10}">
+                    </div>
+                    <div class="form-group">
+                        <label>Current Standard</label>
+                        <input type="text" id="enqStd" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Board</label>
+                        <select id="enqBoard" required>
+                            <option value="" disabled selected>--- Choose ---</option>
+                            <option value="MSBTE">MSBTE</option>
+                            <option value="CBSE">CBSE</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Medium</label>
+                        <select id="enqMedium" required>
+                            <option value="" disabled selected>--- Choose ---</option>
+                            <option value="Semi-English">Semi-English</option>
+                            <option value="Marathi">Marathi</option>
+                            <option value="English">English</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Date of Birth</label>
                         <input type="date" id="enqDob" required>
                     </div>
                     <div class="form-group">
-                        <label>Select Desired Course</label>
+                        <label>Select Course</label>
                         <select id="enqCourse" required>
-                            <option value="" disabled selected>--- Choose a Course ---</option>
-                            <option value="Regular Class (School Syllabus - Eng/Maths/Sci)">Regular Class (School Syllabus - Eng/Maths/Sci)</option>
-                            <option value="Basic Foundation Course (Read/Write/Basic Math)">Basic Foundation Course (Read/Write/Basic Math)</option>
+                            <option value="" disabled selected>--- Choose ---</option>
+                            <option value="Regular Class">Regular Class</option>
                             <option value="Scholarship Exam">Scholarship Exam</option>
-                            <option value="Manthan Exam">Manthan Exam</option>
-                            <option value="BDS Exam">BDS Exam</option>
                             <option value="Navodaya JNV">Navodaya JNV</option>
-                            <option value="Sainik School Exam">Sainik School Exam</option>
                             <option value="ABACUS">ABACUS</option>
                             <option value="Vedic Maths">Vedic Maths</option>
-                            <option value="Handwriting">Handwriting</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" style="width: 100%; margin-top: 10px;">Submit Application</button>
+                <button type="submit" style="width: 100%; margin-top: 15px; background-color: #25d366;">🚀 Submit & Send to WhatsApp</button>
             </form>
         </section>
+    </div>
 
+    <!-- --- ADMIN PANEL MODAL --- -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3 id="modalTitle">Admin Control Panel</h3>
+                <button class="close-modal-btn" onclick="closeAdminModal()">&times;</button>
+            </div>
+            <div class="admin-modal-body" id="modalBody">
+            </div>
+        </div>
     </div>
 
     <footer>
-        <p>© 2026 Shree Institute, Mandangad. All Rights Reserved.<br>Designed for Mahesh Sir.</p>
+        <p>© 2026 Shree Institute, Mandangad. Designed for Mahesh Sir. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // --- Mobile Menu Toggle Logic ---
-        function toggleMenu() {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('active');
-        }
-        
-        function closeMenu() {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.remove('active');
-        }
+        function toggleMenu() { document.getElementById('navbar').classList.toggle('active'); }
+        function closeMenu() { document.getElementById('navbar').classList.remove('active'); }
+        function toggleAdminDropdown() { document.getElementById('adminDropdown').classList.toggle('open'); }
 
-        // --- Automatic Slideshow Logic ---
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
-        const slideInterval = 3000;
+        setInterval(() => {
+            if (slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 4000);
 
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-
-        setInterval(nextSlide, slideInterval);
-
-        // --- Local Storage & Admin Area ---
-        let enquiryData = JSON.parse(localStorage.getItem('enquiries')) || [];
-
-        function addEnquiryRecord() {
+        function processEnquiry() {
             const name = document.getElementById('enqName').value;
+            const phone = document.getElementById('enqPhone').value;
             const std = document.getElementById('enqStd').value;
+            const board = document.getElementById('enqBoard').value;
+            const medium = document.getElementById('enqMedium').value;
             const dob = document.getElementById('enqDob').value;
             const course = document.getElementById('enqCourse').value;
 
-            const newRecord = { name, std, dob, course };
-            enquiryData.push(newRecord);
-            localStorage.setItem('enquiries', JSON.stringify(enquiryData));
+            let localData = JSON.parse(localStorage.getItem('enquiries')) || [];
+            localData.push({ name, phone, std, board, medium, dob, course });
+            localStorage.setItem('enquiries', JSON.stringify(localData));
 
-            alert('✅ Application submitted successfully! Mahesh Sir will contact you shortly.');
+            const message = `Hello Mahesh Sir,\nI want to enquire about admission.\n\n*Details:*\n📝 *Name:* ${name}\n📞 *Mobile:* ${phone}\n🏫 *Std:* ${std}\n🏛️ *Board:* ${board}\n🗣️ *Medium:* ${medium}\n📅 *DOB:* ${dob}\n🎯 *Course:* ${course}`;
+            const url = "https://api.whatsapp.com/send?phone=918983383836&text=" + encodeURIComponent(message);
+            
             document.getElementById('enquiryForm').reset();
+            window.open(url, '_blank');
         }
 
-        // --- सुरक्षित पासवर्ड तपासणी (थेट पासवर्ड गायब केला आहे) ---
-        async function accessAdmin(type) {
-            const password = prompt("🔐 Secure Login:\nPlease enter Admin Password (For Mahesh Sir Only):");
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function accessAdmin(type) {
+            closeMenu();
+            document.getElementById('adminDropdown').classList.remove('open');
             
-            if (password === null || password === "") return;
-
-            // युझरने टाकलेल्या पासवर्डचा SHA-256 हॅश कोड तयार करणे
-            const encoder = new TextEncoder();
-            const data = encoder.encode(password);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const passwordHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-            // '8983' चा सुरक्षित आणि गुप्त हॅश कोड (हा कधीही डिकोड करता येत नाही)
-            const correctHash = "6c82a106e23b207efb6d9da0e980a373b52d9a696ee6564e9a0f443b74304677";
-
-            if (passwordHash === correctHash) {
-                if (type === 'enquiry') {
-                    exportEnquiryToExcel();
-                } else if (type === 'fees') {
-                    alert('💰 Fee Management System Loading...');
+            setTimeout(() => {
+                const password = prompt("🔐 Enter Admin Password:");
+                if (password === '8983') {
+                    showAdminDashboard(type);
+                } else if (password !== null) {
+                    alert('❌ Wrong Password!');
                 }
-            } else {
-                alert('❌ Invalid Password! Please enter the correct password.');
+            }, 100);
+        }
+
+        function showAdminDashboard(type) {
+            const modal = document.getElementById('adminModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            modal.style.display = 'flex';
+            
+            if (type === 'enquiry') {
+                title.innerText = "📥 Student Admission Enquiries";
+                renderEnquiryPanel(body);
+            } else if (type === 'fees') {
+                title.innerText = "💰 Fee Management Registry & Calculator";
+                renderFeesPanel(body);
             }
         }
 
-        function exportEnquiryToExcel() {
-            if (enquiryData.length === 0) {
-                alert("ℹ️ No new enquiries available currently.");
+        function renderEnquiryPanel(container) {
+            const data = JSON.parse(localStorage.getItem('enquiries')) || [];
+            if (data.length === 0) {
+                container.innerHTML = `<p style="text-align:center; font-weight:bold; color:#666;">No customer entries located in local database storage.</p>`;
                 return;
             }
-            
-            const excelRows = enquiryData.map(item => ({
-                "Student Name": item.name,
-                "Standard": item.std,
-                "Date of Birth": item.dob,
-                "Selected Course": item.course
-            }));
 
-            const worksheet = XLSX.utils.json_to_sheet(excelRows);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Enquiries");
-            XLSX.writeFile(workbook, "Shree_Institute_Enquiry_List.xlsx");
+            let tableRows = data.map((item, idx) => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td><a href="tel:${item.phone}" style="color:#102a43; font-weight:600;">${item.phone}</a></td>
+                    <td>${item.std}</td>
+                    <td>${item.board}</td>
+                    <td>${item.medium}</td>
+                    <td>${item.dob}</td>
+                    <td><strong>${item.course}</strong></td>
+                    <td><button class="btn-danger" onclick="deleteRecord('enquiries', ${idx}, 'enquiry')">Delete</button></td>
+                </tr>
+            `).join('');
+
+            container.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                    <p style="font-weight:600;">Total Records Gathered: ${data.length}</p>
+                    <button class="btn-success" onclick="exportToExcel('enquiries', 'Shree_Institute_Enquiries')">📥 Download Excel Sheet (.xlsx)</button>
+                </div>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Std</th>
+                                <th>Board</th>
+                                <th>Medium</th>
+                                <th>DOB</th>
+                                <th>Course</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderFeesPanel(container) {
+            const data = JSON.parse(localStorage.getItem('fee_records')) || [];
+            
+            let tableRows = data.map((item, idx) => `
+                <tr>
+                    <td>${item.studentName}</td>
+                    <td>${item.studentStd}</td>
+                    <td>₹${item.totalFees}</td>
+                    <td>₹${item.amountPaid}</td>
+                    <td style="color: ${item.balance > 0 ? '#dc3545' : '#28a745'}; font-weight:bold;">₹${item.balance}</td>
+                    <td>${item.dateRecorded}</td>
+                    <td><button class="btn-danger" onclick="deleteRecord('fee_records', ${idx}, 'fees')">Delete</button></td>
+                </tr>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); background:#f8fafc; padding:20px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:20px;">
+                    <div class="form-group">
+                        <label>Student Full Name</label>
+                        <input type="text" id="feeStudentName" placeholder="e.g. Rahul Sutar">
+                    </div>
+                    <div class="form-group">
+                        <label>Standard / Course</label>
+                        <input type="text" id="feeStudentStd" placeholder="e.g. 5th Std / Abacus">
+                    </div>
+                    <div class="form-group">
+                        <label>Total Fee Structure (₹)</label>
+                        <input type="number" id="feeTotal" oninput="calculateLiveBalance()" placeholder="0000">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount Settled / Paid (₹)</label>
+                        <input type="number" id="feePaid" oninput="calculateLiveBalance()" placeholder="0000">
+                    </div>
+                    <div class="form-group">
+                        <label>Calculated Outstandings (Balance)</label>
+                        <div id="liveBalanceBox" style="padding:12px; background:white; border:1px solid #ccc; border-radius:6px; font-weight:bold; font-size:16px; color:#333;">₹0</div>
+                    </div>
+                </div>
+                <button onclick="saveFeeRecord()" class="btn-success" style="width:100%; margin-bottom:25px;">➕ Commit & Save New Fee Entry to Log</button>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-top:2px solid #f0f4f8; padding-top:20px;">
+                    <p style="font-weight:600;">Registered Student Ledgers: ${data.length}</p>
+                    <button class="btn-success" onclick="exportToExcel('fee_records', 'Shree_Institute_FeeRegistry')">📥 Download Fee Sheet Ledger (.xlsx)</button>
+                </div>
+
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Class Info</th>
+                                <th>Total Billable</th>
+                                <th>Total Paid</th>
+                                <th>Remaining Balance</th>
+                                <th>Last Tx Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>${tableRows.length > 0 ? tableRows : '<tr><td colspan="7" style="text-align:center; color:#888;">No active account statements found on device.</td></tr>'}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function calculateLiveBalance() {
+            const total = parseFloat(document.getElementById('feeTotal').value) || 0;
+            const paid = parseFloat(document.getElementById('feePaid').value) || 0;
+            const balance = total - paid;
+            const box = document.getElementById('liveBalanceBox');
+            box.innerText = "₹" + balance;
+            box.style.color = balance > 0 ? '#dc3545' : '#28a745';
+        }
+
+        function saveFeeRecord() {
+            const name = document.getElementById('feeStudentName').value.trim();
+            const std = document.getElementById('feeStudentStd').value.trim();
+            const total = parseFloat(document.getElementById('feeTotal').value) || 0;
+            const paid = parseFloat(document.getElementById('feePaid').value) || 0;
+
+            if(!name || !std || total <= 0) {
+                alert("⚠️ Please fill out the Student Name, Class, and Total Fees parameters correctly.");
+                return;
+            }
+
+            const balance = total - paid;
+            const today = new Date().toLocaleDateString();
+
+            let data = JSON.parse(localStorage.getItem('fee_records')) || [];
+            data.push({ studentName: name, studentStd: std, totalFees: total, amountPaid: paid, balance: balance, dateRecorded: today });
+            localStorage.setItem('fee_records', JSON.stringify(data));
+            
+            renderFeesPanel(document.getElementById('modalBody'));
+        }
+
+        function deleteRecord(storageKey, index, panelType) {
+            if(confirm("Are you absolutely sure you want to permanently clear out this system record row?")) {
+                let data = JSON.parse(localStorage.getItem(storageKey)) || [];
+                data.splice(index, 1);
+                localStorage.setItem(storageKey, JSON.stringify(data));
+                showAdminDashboard(panelType);
+            }
+        }
+
+        function exportToExcel(storageKey, filename) {
+            const dynamicData = JSON.parse(localStorage.getItem(storageKey)) || [];
+            if (dynamicData.length === 0) { alert("No executable balance sheet arrays detected to extract."); return; }
+            
+            const ws = XLSX.utils.json_to_sheet(dynamicData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Records");
+            XLSX.writeFile(wb, `${filename}.xlsx`);
         }
     </script>
 </body>
