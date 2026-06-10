@@ -18,14 +18,14 @@
         }
         /* Header & Navigation */
         header {
-            background: linear-gradient(135deg, #061322, #16304d);
+            background: linear-gradient(135deg, #0a192f, #172a45);
             color: white;
-            padding: 12px 0;
+            padding: 10px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            border-bottom: 3px solid #ffe259;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.35);
+            border-bottom: 4px solid #f59f00;
         }
         .nav-container {
             width: 94%;
@@ -35,7 +35,7 @@
             align-items: center;
         }
         
-        /* Ultra Enhanced SIM Logo Container */
+        /* New Structural Logo Container */
         .logo-container {
             width: 530px;
             height: auto;
@@ -43,14 +43,14 @@
             align-items: center;
         }
         
-        /* Smooth Neon Text Pulse for 'YES I AM THERE' */
-        @keyframes goldGlowPulse {
-            0% { fill: #FFE259; filter: drop-shadow(0px 0px 2px #FF7300); }
-            50% { fill: #FFF; filter: drop-shadow(0px 0px 8px #FFE259); }
-            100% { fill: #FFE259; filter: drop-shadow(0px 0px 2px #FF7300); }
+        /* Slogan Glow Animation */
+        @keyframes subtlePulse {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; transform: scale(1.01); }
+            100% { opacity: 0.9; }
         }
-        .motto-glow-text {
-            animation: goldGlowPulse 2.5s infinite ease-in-out;
+        .motto-banner {
+            animation: subtlePulse 3s infinite ease-in-out;
         }
         
         .menu-toggle {
@@ -172,7 +172,7 @@
 
         /* Banner Info */
         .hero-banner-info {
-            background: rgba(6, 19, 34, 0.95);
+            background: rgba(10, 25, 47, 0.95);
             color: white;
             padding: 15px 20px;
             text-align: center;
@@ -372,11 +372,11 @@
         footer {
             text-align: center;
             padding: 25px;
-            background: #061322;
+            background: #0a192f;
             color: white;
             margin-top: 40px;
             font-size: 14px;
-            border-top: 3px solid #ffe259;
+            border-top: 4px solid #f59f00;
         }
 
         .effective-msg-box h4 {
@@ -501,7 +501,7 @@
 
         /* Mobile Adjustments */
         @media (max-width: 991px) {
-            .logo-container { width: 100%; max-width: 390px; }
+            .logo-container { width: 100%; max-width: 420px; }
             .menu-toggle { display: flex; }
             .nav-container { position: relative; flex-direction: column; align-items: flex-start; gap: 10px;}
             .menu-toggle { position: absolute; right: 0; top: 18px; }
@@ -510,7 +510,7 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: #061322;
+                background: #0a192f;
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.3s ease-in-out;
@@ -532,61 +532,44 @@
 
     <header>
         <div class="nav-container">
-            <!-- 🎨 ULTRA-ENHANCED PREMIER "YES, I AM THERE" SIM BRAND LOGO -->
+            <!-- 🎨 NEW UPDATED LOGO WITH "YES, I'M THERE!" BANNER -->
             <div class="logo-container">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 140" width="100%">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 130" width="100%">
                   <defs>
-                    <!-- Gold Metallic Gradients -->
-                    <linearGradient id="metallicGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#FFF3B0" />
-                      <stop offset="30%" stop-color="#FFE259" />
-                      <stop offset="70%" stop-color="#FFA751" />
-                      <stop offset="100%" stop-color="#FF7300" />
+                    <linearGradient id="torchOrange" x1="0%" y1="100%" x2="0%" y2="0%">
+                      <stop offset="0%" stop-color="#FF4500" />
+                      <stop offset="60%" stop-color="#FFA500" />
+                      <stop offset="100%" stop-color="#FFE259" />
                     </linearGradient>
-                    <linearGradient id="silverWhite" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#FFFFFF" />
-                      <stop offset="100%" stop-color="#E2E8F0" />
+                    <linearGradient id="goldText" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#FFE259" />
+                      <stop offset="100%" stop-color="#FFA751" />
                     </linearGradient>
-                    <!-- Advanced Shadow/Glow Vector Filter -->
-                    <filter id="premiumGlow" x="-30%" y="-30%" width="160%" height="160%">
-                      <feGaussianBlur stdDeviation="3" result="blur" />
-                      <feColorMatrix type="matrix" values="1 0 0 0 1  0 1 0 0 0.6  0 0 1 0 0  0 0 0 0.8 0" />
-                      <feMerge>
-                        <feMergeNode />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
                   </defs>
                   
-                  <!-- ENHANCED BRAND SHIELD ICON -->
-                  <g transform="translate(18, 10)">
-                    <!-- Outer Hexagonal Trust Boundary -->
-                    <polygon points="55,5 98,30 98,80 55,105 12,80 12,30" fill="none" stroke="url(#metallicGold)" stroke-width="2" opacity="0.4"/>
-                    <!-- Inner Core Circle of Continuous Support -->
-                    <circle cx="55" cy="55" r="38" fill="none" stroke="url(#silverWhite)" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.3"/>
-                    
-                    <!-- The Powerful Double Right Checkmark (Symbol of Solved Doubts & Care) -->
-                    <path d="M 28,56 L 44,70 L 82,32" fill="none" stroke="url(#metallicGold)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#premiumGlow)"/>
-                    <path d="M 38,66 L 48,77 L 85,38" fill="none" stroke="url(#silverWhite)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                    
-                    <!-- Solid SIM Banner Base Badge -->
-                    <rect x="18" y="92" width="74" height="20" rx="4" fill="url(#metallicGold)" filter="url(#premiumGlow)"/>
-                    <text x="55" y="107" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" fill="#061322" text-anchor="middle" letter-spacing="1.5">S I M</text>
+                  <!-- LOGO ICON (Knowledge Flame) -->
+                  <g transform="translate(15, 15)">
+                    <path d="M30,85 C35,65 20,45 35,20 C45,5 65,15 55,35 C70,15 80,30 75,50 C70,70 55,85 30,85 Z" fill="url(#torchOrange)" />
+                    <path d="M15,90 Q 52,70 90,90 M15,100 Q 52,82 90,100" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+                    <circle cx="52" cy="50" r="6" fill="#0a192f"/>
                   </g>
                   
-                  <!-- CORE BRAND TEXT TYPOGRAPHY -->
-                  <text x="150" y="44" font-family="'Segoe UI', Roboto, sans-serif" font-size="36" font-weight="900" fill="url(#metallicGold)" letter-spacing="0.5">
-                    S<tspan fill="#FFFFFF" font-size="30" font-weight="700">HREE </tspan>I<tspan fill="#FFFFFF" font-size="30" font-weight="700">NSTITUTE</tspan>
+                  <!-- TYPOGRAPHY -->
+                  <text x="135" y="42" font-family="'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#FFFFFF" letter-spacing="1">
+                    SHREE <tspan fill="url(#goldText)">INSTITUTE</tspan>
                   </text>
                   
-                  <text x="150" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#E2E8F0" letter-spacing="1.2">
-                    MANDANGAD <tspan fill="url(#metallicGold)" font-size="17" font-weight="900">(S.I.M.)</tspan>
+                  <text x="135" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" fill="#A0AEC0" letter-spacing="4">
+                    MANDANGAD <tspan fill="#FFE259" font-weight="800">(S.I.M.)</tspan>
                   </text>
                   
-                  <!-- HIGH RESPONSE LIVE MOTTO TEXT (Enhanced Pulse Feel) -->
-                  <text x="150" y="106" font-family="'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="700" fill="#FFA751" letter-spacing="0.2">
-                    "Your Doubts, Our Mission... <tspan class="motto-glow-text" font-weight="900" font-style="normal">YES, I AM THERE!"</tspan>
-                  </text>
+                  <!-- NEW SLOGAN FOCUS BANNER WITH "YES, I'M THERE!" -->
+                  <g class="motto-banner" transform="translate(135, 84)">
+                    <rect x="0" y="0" width="485" height="28" rx="4" fill="#172a45" stroke="url(#goldText)" stroke-width="1.5"/>
+                    <text x="15" y="19" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">
+                      Your Doubts, Our Mission... <tspan fill="#FFE259" font-weight="900">YES, I'M THERE!</tspan>
+                    </text>
+                  </g>
                 </svg>
             </div>
             
@@ -617,7 +600,7 @@
         </div>
     </header>
 
-    <!-- फोटो स्लाईडर बॉक्स -->
+    <!-- Photo Slider Box -->
     <div class="hero-container-box" id="home">
         <div class="hero-slider-container">
             <div class="slide active">
