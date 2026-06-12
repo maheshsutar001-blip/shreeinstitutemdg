@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shree Institute Mandangad - Admin Portal</title>
+    <title>Shree Institute Mandangad</title>
     <style>
         * {
             margin: 0;
@@ -20,14 +20,23 @@
         header {
             background-color: #0b3c5d;
             color: white;
-            padding: 20px;
+            padding: 30px 20px;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
         }
 
         nav {
             background-color: #328cc1;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         nav a {
@@ -36,6 +45,11 @@
             margin: 0 15px;
             font-weight: bold;
             cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #d9b310;
         }
 
         .container {
@@ -49,7 +63,7 @@
             padding: 30px;
             margin-bottom: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         h2 {
@@ -59,6 +73,37 @@
             margin-bottom: 20px;
         }
 
+        /* Home Page Styles */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #eef7fc, #w3fbfd);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .course-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-top: 4px solid #328cc1;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .course-card h3 {
+            color: #0b3c5d;
+            margin-bottom: 10px;
+        }
+
+        /* Form & Admin Table Styles */
         .form-group {
             margin-bottom: 15px;
         }
@@ -84,6 +129,7 @@
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
+            transition: all 0.3s;
         }
 
         button:hover {
@@ -100,17 +146,11 @@
             gap: 15px;
             align-items: center;
             border: 1px solid #328cc1;
+            flex-wrap: wrap;
         }
 
-        .btn-backup {
-            background-color: #0b3c5d;
-            color: white;
-        }
-
-        .btn-restore {
-            background-color: #328cc1;
-            color: white;
-        }
+        .btn-backup { background-color: #0b3c5d; color: white; }
+        .btn-restore { background-color: #328cc1; color: white; }
 
         table {
             width: 100%;
@@ -118,19 +158,9 @@
             margin-top: 20px;
         }
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #0b3c5d;
-            color: white;
-        }
+        table, th, td { border: 1px solid #ddd; }
+        th, td { padding: 12px; text-align: center; }
+        th { background-color: #0b3c5d; color: white; }
 
         .whatsapp-btn {
             background-color: #25D366;
@@ -142,21 +172,18 @@
             font-weight: bold;
         }
 
-        .whatsapp-btn:hover {
-            background-color: #128C7E;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .flex-inputs {
-            display: flex;
-            gap: 15px;
-        }
-
-        .flex-inputs .form-group {
-            flex: 1;
+        .whatsapp-btn:hover { background-color: #128C7E; }
+        .hidden { display: none; }
+        .flex-inputs { display: flex; gap: 15px; }
+        .flex-inputs .form-group { flex: 1; }
+        
+        .admin-badge {
+            background-color: #cc0000;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            float: right;
         }
     </style>
 </head>
@@ -164,54 +191,91 @@
 
     <header>
         <h1>Shree Institute, Mandangad</h1>
-        <p>Student Admission & Fee Management System</p>
+        <p>Computer & Skill Development Center</p>
     </header>
 
     <nav>
         <a onclick="showSection('home')">मुख्य पृष्ठ (Home)</a>
-        <a onclick="showSection('admin-login')">ऍडमीन पोर्टल (Admin Portal)</a>
+        <a onclick="showSection('courses-info')">आमचे कोर्सेस (Our Courses)</a>
+        <a onclick="showSection('admin-login')" id="loginNavBtn">ऍडमीन लॉगिन (Admin Login)</a>
+        <a onclick="showSection('admin-dashboard')" id="dashboardNavBtn" class="hidden" style="color: #d9b310;">⚙️ डॅशबोर्ड (Dashboard)</a>
     </nav>
 
     <div class="container">
         
-        <!-- Home Section -->
+        <!-- ================= १. मुख्य पृष्ठ (HOME SECTION) ================= -->
         <div id="home" class="section">
-            <h2>Welcome to Shree Institute</h2>
-            <p>विद्यार्थ्यांचे ऍडमिशन फॉर्म भरण्यासाठी आणि फी मॅनेजमेंट करण्यासाठी कृपया ऍडमीन पोर्टलवर लॉगिन करा.</p>
+            <div class="hero">
+                <h2>श्री इन्स्टिट्यूट, मंडणगड मध्ये आपले स्वागत आहे!</h2>
+                <p style="margin-top: 10px; font-size: 1.1rem;">तुमच्या उज्वल भविष्यासाठी डिजिटल आणि संगणक शिक्षण.</p>
+            </div>
+            <h3 style="color: #0b3c5d; margin-top: 20px;">आमची वैशिष्ट्ये:</h3>
+            <ul style="margin: 15px 20px; line-height: 1.8;">
+                <li>तज्ज्ञ आणि अनुभवी शिक्षक मार्गदर्शन.</li>
+                <li>प्रत्येक विद्यार्थ्यासाठी स्वतंत्र कॉम्प्युटरची व्यवस्था.</li>
+                <li>प्रॅक्टिकल शिक्षणावर विशेष भर.</li>
+                <li>शासकीय प्रमाणपत्र परीक्षांची परिपूर्ण तयारी.</li>
+            </ul>
         </div>
 
-        <!-- Admin Login Section -->
+        <!-- ================= २. कोर्सेस माहिती (COURSES SECTION) ================= -->
+        <div id="courses-info" class="section hidden">
+            <h2>उपलब्ध कोर्सेस (Available Courses)</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <h3>MS-CIT</h3>
+                    <p>महाराष्ट्र शासनाचा मान्यताप्राप्त बेसिक कॉम्प्युटर कोर्स. सर्वांसाठी अत्यंत आवश्यक!</p>
+                </div>
+                <div class="course-card">
+                    <h3>Tally Prime</h3>
+                    <p>अकाउंटींग आणि जीएसटी (GST) चे परिपूर्ण प्रॅक्टिकल ज्ञान मिळवा.</p>
+                </div>
+                <div class="course-card">
+                    <h3>Computer Typing</h3>
+                    <p>मराठी, इंग्रजी आणि हिंदी टायपिंग गती वाढवण्यासाठी विशेष सराव.</p>
+                </div>
+                <div class="course-card">
+                    <h3>Abacus / Maths</h3>
+                    <p>लहान मुलांच्या बौद्धिक विकासासाठी आणि गणितीय गती वाढवण्यासाठी उत्तम कोर्स.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ३. सुरक्षित ऍडमीन लॉगिन (LOGIN SECTION) ================= -->
         <div id="admin-login" class="section hidden">
-            <h2>ऍडमीन लॉगिन</h2>
+            <h2>ऍडमीन लॉगिन पोर्टल</h2>
             <div class="form-group">
-                <label for="adminPassword">पासवर्ड टाका:</label>
-                <input type="password" id="adminPassword" autocomplete="off">
+                <label for="adminPassword">सुरक्षित लॉगिन पासवर्ड टाका:</label>
+                <input type="password" id="adminPassword" autocomplete="off" placeholder="••••••••">
             </div>
             <button onclick="checkAdminPassword()">लॉगिन करा</button>
-            <p id="loginError" style="color: red; margin-top: 10px;"></p>
+            <p id="loginError" style="color: red; margin-top: 10px; font-weight: bold;"></p>
         </div>
 
-        <!-- Admin Dashboard -->
+        <!-- ================= ४. सुरक्षित ऍडमीन डॅशबोर्ड (ADMIN DASHBOARD) ================= -->
         <div id="admin-dashboard" class="section hidden">
+            <span class="admin-badge">Admin Mode Active</span>
+            <h2>विद्यार्थी व्यवस्थापन डॅशबोर्ड (Admission & Fees)</h2>
             
-            <!-- Backup & Restore Section -->
+            <!-- बॅकअप आणि रिस्टोर मॅनेजर -->
             <div class="backup-section">
                 <strong>डेटा बॅकअप मॅनेजर:</strong>
-                <button onclick="downloadBackup()" class="btn-backup"> डेटा डाउनलोड करा (Backup)</button>
+                <button onclick="downloadBackup()" class="btn-backup">डेटा डाउनलोड करा (Backup)</button>
                 <span style="color: #666;">|</span>
                 <label for="uploadFile" style="margin-bottom:0; cursor:pointer;" class="button btn-restore"> फाईल अपलोड करा (Restore):</label>
                 <input type="file" id="uploadFile" accept=".json" onchange="uploadBackup(event)" style="display:none;">
             </div>
 
-            <h2>नवीन विद्यार्थी प्रवेश (New Admission)</h2>
+            <!-- नवीन प्रवेश फॉर्म -->
+            <h3 style="color: #0b3c5d; margin-bottom: 15px;">नवीन विद्यार्थी प्रवेश (New Admission)</h3>
             <form id="admissionForm">
                 <div class="form-group">
                     <label for="studentName">विद्यार्थ्याचे पूर्ण नाव:</label>
-                    <input type="text" id="studentName" required minlength="3">
+                    <input type="text" id="studentName" required minlength="3" placeholder="उदा. राहुल संजय कदम">
                 </div>
                 <div class="form-group">
                     <label for="parentMobile">पालकांचा व्हॉट्सॲप नंबर (१० अंकी):</label>
-                    <input type="tel" id="parentMobile" required pattern="[6-9][0-9]{9}" title="कृपया योग्य १० अंकी मोबाईल नंबर टाका">
+                    <input type="tel" id="parentMobile" required pattern="[6-9][0-9]{9}" title="कृपया योग्य १० अंकी मोबाईल नंबर टाका" placeholder="उदा. 98XXXXXXXX">
                 </div>
                 <div class="form-group">
                     <label for="course">कोर्स निवडा:</label>
@@ -225,17 +289,18 @@
                 <div class="flex-inputs">
                     <div class="form-group">
                         <label for="totalFee">एकूण फी (Total Fee):</label>
-                        <input type="number" id="totalFee" required min="0">
+                        <input type="number" id="totalFee" required min="0" placeholder="₹">
                     </div>
                     <div class="form-group">
                         <label for="paidFee">भरलेली फी (Paid Fee):</label>
-                        <input type="number" id="paidFee" required min="0">
+                        <input type="number" id="paidFee" required min="0" placeholder="₹">
                     </div>
                 </div>
                 <button type="submit">ऍडमिशन निश्चित करा</button>
             </form>
 
             <br><br>
+            <!-- विद्यार्थ्यांची यादी -->
             <h2>विद्यार्थी यादी आणि फी तपशील (Student List & Fees)</h2>
             <div style="overflow-x:auto;">
                 <table>
@@ -247,25 +312,25 @@
                             <th>भरलेली फी</th>
                             <th>बाकी फी</th>
                             <th>फी अपडेट</th>
-                            <th>व्हॉट्सॲप मेसेज</th>
+                            <th>व्हॉट्सॲप</th>
                         </tr>
                     </thead>
                     <tbody id="studentTableBody">
-                        <!-- डेटा इथे ऑटोमॅटिक येईल -->
+                        <!-- डेटा इथे ऑटोमॅटिक लोड होईल -->
                     </tbody>
                 </table>
             </div>
             <br>
-            <button onclick="logoutAdmin()" style="background-color: #cc0000; color: white;">लॉगआउट</button>
+            <button onclick="logoutAdmin()" style="background-color: #cc0000; color: white;">सुरक्षित लॉगआउट (Logout)</button>
         </div>
 
     </div>
 
     <script>
-        // पासवर्डचा सुरक्षित SHA-256 हॅश (मूळ पासवर्ड: Shree@2026)
+        // मूळ पासवर्ड 'Shree@2026' चा सुरक्षित SHA-256 हॅश कोड
         const SECURE_HASH = "8ba7881e7d2b4b455b801a2f6bfba92bb66679b360f0bc9bebebe804bc969a94";
 
-        // सेक्युअर हॅश जनरेट करणारे फंक्शन
+        // सेक्युअल हॅशिंग फंक्शन
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);                    
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -273,27 +338,32 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // इनपुट सुरक्षित (Sanitize) करणे जेणेकरून हॅकिंग कोड चालणार नाही
+        // हॅकिंग स्क्रिप्ट्स रोखण्यासाठी इनपुट फिल्टर करणे
         function sanitizeInput(text) {
             const element = document.createElement('div');
             element.innerText = text;
             return element.innerHTML;
         }
 
+        // सेक्शन्स बदलण्याचे लॉजिक
         function showSection(sectionId) {
-            // जर डॅशबोर्ड उघडायचा असेल तर आधी लॉगिन चेक करा
+            // सुरक्षेसाठी: लॉगिन नसताना डॅशबोर्ड उघडण्याचा प्रयत्न केल्यास लॉगिनवर पाठवणे
             if (sectionId === 'admin-dashboard' && sessionStorage.getItem('isAdminLoggedIn') !== 'true') {
                 sectionId = 'admin-login';
+                alert('या पानासाठी ऍडमीन लॉगिन आवश्यक आहे!');
             }
             
             document.getElementById('home').classList.add('hidden');
+            document.getElementById('courses-info').classList.add('hidden');
             document.getElementById('admin-login').classList.add('hidden');
             document.getElementById('admin-dashboard').classList.add('hidden');
+            
             document.getElementById(sectionId).classList.remove('hidden');
         }
 
         let studentList = JSON.parse(localStorage.getItem('students')) || [];
 
+        // पासवर्ड तपासणी
         async function checkAdminPassword() {
             let pass = document.getElementById('adminPassword').value;
             let hashedInput = await sha256(pass);
@@ -301,24 +371,33 @@
             if(hashedInput === SECURE_HASH) { 
                 document.getElementById('loginError').innerText = "";
                 document.getElementById('adminPassword').value = "";
-                sessionStorage.setItem('isAdminLoggedIn', 'true'); // सेशनमध्ये लॉगिन सेव्ह केले
+                sessionStorage.setItem('isAdminLoggedIn', 'true');
+                
+                // नेव्हिगेशन मेनू अपडेट करणे
+                document.getElementById('loginNavBtn').classList.add('hidden');
+                document.getElementById('dashboardNavBtn').classList.remove('hidden');
+                
                 showSection('admin-dashboard');
                 renderStudentTable();
             } else {
-                document.getElementById('loginError').innerText = "चुकीचा पासवर्ड!";
+                document.getElementById('loginError').innerText = "चुकीचा पासवर्ड! कृपया पुन्हा प्रयत्न करा.";
             }
         }
 
+        // लॉगआउट लॉजिक
         function logoutAdmin() {
-            sessionStorage.removeItem('isAdminLoggedIn'); // सेशन नष्ट केले
+            sessionStorage.removeItem('isAdminLoggedIn');
+            document.getElementById('loginNavBtn').classList.remove('hidden');
+            document.getElementById('dashboardNavBtn').classList.add('hidden');
             showSection('home');
         }
 
+        // फॉर्म सबमिट - नवीन विद्यार्थी जोडणे
         document.getElementById('admissionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') {
-                alert('कृपया आधी लॉगिन करा!');
+                alert('सत्र संपले आहे, कृपया पुन्हा लॉगिन करा!');
                 return;
             }
             
@@ -329,7 +408,7 @@
             let paid = parseFloat(document.getElementById('paidFee').value);
 
             if (paid > total) {
-                alert('भरलेली फी एकूण फी पेक्षा जास्त असू शकत नाही!');
+                alert('चुकीचा तपशील! भरलेली फी एकूण फी पेक्षा जास्त असू शकत नाही.');
                 return;
             }
 
@@ -339,11 +418,12 @@
             studentList.push(student);
             localStorage.setItem('students', JSON.stringify(studentList));
 
-            alert('ऍडमिशन यशस्वी झाले!');
+            alert('नवीन ऍडमिशन यशस्वीरित्या नोंदवले गेले आहे!');
             document.getElementById('admissionForm').reset();
             renderStudentTable();
         });
 
+        // टेबलमध्ये डेटा भरणे
         function renderStudentTable() {
             if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') return;
 
@@ -352,23 +432,24 @@
 
             studentList.forEach(function(student, index) {
                 let row = `<tr>
-                    <td>${student.name}</td>
+                    <td><strong>${student.name}</strong></td>
                     <td>${student.course}</td>
                     <td>₹${student.total}</td>
                     <td>₹${student.paid}</td>
                     <td style="color: ${student.remaining > 0 ? 'red' : 'green'}; font-weight:bold;">₹${student.remaining}</td>
                     <td>
-                        <input type="number" placeholder="रक्कम" id="updateAmt-${student.id}" min="1" style="width:80px; padding:5px; margin-right:5px;">
-                        <button onclick="updateFees(${student.id})" style="padding:5px 10px; font-size:12px;">add</button>
+                        <input type="number" placeholder="रक्कम" id="updateAmt-${student.id}" min="1" style="width:75px; padding:5px; margin-right:5px;">
+                        <button onclick="updateFees(${student.id})" style="padding:5px 8px; font-size:12px;">+ Add</button>
                     </td>
                     <td>
-                        <button class="whatsapp-btn" onclick="sendWhatsApp(${index})">WhatsApp </button>
+                        <button class="whatsapp-btn" onclick="sendWhatsApp(${index})">WhatsApp</button>
                     </td>
                 </tr>`;
                 tbody.innerHTML += row;
             });
         }
 
+        // फी हप्ता जमा करणे
         function updateFees(id) {
             if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') return;
 
@@ -376,7 +457,7 @@
             let amt = parseFloat(amtInput.value);
 
             if(isNaN(amt) || amt <= 0) {
-                alert('कृपया योग्य आणि पॉझिटिव्ह रक्कम टाका!');
+                alert('कृपया योग्य रक्कम टाका!');
                 return;
             }
 
@@ -384,7 +465,7 @@
             studentList = studentList.map(student => {
                 if(student.id === id) {
                     if (student.paid + amt > student.total) {
-                        alert('अपडेट केलेली फी एकूण फी पेक्षा जास्त होत आहे!');
+                        alert('त्रुटी! नवीन रक्कम एकूण फी पेक्षा जास्त होत आहे.');
                         errorOccurred = true;
                         return student;
                     }
@@ -398,10 +479,11 @@
             if (errorOccurred) return;
 
             localStorage.setItem('students', JSON.stringify(studentList));
-            alert('फी यशस्वीरित्या अपडेट झाली!');
+            alert('फी यशस्वीरित्या जमा झाली!');
             renderStudentTable();
         }
 
+        // व्हॉट्सॲप मेसेज पाठवणे
         function sendWhatsApp(index) {
             let student = studentList[index];
             let message = `नमस्कार पालकांनो, \n\n*Shree Institute, Mandangad* कडून विद्यार्थ्याचा फी तपशील खालीलप्रमाणे आहे:\n\n` +
@@ -410,28 +492,30 @@
                           `• *एकूण फी:* ₹${student.total}\n` +
                           `• *भरलेली फी:* ₹${student.paid}\n` +
                           `• *बाकी फी:* ₹${student.remaining}\n\n` +
-                          `दर्जेदार शिक्षणासाठी सहकार्य केल्याबद्दल धन्यवाद! `;
+                          `दर्जेदार शिक्षणासाठी सहकार्य केल्याबद्दल धन्यवाद!`;
 
             let encodedMessage = encodeURIComponent(message);
             let whatsappUrl = `https://api.whatsapp.com/send?phone=91${student.mobile}&text=${encodedMessage}`;
             window.open(whatsappUrl, '_blank');
         }
 
+        // डेटा बॅकअप (JSON Download)
         function downloadBackup() {
             if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') return;
             if(studentList.length === 0) {
-                alert('डाऊनलोड करण्यासाठी कोणताही डेटा उपलब्ध नाही!');
+                alert('डाउनलोड करण्यासाठी कोणताही डेटा उपलब्ध नाही!');
                 return;
             }
             let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(studentList));
             let downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "Shree_Institute_Students_Backup.json");
+            downloadAnchor.setAttribute("download", "Shree_Institute_Backup.json");
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
         }
 
+        // डेटा रिस्टोर (JSON Upload)
         function uploadBackup(event) {
             if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') return;
             let file = event.target.files[0];
@@ -442,8 +526,7 @@
                 try {
                     let importedData = JSON.parse(e.target.result);
                     if (Array.isArray(importedData)) {
-                        if(confirm('तुम्हाला जुना डेटा रिस्टोर करायचा आहे का? यामुळे सध्याचा डेटा बदलला जाऊ शकतो.')) {
-                            // डेटा रिस्टोर करताना देखील सुरक्षेसाठी त्याला क्लीन करणे
+                        if(confirm('तुम्हाला जुना डेटा रिस्टोर करायचा आहे का? यामुळे सध्याचा डेटा पूर्णपणे बदलला जाईल.')) {
                             studentList = importedData.map(s => ({
                                 id: Number(s.id),
                                 name: sanitizeInput(String(s.name)),
@@ -458,7 +541,7 @@
                             alert('बॅकअप यशस्वीरित्या रिस्टोर झाला आहे!');
                         }
                     } else {
-                        alert('चुकीची फाईल! कृपया योग्य बॅकअप फाईल अपलोड करा.');
+                        alert('चुकीची फाईल! कृपया योग्य सिस्टीम बॅकअप फाईल वापरा.');
                     }
                 } catch (err) {
                     alert('फाईल वाचताना त्रुटी आली!');
@@ -467,11 +550,15 @@
             reader.readAsText(file);
         }
 
-        // पेज लोड होताना सेशन चेक करणे
+        // पेज लोड होताना आधीपासून लॉगिन आहे की नाही ते तपासणे
         window.onload = function() {
             if (sessionStorage.getItem('isAdminLoggedIn') === 'true') {
+                document.getElementById('loginNavBtn').classList.add('hidden');
+                document.getElementById('dashboardNavBtn').classList.remove('hidden');
                 showSection('admin-dashboard');
                 renderStudentTable();
+            } else {
+                showSection('home');
             }
         }
     </script>
