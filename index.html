@@ -185,7 +185,7 @@
             <h2>ऍडमीन लॉगिन</h2>
             <div class="form-group">
                 <label for="adminPassword">पासवर्ड टाका:</label>
-                <input type="password" id="adminPassword">
+                <input type="password" id="adminPassword" autocomplete="off">
             </div>
             <button onclick="checkAdminPassword()">लॉगिन करा</button>
             <p id="loginError" style="color: red; margin-top: 10px;"></p>
@@ -197,9 +197,9 @@
             <!-- Backup & Restore Section -->
             <div class="backup-section">
                 <strong>डेटा बॅकअप मॅनेजर:</strong>
-                <button onclick="downloadBackup()" class="btn-backup">📥 डेटा डाउनलोड करा (Backup)</button>
+                <button onclick="downloadBackup()" class="btn-backup"> डेटा डाउनलोड करा (Backup)</button>
                 <span style="color: #666;">|</span>
-                <label for="uploadFile" style="margin-bottom:0; cursor:pointer;" class="button btn-restore">📤 फाईल अपलोड करा (Restore):</label>
+                <label for="uploadFile" style="margin-bottom:0; cursor:pointer;" class="button btn-restore"> फाईल अपलोड करा (Restore):</label>
                 <input type="file" id="uploadFile" accept=".json" onchange="uploadBackup(event)" style="display:none;">
             </div>
 
@@ -207,11 +207,11 @@
             <form id="admissionForm">
                 <div class="form-group">
                     <label for="studentName">विद्यार्थ्याचे पूर्ण नाव:</label>
-                    <input type="text" id="studentName" required>
+                    <input type="text" id="studentName" required minlength="3">
                 </div>
                 <div class="form-group">
                     <label for="parentMobile">पालकांचा व्हॉट्सॲप नंबर (१० अंकी):</label>
-                    <input type="tel" id="parentMobile" required pattern="[0-9]{10}">
+                    <input type="tel" id="parentMobile" required pattern="[6-9][0-9]{9}" title="कृपया योग्य १० अंकी मोबाईल नंबर टाका">
                 </div>
                 <div class="form-group">
                     <label for="course">कोर्स निवडा:</label>
@@ -225,11 +225,11 @@
                 <div class="flex-inputs">
                     <div class="form-group">
                         <label for="totalFee">एकूण फी (Total Fee):</label>
-                        <input type="number" id="totalFee" required>
+                        <input type="number" id="totalFee" required min="0">
                     </div>
                     <div class="form-group">
                         <label for="paidFee">भरलेली फी (Paid Fee):</label>
-                        <input type="number" id="paidFee" required>
+                        <input type="number" id="paidFee" required min="0">
                     </div>
                 </div>
                 <button type="submit">ऍडमिशन निश्चित करा</button>
@@ -262,7 +262,30 @@
     </div>
 
     <script>
+        // पासवर्डचा सुरक्षित SHA-256 हॅश (मूळ पासवर्ड: Shree@2026)
+        const SECURE_HASH = "8ba7881e7d2b4b455b801a2f6bfba92bb66679b360f0bc9bebebe804bc969a94";
+
+        // सेक्युअर हॅश जनरेट करणारे फंक्शन
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);                    
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // इनपुट सुरक्षित (Sanitize) करणे जेणेकरून हॅकिंग कोड चालणार नाही
+        function sanitizeInput(text) {
+            const element = document.createElement('div');
+            element.innerText = text;
+            return element.innerHTML;
+        }
+
         function showSection(sectionId) {
+            // जर डॅशबोर्ड उघडायचा असेल तर आधी लॉगिन चेक करा
+            if (sectionId === 'admin-dashboard' && sessionStorage.getItem('isAdminLoggedIn') !== 'true') {
+                sectionId = 'admin-login';
+            }
+            
             document.getElementById('home').classList.add('hidden');
             document.getElementById('admin-login').classList.add('hidden');
             document.getElementById('admin-dashboard').classList.add('hidden');
@@ -271,11 +294,14 @@
 
         let studentList = JSON.parse(localStorage.getItem('students')) || [];
 
-        function checkAdminPassword() {
+        async function checkAdminPassword() {
             let pass = document.getElementById('adminPassword').value;
-            if(pass === "Shree@2026") { 
+            let hashedInput = await sha256(pass);
+
+            if(hashedInput === SECURE_HASH) { 
                 document.getElementById('loginError').innerText = "";
                 document.getElementById('adminPassword').value = "";
+                sessionStorage.setItem('isAdminLoggedIn', 'true'); // सेशनमध्ये लॉगिन सेव्ह केले
                 showSection('admin-dashboard');
                 renderStudentTable();
             } else {
@@ -284,20 +310,32 @@
         }
 
         function logoutAdmin() {
+            sessionStorage.removeItem('isAdminLoggedIn'); // सेशन नष्ट केले
             showSection('home');
         }
 
         document.getElementById('admissionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            let name = document.getElementById('studentName').value;
-            let mobile = document.getElementById('parentMobile').value;
+            if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') {
+                alert('कृपया आधी लॉगिन करा!');
+                return;
+            }
+            
+            let name = sanitizeInput(document.getElementById('studentName').value.trim());
+            let mobile = document.getElementById('parentMobile').value.trim();
             let course = document.getElementById('course').value;
             let total = parseFloat(document.getElementById('totalFee').value);
             let paid = parseFloat(document.getElementById('paidFee').value);
-            let remaining = total - paid;
 
+            if (paid > total) {
+                alert('भरलेली फी एकूण फी पेक्षा जास्त असू शकत नाही!');
+                return;
+            }
+
+            let remaining = total - paid;
             let student = { id: Date.now(), name, mobile, course, total, paid, remaining };
+            
             studentList.push(student);
             localStorage.setItem('students', JSON.stringify(studentList));
 
@@ -307,6 +345,8 @@
         });
 
         function renderStudentTable() {
+            if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') return;
+
             let tbody = document.getElementById('studentTableBody');
             tbody.innerHTML = "";
 
@@ -318,11 +358,11 @@
                     <td>₹${student.paid}</td>
                     <td style="color: ${student.remaining > 0 ? 'red' : 'green'}; font-weight:bold;">₹${student.remaining}</td>
                     <td>
-                        <input type="number" placeholder="रक्कम" id="updateAmt-${student.id}" style="width:80px; padding:5px; margin-right:5px;">
+                        <input type="number" placeholder="रक्कम" id="updateAmt-${student.id}" min="1" style="width:80px; padding:5px; margin-right:5px;">
                         <button onclick="updateFees(${student.id})" style="padding:5px 10px; font-size:12px;">add</button>
                     </td>
                     <td>
-                        <button class="whatsapp-btn" onclick="sendWhatsApp(${index})">WhatsApp 📲</button>
+                        <button class="whatsapp-btn" onclick="sendWhatsApp(${index})">WhatsApp </button>
                     </td>
                 </tr>`;
                 tbody.innerHTML += row;
@@ -330,22 +370,32 @@
         }
 
         function updateFees(id) {
+            if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') return;
+
             let amtInput = document.getElementById(`updateAmt-${id}`);
             let amt = parseFloat(amtInput.value);
 
             if(isNaN(amt) || amt <= 0) {
-                alert('कृपया योग्य रक्कम टाका!');
+                alert('कृपया योग्य आणि पॉझिटिव्ह रक्कम टाका!');
                 return;
             }
 
+            let errorOccurred = false;
             studentList = studentList.map(student => {
                 if(student.id === id) {
+                    if (student.paid + amt > student.total) {
+                        alert('अपडेट केलेली फी एकूण फी पेक्षा जास्त होत आहे!');
+                        errorOccurred = true;
+                        return student;
+                    }
                     let newPaid = student.paid + amt;
                     let newRemaining = student.total - newPaid;
                     return { ...student, paid: newPaid, remaining: newRemaining };
                 }
                 return student;
             });
+
+            if (errorOccurred) return;
 
             localStorage.setItem('students', JSON.stringify(studentList));
             alert('फी यशस्वीरित्या अपडेट झाली!');
@@ -360,17 +410,15 @@
                           `• *एकूण फी:* ₹${student.total}\n` +
                           `• *भरलेली फी:* ₹${student.paid}\n` +
                           `• *बाकी फी:* ₹${student.remaining}\n\n` +
-                          `दर्जेदार शिक्षणासाठी सहकार्य केल्याबद्दल धन्यवाद! 🙏`;
+                          `दर्जेदार शिक्षणासाठी सहकार्य केल्याबद्दल धन्यवाद! `;
 
             let encodedMessage = encodeURIComponent(message);
             let whatsappUrl = `https://api.whatsapp.com/send?phone=91${student.mobile}&text=${encodedMessage}`;
             window.open(whatsappUrl, '_blank');
         }
 
-        // --- नवीन बॅकअप फीचर्स ---
-
-        // १. डेटा डाऊनलोड करणे (Backup)
         function downloadBackup() {
+            if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') return;
             if(studentList.length === 0) {
                 alert('डाऊनलोड करण्यासाठी कोणताही डेटा उपलब्ध नाही!');
                 return;
@@ -384,8 +432,8 @@
             downloadAnchor.remove();
         }
 
-        // २. जुना डेटा परत लोड करणे (Restore)
         function uploadBackup(event) {
+            if (sessionStorage.getItem('isAdminLoggedIn') !== 'true') return;
             let file = event.target.files[0];
             if (!file) return;
 
@@ -395,7 +443,16 @@
                     let importedData = JSON.parse(e.target.result);
                     if (Array.isArray(importedData)) {
                         if(confirm('तुम्हाला जुना डेटा रिस्टोर करायचा आहे का? यामुळे सध्याचा डेटा बदलला जाऊ शकतो.')) {
-                            studentList = importedData;
+                            // डेटा रिस्टोर करताना देखील सुरक्षेसाठी त्याला क्लीन करणे
+                            studentList = importedData.map(s => ({
+                                id: Number(s.id),
+                                name: sanitizeInput(String(s.name)),
+                                mobile: String(s.mobile).replace(/[^0-9]/g, ''),
+                                course: sanitizeInput(String(s.course)),
+                                total: Number(s.total),
+                                paid: Number(s.paid),
+                                remaining: Number(s.remaining)
+                            }));
                             localStorage.setItem('students', JSON.stringify(studentList));
                             renderStudentTable();
                             alert('बॅकअप यशस्वीरित्या रिस्टोर झाला आहे!');
@@ -408,6 +465,14 @@
                 }
             };
             reader.readAsText(file);
+        }
+
+        // पेज लोड होताना सेशन चेक करणे
+        window.onload = function() {
+            if (sessionStorage.getItem('isAdminLoggedIn') === 'true') {
+                showSection('admin-dashboard');
+                renderStudentTable();
+            }
         }
     </script>
 </body>
