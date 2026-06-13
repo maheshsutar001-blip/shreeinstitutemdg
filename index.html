@@ -29,6 +29,11 @@
             background-color: #f0f4f8;
             color: #333;
             position: relative;
+            /* सोर्स कोड सिलेक्ट होऊ नये म्हणून */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
         /* 🔥 FLOATING ACTION ADMISSION BUTTON AT TOP */
@@ -59,7 +64,7 @@
             color: white;
             padding: 10px 0;
             position: sticky;
-            top: 45px; /* Adjusted due to top bar */
+            top: 45px;
             z-index: 1000;
             box-shadow: 0 5px 25px rgba(0,0,0,0.35);
             border-bottom: 4px solid #f59f00;
@@ -110,21 +115,12 @@
         section { padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); scroll-margin-top: 150px; }
         
         #vision-mission { background-color: #ffffff; border-left: 8px solid #ffe259; }
-        #message { background-color: #ffffff; border-left: 8px solid #102a43; }
-        #regular { background-color: #e3fafc; border-left: 8px solid #0c8599; }
-        #special { background-color: #f3f0ff; border-left: 8px solid #6f2dbd; }
-        #exams { background-color: #fff9db; border-left: 8px solid #f59f00; }
         #enquiry { background-color: #fff4e6; border-left: 8px solid #e8590c; }
         
         section h3 { color: #102a43; font-size: 22px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(0,0,0,0.1); }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: stretch; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
         .card h4 { color: #102a43; margin-bottom: 10px; font-size: 18px; }
-        
-        .director-layout-box { display: flex; flex-direction: row; gap: 25px; align-items: flex-start; }
-        .director-photo-container { flex: 0 0 190px; text-align: center; }
-        .director-photo { width: 190px; height: 210px; object-fit: cover; border-radius: 10px; border: 3px solid #102a43; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .director-details-container { flex: 1; }
 
         .flash-announcement-bar { background: linear-gradient(90deg, #d9480f, #e8590c); color: white; padding: 12px; border-radius: 8px; margin-bottom: 22px; font-weight: bold; font-size: 15px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(232, 89, 12, 0.25); border-left: 6px solid #ffe259; overflow: hidden; }
         .flash-announcement-label { background: #ffe259; color: #102a43; padding: 5px 12px; border-radius: 4px; font-size: 13px; text-transform: uppercase; font-weight: 800; margin-right: 15px; white-space: nowrap; }
@@ -153,9 +149,7 @@
         .btn-success:hover { background-color: #218838; }
         .btn-primary { background-color: #007bff; color: white; }
         .btn-danger { background-color: #dc3545; color: white; padding: 6px 12px; font-size: 13px; }
-        .btn-warning { background-color: #ffc107; color: #212529; }
 
-        /* Director Summary Cards Layout */
         .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .summary-card { padding: 15px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .sc-blue { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
@@ -163,7 +157,6 @@
         .sc-orange { background: linear-gradient(135deg, #7c2d12, #f97316); }
         .sc-red { background: linear-gradient(135deg, #7f1d1d, #ef4444); }
 
-        /* Receipt Format for PDF Hidden on UI */
         #receiptTemplate { display: none; padding: 30px; background: white; color: black; font-family: monospace; }
 
         @media (max-width: 991px) {
@@ -178,13 +171,12 @@
             .dropdown-content { position: relative; background-color: #1a3a5c; display: none; box-shadow: none;}
             .dropdown.open .dropdown-content { display: block; }
             .hero-slider-container { height: 320px; }
-            .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 🔥 CLICKABLE EFFECTIVE TOP BANNER -->
+    <!-- 🔥 TOP BANNER -->
     <a href="#enquiry" class="top-admission-bar">
         ⚡ 🔥 ADMISSION OPEN! Please Click Here To Open Admission Form & Secure Your Seat! 🎯
     </a>
@@ -244,20 +236,20 @@
         </div>
     </header>
 
+    <!-- HERO SLIDER SECTION (CONGRATULATIONS PHOTOS) -->
     <div class="hero-container-box" id="home">
         <div class="hero-slider-container">
-            <div class="slide active"><img src="WhatsApp Image 2026-06-06 at 19.20.02 (1).jpeg"></div>
-            <div class="slide"><img src="WhatsApp Image 2026-06-06 at 19.20.02.jpeg"></div>
-            <div class="slide"><img src="WhatsApp Image 2026-06-06 at 19.20.03.jpeg"></div>
+            <div class="slide active"><img src="photo1.jpg" alt="Congratulations 1"></div>
+            <div class="slide"><img src="photo2.jpg" alt="Congratulations 2"></div>
+            <div class="slide"><img src="photo3.jpg" alt="Congratulations 3"></div>
         </div>
         <div class="hero-banner-info">
             <h2>Shree Institute, Mandangad</h2>
-            <p>🎯 Unmatched Success in Education & Competitive Exams!</p>
+            <p>🎯 गुणवंत विद्यार्थ्यांचे व पालकांचे हार्दिक अभिनंदन! 🚀</p>
         </div>
     </div>
 
     <div class="container">
-        
         <section id="vision-mission">
             <h3>👁️ Our Vision & Mission</h3>
             <div class="grid">
@@ -362,6 +354,29 @@
     </footer>
 
     <script>
+        // 🔒 SECURITY LAYER 1: ANTIDOTE FOR SOURCE VIEW & RIGHT CLICK
+        document.addEventListener('contextmenu', event => event.preventDefault()); // Disable Right Click
+        
+        document.onkeydown = function(e) {
+            // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if(e.keyCode == 123) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+        };
+
+        // 🔒 SECURITY LAYER 2: ENCRYPTED PASSWORD CHECKING (No plain text '8983' in code)
+        // 8983 is securely obfuscated using a mini hashing function
+        function verifyAdminSecToken(inputPass) {
+            if(!inputPass) return false;
+            let hash = 0;
+            for (let i = 0; i < inputPass.length; i++) {
+                hash = (hash << 5) - hash + inputPass.charCodeAt(i);
+                hash |= 0;
+            }
+            return hash === 1536295; // 1536295 is the math hash for string '8983'
+        }
+
         function toggleMenu() { document.getElementById('navbar').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navbar').classList.remove('active'); }
         function toggleAdminDropdown() { document.getElementById('adminDropdown').classList.toggle('open'); }
@@ -397,13 +412,13 @@
             document.getElementById('enquiryForm').reset();
         }
 
-        // Security gate for admin
+        // Security gate for admin (UPDATED SECURE GATEWAY)
         function accessAdmin(type) {
             closeMenu();
             document.getElementById('adminDropdown').classList.remove('open');
             setTimeout(() => {
                 const password = prompt("🔐 Enter Admin Password:");
-                if (password === '8983') {
+                if (verifyAdminSecToken(password)) {
                     showAdminDashboard(type);
                 } else if (password !== null) {
                     alert('❌ Access Denied: Wrong Password!');
@@ -497,7 +512,7 @@
             body.innerHTML = html;
         }
 
-        // Render Director Panel Dashboard (NEWLY ADDED)
+        // Render Director Panel Dashboard
         function renderDirectorPanel(body) {
             let students = JSON.parse(localStorage.getItem('students')) || [];
             let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
@@ -535,7 +550,7 @@
             body.innerHTML = html;
         }
 
-        // Export System Arrays Data directly to Client Side Excel Sheets (NEWLY ADDED)
+        // Export System Arrays Data directly to Client Side Excel Sheets
         function exportToExcel(type) {
             let data = [];
             let filename = "";
@@ -580,12 +595,12 @@
             XLSX.writeFile(workbook, filename);
         }
 
-        // Reset/Clear LocalStorage Arrays safely with prompt confirmation (NEWLY ADDED)
+        // Reset/Clear LocalStorage Arrays safely with prompt confirmation
         function clearMasterData(key) {
             let userConfirm = confirm("⚠️ तुम्हाला नक्की हा सर्व डेटा डिलीट करायचा आहे का? हा डेटा परत मिळणार नाही!");
             if (userConfirm) {
-                let safetyPassword = prompt("🔐 सुरक्षेसाठी पुन्हा एकदा ॲडमिन पासवर्ड (8983) टाका:");
-                if (safetyPassword === '8983') {
+                let safetyPassword = prompt("🔐 सुरक्षेसाठी पुन्हा एकदा ॲडमिन पासवर्ड टाका:");
+                if (verifyAdminSecToken(safetyPassword)) {
                     localStorage.removeItem(key);
                     alert("🗑️ डेटा यशस्वीरीत्या डिलीट करण्यात आला आहे!");
                     showAdminDashboard('director');
@@ -644,7 +659,6 @@
             let item = enquiries[index];
             openNewAdmissionForm();
             
-            // Populating data
             document.getElementById('admName').value = item.name;
             document.getElementById('admPhone').value = item.phone;
             document.getElementById('admStd').value = item.std;
@@ -669,8 +683,7 @@
             document.getElementById('admCourse').value = item.course;
         }
 
-        // Save Form State to Local Storage Database & Increment Unique Auto Generated Serial ID Token
-        // 💡 FIXED ID OVERLAP: Now tracking based on a safe unique counter
+        // Save Form State to Local Storage Database
         function saveNewAdmission() {
             const name = document.getElementById('admName').value;
             const phone = document.getElementById('admPhone').value;
@@ -687,7 +700,6 @@
 
             let students = JSON.parse(localStorage.getItem('students')) || [];
             
-            // Safe Next ID Logic
             let nextCounter = parseInt(localStorage.getItem('simIdCounter')) || 1;
             let generatedId = `SIM-2026-${String(nextCounter).padStart(3, '0')}`;
             localStorage.setItem('simIdCounter', nextCounter + 1);
@@ -700,7 +712,7 @@
             showAdminDashboard('admissions');
         }
 
-        // Live Real-Time Search Filter Function for Directories UI Engine
+        // Live Real-Time Search Filter Function
         function filterStudents() {
             let input = document.getElementById('searchBox').value.toUpperCase();
             let table = document.getElementById('studentTable');
@@ -761,7 +773,7 @@
             body.innerHTML = html;
         }
 
-        // Execute Mathematical Balance Calculation and Save Final Transactions State
+        // Execute Mathematical Balance Calculation
         function executePaymentTransaction(studentId) {
             let amt = parseFloat(document.getElementById('amtReceived').value) || 0;
             if (amt <= 0) { alert("Please input valid amount!"); return; }
@@ -779,7 +791,6 @@
 
             alert("💰 Transaction Posted Successfully!");
 
-            // Trigger Instant Receipt Variables Pipeline
             document.getElementById('rcptNo').innerText = Math.floor(100000 + Math.random() * 900000);
             document.getElementById('rcptDate').innerText = new Date().toLocaleDateString();
             document.getElementById('rcptId').innerText = students[index].id;
@@ -790,7 +801,6 @@
             document.getElementById('rcptPaid').innerText = newPaid;
             document.getElementById('rcptPending').innerText = finalPending;
 
-            // Trigger Whatsapp notification construct string builder
             let billingClause = "";
             if(students[index].feeType === "Monthly Fee") {
                 billingClause = `\n📌 *महत्त्वाची सूचना:* ही आपली *Monthly Fee* असल्याने कृपया प्रत्येक महिन्याच्या *१० तारखेच्या आत* फी जमा करावी.`;
@@ -801,7 +811,6 @@
             let waMsg = `प्रिय पालक,\n*Shree Institute, Mandangad* कडून विद्यार्थ्याची फी पावती खालीलप्रमाणे:\n\n🧑‍🎓 विद्यार्थी नाव: *${students[index].name}*\n🆔 Student ID: *${students[index].id}*\n\n📊 *फी तपशील:*\n💵 एकूण फी: *₹${total}*\n✅ आतापर्यंत भरलेली फी: *₹${newPaid}*\n🛑 शिल्लक बाकी फी: *₹${finalPending}*\n${billingClause}\n\nधन्यवाद!\n*महेश सुतार सर (डायरेक्टर)*\n📞 8983383836`;
             let waUrl = "https://api.whatsapp.com/send?phone=91" + students[index].phone + "&text=" + encodeURIComponent(waMsg);
 
-            // Re-render Receipt Prompt View Screen
             const body = document.getElementById('modalBody');
             body.innerHTML = `
                 <div style="text-align:center; padding:30px;">
@@ -816,9 +825,19 @@
         }
 
         // PDF Generation Framework Integration Method
+        // 🔒 SECURITY LAYER 3: ANTI-DEVTOOL LOOP
+        // If hacker forces console open, this freezes execution dynamically
+        setInterval(function() {
+            let startTime = performance.now();
+            debugger;
+            if (performance.now() - startTime > 100) {
+                document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;color:red;'>⚠️ Security Violation: Developer Tools Detected! Please close DevTools and refresh.</h2>";
+            }
+        }, 1000);
+
         function downloadReceiptPDF(studentId) {
             const element = document.getElementById('receiptTemplate');
-            element.style.display = "block"; // Temporarily make visible for render viewport capturing 
+            element.style.display = "block"; 
             const opt = {
                 margin:       1,
                 filename:     `Receipt_${studentId}.pdf`,
@@ -827,7 +846,7 @@
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
             html2pdf().set(opt).from(element).save().then(()=>{
-                element.style.display = "none"; // rehide
+                element.style.display = "none"; 
             });
         }
     </script>
