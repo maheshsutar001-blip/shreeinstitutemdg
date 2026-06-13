@@ -136,7 +136,7 @@
 
         /* Centralized Main Form Container */
         .main-container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
         }
@@ -171,7 +171,12 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+            margin-bottom: 15px;
         }
         
         .form-group label {
@@ -180,7 +185,7 @@
             color: #475569;
         }
         
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             padding: 11px;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
@@ -188,8 +193,59 @@
             outline: none;
         }
         
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: var(--success);
+        }
+
+        /* Courses Checkbox Matrix */
+        .courses-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--success);
+        }
+
+        /* Hidden Note Box */
+        .other-note-box {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .other-note-box.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         button {
@@ -203,10 +259,10 @@
         .btn-primary {
             background: var(--success);
             color: white;
-            padding: 12px;
+            padding: 14px;
             width: 100%;
-            font-size: 15px;
-            margin-top: 10px;
+            font-size: 16px;
+            margin-top: 15px;
         }
         .btn-primary:hover { background: #15803d; }
         
@@ -234,7 +290,7 @@
         .modal-content {
             background: white;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1150px;
             max-height: 90vh;
             border-radius: 12px;
             display: flex;
@@ -309,11 +365,12 @@
         .receipt-card {
             background: #fff;
             border: 2px dashed #cbd5e1;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
-            max-width: 450px;
+            max-width: 500px;
             margin: 25px auto;
             color: #334155;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
         
         @media (max-width: 768px) {
@@ -364,12 +421,21 @@
                     </div>
                     <div class="form-group">
                         <label>Contact Number</label>
-                        <input type="tel" id="admPhone" required pattern="[0-9]{10}" placeholder="Mobile">
+                        <input type="tel" id="admPhone" required pattern="[0-9]{10}" placeholder="10-digit Mobile">
                     </div>
                     <div class="form-group">
                         <label>Standard / Class</label>
                         <select id="admStd" required>
                             <option value="">Select Class</option>
+                            <option value="Jr. KG">Jr. KG</option>
+                            <option value="Sr. KG">Sr. KG</option>
+                            <option value="1st">1st</option>
+                            <option value="2nd">2nd</option>
+                            <option value="3rd">3rd</option>
+                            <option value="4th">4th</option>
+                            <option value="5th">5th</option>
+                            <option value="6th">6th</option>
+                            <option value="7th">7th</option>
                             <option value="8th">8th</option>
                             <option value="9th">9th</option>
                             <option value="10th">10th</option>
@@ -377,6 +443,32 @@
                             <option value="12th">12th</option>
                         </select>
                     </div>
+
+                    <!-- Courses / Subjects Matrix Checklist Section -->
+                    <div class="form-group-full">
+                        <label class="courses-label">Select Courses / Subjects</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="English"> English</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Mathematics"> Mathematics</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Science"> Science</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Basic Foundation Maths Course"> Basic Foundation Maths Course</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Basic Science"> Basic Science</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Proactive Abacus"> Proactive Abacus</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Proactive Vedic Maths"> Proactive Vedic Maths</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Scholarship"> Scholarship</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Navoday (JNV)"> Navoday (JNV)</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Manthan"> Manthan</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Brain Developm Scholarship"> Brain Developm Scholarship</label>
+                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Other" id="otherCheckbox" onchange="toggleOtherNoteBox()"> <strong>Other (इतर)</strong></label>
+                        </div>
+                        
+                        <!-- Toggleable custom textual notes input field box -->
+                        <div class="form-group other-note-box" id="otherNoteContainer">
+                            <label style="color:var(--danger)">Specify Details for Other Course/Note</label>
+                            <input type="text" id="admOtherDetails" placeholder="उदा. स्पेशल बॅच, वेगळा विषय इ.">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label>Total Final Fee (₹)</label>
                         <input type="number" id="admTotalFee" required oninput="calcAdmissionRemaining()" placeholder="Total Quoted Amount">
@@ -421,6 +513,18 @@
         function closeMenu() { document.getElementById('navbar').classList.remove('active'); }
         function toggleDirectorDropdown() { document.getElementById('directorDropdown').classList.toggle('open'); }
 
+        // Dynamic Toggle Note Box visibility
+        function toggleOtherNoteBox() {
+            const chk = document.getElementById('otherCheckbox');
+            const box = document.getElementById('otherNoteContainer');
+            if(chk.checked) {
+                box.classList.add('active');
+            } else {
+                box.classList.remove('active');
+                document.getElementById('admOtherDetails').value = "";
+            }
+        }
+
         // Live Fee Calculation Engine
         function calcAdmissionRemaining() {
             const total = parseFloat(document.getElementById('admTotalFee').value) || 0;
@@ -439,12 +543,31 @@
             const refNo = "SI-" + Math.floor(1000 + Math.random() * 9000);
             const dateStr = new Date().toLocaleDateString();
 
+            // Extract selected courses array checklist elements
+            const checkboxes = document.querySelectorAll('input[name="admCourses"]:checked');
+            let selectedCourses = [];
+            checkboxes.forEach((cb) => {
+                if(cb.value !== 'Other') {
+                    selectedCourses.push(cb.value);
+                }
+            });
+
+            // Append custom written other note structural data points if present inside fields
+            const otherText = document.getElementById('admOtherDetails').value.trim();
+            if(document.getElementById('otherCheckbox').checked && otherText !== "") {
+                selectedCourses.push(`Other (${otherText})`);
+            }
+
+            const coursesString = selectedCourses.join(', ') || 'None';
+
             let localAdm = JSON.parse(localStorage.getItem('admissions')) || [];
-            const newRecord = { refNo, name, phone, std, total, paid, balance, date: dateStr };
+            const newRecord = { refNo, name, phone, std, courses: coursesString, total, paid, balance, date: dateStr };
             localAdm.push(newRecord);
             localStorage.setItem('admissions', JSON.stringify(localAdm));
 
+            // Reset Form and Note boxes safely
             document.getElementById('admissionForm').reset();
+            document.getElementById('otherNoteContainer').classList.remove('active');
             document.getElementById('admRemainingFee').value = 0;
             
             alert(`🎉 Admission Form Locked Successfully!\nReceipt ID: ${refNo}`);
@@ -472,7 +595,6 @@
         }
 
         function closeDirectorModal() {
-            document.getElementById('directorModal').style.none = 'none';
             document.getElementById('directorModal').style.display = 'none';
         }
 
@@ -507,7 +629,7 @@
                 <div class="admin-table-wrapper">
                     <table class="admin-table">
                         <thead>
-                            <tr><th>ID</th><th>Date</th><th>Student Name</th><th>Phone</th><th>Class</th><th>Total Fee</th><th>Paid</th><th>Balance</th><th>Action</th></tr>
+                            <tr><th>ID</th><th>Date</th><th>Student Name</th><th>Phone</th><th>Class</th><th>Courses / Subjects</th><th>Total Fee</th><th>Paid</th><th>Balance</th><th>Action</th></tr>
                         </thead>
                         <tbody>
             `;
@@ -519,12 +641,13 @@
                         <td>${item.date}</td>
                         <td><strong>${item.name}</strong></td>
                         <td>${item.phone}</td>
-                        <td>${item.std}</td>
+                        <td><span style="background:#e2e8f0; padding:2px 6px; border-radius:4px; font-weight:600;">${item.std}</span></td>
+                        <td style="max-width:220px; white-space:normal; color:#475569;">${item.courses || '-'}</td>
                         <td>₹${item.total}</td>
                         <td>₹${item.paid}</td>
                         <td style="${balStyle}">₹${item.balance}</td>
                         <td>
-                            <button class="btn-secondary" style="padding:3px 8px; font-size:12px; margin-right:5px;" onclick="printReceipt(${index})"><i class="fa-solid fa-print"></i> Receipt</button>
+                            <button class="btn-secondary" style="padding:4px 8px; font-size:12px; margin-right:5px;" onclick="printReceipt(${index})"><i class="fa-solid fa-print"></i> Receipt</button>
                             <button class="btn-danger" onclick="deleteRowItem('admissions', ${index}, 'admissions')">Delete</button>
                         </td>
                     </tr>
@@ -546,7 +669,7 @@
                     
                     <div style="background:#fef2f2; border:1px solid #fca5a5; padding:20px; border-radius:8px;">
                         <h4 style="color:var(--danger); margin-bottom:8px;"><i class="fa-solid fa-upload"></i> Restore / Upload Lost Backup File</h4>
-                        <p style="font-size:13px; color:#475569; margin-bottom:15px;">तुमची जुनी सेव्ह केलेली बॅकअप फाईल किंवा एक्सपोर्ट केलेली एक्सेल शीट निवडून रीस्टोर करा.</p>
+                        <p style="font-size:13px; color:#475569; margin-bottom:15px;">तुमची जुनी सेव्ह केलेली बॅकअप फाईल (.json) किंवा एक्सपोर्ट केलेली एक्सेल शीट (.xlsx) निवडून रीस्टोर करा.</p>
                         <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
                             <input type="file" id="backupFileInputField" accept=".json, .xlsx, .xls" style="padding:5px; font-size:13px;">
                             <button onclick="uploadSystemRestoreData()" class="btn-primary" style="width:auto; margin:0; padding:10px 20px; background:var(--dark);"><i class="fa-solid fa-cloud-arrow-up"></i> Upload & Restore</button>
@@ -566,22 +689,23 @@
             box.innerHTML = `
                 <div class="receipt-card">
                     <div style="text-align:center; margin-bottom:12px;">
-                        <h3 style="color:var(--success)">SHREE INSTITUTE</h3>
-                        <p style="font-size:11px; color:var(--gray)">Admission Payment Status Report / Invoice Receipt</p>
+                        <h2 style="color:var(--success); letter-spacing:1px; margin-bottom:2px;">SHREE INSTITUTE</h2>
+                        <p style="font-size:11px; color:var(--gray); text-transform:uppercase;">Admission Payment Status Report / Invoice Receipt</p>
                     </div>
-                    <hr style="border:0; border-top:1px dashed #cbd5e1; margin-bottom:10px;">
-                    <p style="font-size:13px; margin-bottom:4px;"><strong>Receipt ID:</strong> ${student.refNo} | <strong>Date:</strong> ${student.date}</p>
-                    <p style="font-size:13px; margin-bottom:4px;"><strong>Student Name:</strong> ${student.name}</p>
-                    <p style="font-size:13px; margin-bottom:4px;"><strong>Course/Std:</strong> ${student.std}</p>
-                    <p style="font-size:13px; margin-bottom:12px;"><strong>Contact No:</strong> ${student.phone}</p>
-                    <table style="width:100%; text-align:left; font-size:13px; border-top:1px solid #e2e8f0; padding-top:8px;">
-                        <tr><td>Total Finalized Course Fee:</td><td style="text-align:right;">₹${student.total}</td></tr>
-                        <tr style="color:var(--success); font-weight:bold;"><td>Amount Processed/Paid:</td><td style="text-align:right;">₹${student.paid}</td></tr>
-                        <tr style="color:var(--danger); font-weight:bold; font-size:14px; border-top:1px solid #cbd5e1;"><td>Outstanding Balance Owed:</td><td style="text-align:right;">₹${student.balance}</td></tr>
+                    <hr style="border:0; border-top:1px dashed #cbd5e1; margin-bottom:12px;">
+                    <p style="font-size:13px; margin-bottom:5px;"><strong>Receipt ID:</strong> ${student.refNo} | <strong>Date:</strong> ${student.date}</p>
+                    <p style="font-size:13px; margin-bottom:5px;"><strong>Student Name:</strong> ${student.name}</p>
+                    <p style="font-size:13px; margin-bottom:5px;"><strong>Class/Standard:</strong> ${student.std}</p>
+                    <p style="font-size:13px; margin-bottom:5px; max-width:100%; white-space:normal;"><strong>Enrolled Courses:</strong> ${student.courses}</p>
+                    <p style="font-size:13px; margin-bottom:15px;"><strong>Contact No:</strong> ${student.phone}</p>
+                    <table style="width:100%; text-align:left; font-size:13.5px; border-top:1px solid #e2e8f0; padding-top:10px; border-collapse:collapse;">
+                        <tr style="height:25px;"><td>Total Finalized Course Fee:</td><td style="text-align:right; font-weight:600;">₹${student.total}</td></tr>
+                        <tr style="color:var(--success); font-weight:bold; height:25px;"><td>Amount Processed/Paid:</td><td style="text-align:right;">₹${student.paid}</td></tr>
+                        <tr style="color:var(--danger); font-weight:bold; font-size:15px; border-top:2px solid #cbd5e1; height:35px;"><td>Outstanding Balance Owed:</td><td style="text-align:right;">₹${student.balance}</td></tr>
                     </table>
-                    <hr style="border:0; border-top:1px dashed #cbd5e1; margin-top:12px; margin-bottom:10px;">
+                    <hr style="border:0; border-top:1px dashed #cbd5e1; margin-top:12px; margin-bottom:12px;">
                     <p style="text-align:center; font-size:11px; font-style:italic; color:var(--gray)">Generated via Shree Institute Core Engine. System Confirmed.</p>
-                    <button onclick="window.print()" class="btn-secondary" style="width:100%; margin-top:10px; font-size:12px; padding:6px;"><i class="fa-solid fa-print"></i> Click to Print PDF Report</button>
+                    <button onclick="window.print()" class="btn-secondary" style="width:100%; margin-top:15px; font-size:13px; padding:8px;"><i class="fa-solid fa-print"></i> Click to Print PDF Report / Receipt</button>
                 </div>
             `;
             box.scrollIntoView({ behavior: 'smooth' });
@@ -662,13 +786,9 @@
                             return;
                         }
 
-                        if(sheetData[0].hasOwnProperty('balance') || sheetData[0].hasOwnProperty('paid') || sheetData[0].hasOwnProperty('name')) {
-                            localStorage.setItem('admissions', JSON.stringify(sheetData));
-                            alert(`✅ Successfully imported ${sheetData.length} Confirmed Admission Ledgers.`);
-                            switchTab('admissions');
-                        } else {
-                            alert("⚠️ Template Structure mismatch!");
-                        }
+                        localStorage.setItem('admissions', JSON.stringify(sheetData));
+                        alert(`✅ Successfully imported ${sheetData.length} Confirmed Admission Ledgers.`);
+                        switchTab('admissions');
                     } catch(excelError) {
                         alert("❌ Excel parsing error: " + excelError);
                     }
