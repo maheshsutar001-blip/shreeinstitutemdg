@@ -354,19 +354,17 @@
     </footer>
 
     <script>
-        // 🔒 SECURITY LAYER 1: ANTIDOTE FOR SOURCE VIEW & RIGHT CLICK
-        document.addEventListener('contextmenu', event => event.preventDefault()); // Disable Right Click
+        // 🔒 SECURITY LAYER 1: DISABLE RIGHT CLICK & COPY INTERFACE
+        document.addEventListener('contextmenu', event => event.preventDefault());
         
         document.onkeydown = function(e) {
-            // Block F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
             if(e.keyCode == 123) return false;
             if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
             if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
             if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
         };
 
-        // 🔒 SECURITY LAYER 2: ENCRYPTED PASSWORD CHECKING (No plain text '8983' in code)
-        // 8983 is securely obfuscated using a mini hashing function
+        // 🔒 SECURITY LAYER 2: ENCRYPTED PASSWORD CHECKING (String '8983')
         function verifyAdminSecToken(inputPass) {
             if(!inputPass) return false;
             let hash = 0;
@@ -374,7 +372,7 @@
                 hash = (hash << 5) - hash + inputPass.charCodeAt(i);
                 hash |= 0;
             }
-            return hash === 1536295; // 1536295 is the math hash for string '8983'
+            return hash === 1536295;
         }
 
         function toggleMenu() { document.getElementById('navbar').classList.toggle('active'); }
@@ -412,7 +410,7 @@
             document.getElementById('enquiryForm').reset();
         }
 
-        // Security gate for admin (UPDATED SECURE GATEWAY)
+        // Security gate for admin
         function accessAdmin(type) {
             closeMenu();
             document.getElementById('adminDropdown').classList.remove('open');
@@ -426,7 +424,7 @@
             }, 100);
         }
 
-        // Master Route Controller for Admin Dashboard Panels
+        // Dashboard Router
         function showAdminDashboard(type) {
             const modal = document.getElementById('adminModal');
             const title = document.getElementById('modalTitle');
@@ -466,7 +464,6 @@
             }
         }
 
-        // Render Admissions and Fee Dashboard Interface
         function renderAdmissionsTab(body) {
             let students = JSON.parse(localStorage.getItem('students')) || [];
 
@@ -482,7 +479,7 @@
             <div class="admin-table-wrapper">
                 <table class="admin-table" id="studentTable">
                     <thead>
-                        <tr><th>Student ID</th><th>Name</th><th>Standard/Course</th><th>Fee Type</th><th>Financials (Total / Paid / Balance)</th><th>Manage Profile</th></tr>
+                        <tr><th>Student ID</th><th>Name</th><th>Standard/Course</th><th>Fee Type</th><th>Financials</th><th>Manage Profile</th></tr>
                     </thead>
                     <tbody id="studentTableBody">`;
             
@@ -512,7 +509,6 @@
             body.innerHTML = html;
         }
 
-        // Render Director Panel Dashboard
         function renderDirectorPanel(body) {
             let students = JSON.parse(localStorage.getItem('students')) || [];
             let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
@@ -550,7 +546,6 @@
             body.innerHTML = html;
         }
 
-        // Export System Arrays Data directly to Client Side Excel Sheets
         function exportToExcel(type) {
             let data = [];
             let filename = "";
@@ -560,32 +555,17 @@
                 if(students.length === 0) { alert("No student data available to export!"); return; }
                 filename = "Shree_Institute_Admissions_2026.xlsx";
                 data = students.map(s => ({
-                    "Student ID": s.id,
-                    "Name": s.name,
-                    "Phone": s.phone,
-                    "Standard": s.std,
-                    "Board": s.board,
-                    "Medium": s.medium,
-                    "DOB": s.dob,
-                    "Course": s.course,
-                    "Fee Type": s.feeType,
-                    "Total Fee": s.totalFee,
-                    "Paid Fee": s.paidFee,
-                    "Balance Pending": parseFloat(s.totalFee) - parseFloat(s.paidFee)
+                    "Student ID": s.id, "Name": s.name, "Phone": s.phone, "Standard": s.std, "Board": s.board,
+                    "Medium": s.medium, "DOB": s.dob, "Course": s.course, "Fee Type": s.feeType, "Total Fee": s.totalFee,
+                    "Paid Fee": s.paidFee, "Balance Pending": parseFloat(s.totalFee) - parseFloat(s.paidFee)
                 }));
             } else if (type === 'enquiries') {
                 let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
                 if(enquiries.length === 0) { alert("No enquiry data available to export!"); return; }
                 filename = "Shree_Institute_Enquiries_2026.xlsx";
                 data = enquiries.map(e => ({
-                    "Date": e.date,
-                    "Name": e.name,
-                    "Phone": e.phone,
-                    "Standard": e.std,
-                    "Board": e.board,
-                    "Medium": e.medium,
-                    "DOB": e.dob,
-                    "Course Interested": e.course
+                    "Date": e.date, "Name": e.name, "Phone": e.phone, "Standard": e.std, "Board": e.board,
+                    "Medium": e.medium, "DOB": e.dob, "Course Interested": e.course
                 }));
             }
 
@@ -595,7 +575,6 @@
             XLSX.writeFile(workbook, filename);
         }
 
-        // Reset/Clear LocalStorage Arrays safely with prompt confirmation
         function clearMasterData(key) {
             let userConfirm = confirm("⚠️ तुम्हाला नक्की हा सर्व डेटा डिलीट करायचा आहे का? हा डेटा परत मिळणार नाही!");
             if (userConfirm) {
@@ -610,7 +589,6 @@
             }
         }
 
-        // Setup Single Window Form View for Manual Admissions with Autocomplete Feature
         function openNewAdmissionForm() {
             const body = document.getElementById('modalBody');
             let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
@@ -653,7 +631,6 @@
             body.innerHTML = formHtml;
         }
 
-        // Convert Enquiry Directly from Table Hook
         function convertEnqToAdmission(index) {
             let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
             let item = enquiries[index];
@@ -668,7 +645,6 @@
             document.getElementById('admCourse').value = item.course;
         }
 
-        // Trigger Autofill Event when select list changes
         function triggerAutofill(index) {
             if(index === "") return;
             let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
@@ -683,7 +659,6 @@
             document.getElementById('admCourse').value = item.course;
         }
 
-        // Save Form State to Local Storage Database
         function saveNewAdmission() {
             const name = document.getElementById('admName').value;
             const phone = document.getElementById('admPhone').value;
@@ -699,7 +674,6 @@
             if(!name || !phone) { alert("Please complete required details!"); return; }
 
             let students = JSON.parse(localStorage.getItem('students')) || [];
-            
             let nextCounter = parseInt(localStorage.getItem('simIdCounter')) || 1;
             let generatedId = `SIM-2026-${String(nextCounter).padStart(3, '0')}`;
             localStorage.setItem('simIdCounter', nextCounter + 1);
@@ -712,7 +686,6 @@
             showAdminDashboard('admissions');
         }
 
-        // Live Real-Time Search Filter Function
         function filterStudents() {
             let input = document.getElementById('searchBox').value.toUpperCase();
             let table = document.getElementById('studentTable');
@@ -733,7 +706,6 @@
             }
         }
 
-        // Render Student Profile Ledger For Specific Fee Payments Handling
         function openFeeUpdateModal(studentId) {
             let students = JSON.parse(localStorage.getItem('students')) || [];
             let st = students.find(s => s.id === studentId);
@@ -748,9 +720,7 @@
                 <h3 style="color:#102a43; border-bottom:2px solid #f59f00; padding-bottom:5px; border-top:none; border-left:none; border-right:none;">💰 Fees Account Management Profile</h3>
                 <p style="margin-top:10px;"><strong>Student ID:</strong> ${st.id} | <strong>Name:</strong> ${st.name}</p>
                 <p><strong>Course Target:</strong> ${st.std} (${st.course}) | <strong>Fee Billing Scheme:</strong> ${st.feeType}</p>
-                
                 <hr style="margin:15px 0;">
-                
                 <div style="background:#f1f5f9; padding:15px; border-radius:6px; margin-bottom:20px;">
                     <div class="grid">
                         <div><p>Total Class Fees Setup:</p><strong>₹${st.totalFee}</strong></div>
@@ -758,14 +728,10 @@
                         <div><p>Current Account Balance Due:</p><strong style="color:red;">₹${pending}</strong></div>
                     </div>
                 </div>
-
                 <div style="background:#fff4e6; padding:15px; border-radius:6px; border-left:5px solid #e8590c;">
                     <h4>➕ Record New Collection Payment</h4>
                     <div class="grid" style="margin-top:10px;">
-                        <div class="form-group">
-                            <label>Amount Now Receiving (₹)</label>
-                            <input type="number" id="amtReceived" value="0">
-                        </div>
+                        <div class="form-group"><label>Amount Now Receiving (₹)</label><input type="number" id="amtReceived" value="0"></div>
                     </div>
                     <button class="btn-success" onclick="executePaymentTransaction('${st.id}')">💾 Post Payment & Generate Receipt Docs</button>
                 </div>
@@ -773,7 +739,6 @@
             body.innerHTML = html;
         }
 
-        // Execute Mathematical Balance Calculation
         function executePaymentTransaction(studentId) {
             let amt = parseFloat(document.getElementById('amtReceived').value) || 0;
             if (amt <= 0) { alert("Please input valid amount!"); return; }
@@ -801,12 +766,9 @@
             document.getElementById('rcptPaid').innerText = newPaid;
             document.getElementById('rcptPending').innerText = finalPending;
 
-            let billingClause = "";
-            if(students[index].feeType === "Monthly Fee") {
-                billingClause = `\n📌 *महत्त्वाची सूचना:* ही आपली *Monthly Fee* असल्याने कृपया प्रत्येक महिन्याच्या *१० तारखेच्या आत* फी जमा करावी.`;
-            } else {
-                billingClause = `\n📌 *महत्त्वाची सूचना:* ही आपली *Term/Yearly Fee* नियमांनुसार वेळेत जमा करावी.`;
-            }
+            let billingClause = (students[index].feeType === "Monthly Fee") ? 
+                `\n📌 *महत्त्वाची सूचना:* ही आपली *Monthly Fee* असल्याने कृपया प्रत्येक महिन्याच्या *१० तारखेच्या आत* फी जमा करावी.` : 
+                `\n📌 *महत्त्वाची सूचना:* ही आपली *Term/Yearly Fee* नियमांनुसार वेळेत जमा करावी.`;
 
             let waMsg = `प्रिय पालक,\n*Shree Institute, Mandangad* कडून विद्यार्थ्याची फी पावती खालीलप्रमाणे:\n\n🧑‍🎓 विद्यार्थी नाव: *${students[index].name}*\n🆔 Student ID: *${students[index].id}*\n\n📊 *फी तपशील:*\n💵 एकूण फी: *₹${total}*\n✅ आतापर्यंत भरलेली फी: *₹${newPaid}*\n🛑 शिल्लक बाकी फी: *₹${finalPending}*\n${billingClause}\n\nधन्यवाद!\n*महेश सुतार सर (डायरेक्टर)*\n📞 8983383836`;
             let waUrl = "https://api.whatsapp.com/send?phone=91" + students[index].phone + "&text=" + encodeURIComponent(waMsg);
@@ -823,17 +785,6 @@
                     </div>
                 </div>`;
         }
-
-        // PDF Generation Framework Integration Method
-        // 🔒 SECURITY LAYER 3: ANTI-DEVTOOL LOOP
-        // If hacker forces console open, this freezes execution dynamically
-        setInterval(function() {
-            let startTime = performance.now();
-            debugger;
-            if (performance.now() - startTime > 100) {
-                document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;color:red;'>⚠️ Security Violation: Developer Tools Detected! Please close DevTools and refresh.</h2>";
-            }
-        }, 1000);
 
         function downloadReceiptPDF(studentId) {
             const element = document.getElementById('receiptTemplate');
