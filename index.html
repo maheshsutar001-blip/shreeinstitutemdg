@@ -3,798 +3,832 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shree Institute - Director Management System</title>
-    
-    <!-- SheetJS CDN (For Excel Export & Import Backup) -->
+    <title>Shree Institute, Mandangad</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HCPYWYCW0H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HCPYWYCW0H');
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --success: #16a34a;
-            --danger: #dc2626;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
         body {
-            background-color: var(--light);
-            color: var(--dark);
+            background-color: #f0f4f8;
+            color: #333;
+            position: relative;
+        }
+        
+        /* 🔥 FLOATING ACTION ADMISSION BUTTON AT TOP */
+        .top-admission-bar {
+            background: linear-gradient(90deg, #ff4500, #ff8c00);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            animation: pulseBg 2s infinite;
+            display: block;
+        }
+        @keyframes pulseBg {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+            100% { filter: brightness(1); }
         }
 
         header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #0a192f, #172a45);
+            color: white;
+            padding: 10px 0;
             position: sticky;
-            top: 0;
+            top: 45px; /* Adjusted due to top bar */
             z-index: 1000;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.35);
+            border-bottom: 4px solid #f59f00;
         }
-        
         .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-        
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-        
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        /* Director Dropdown Menu */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .dropdown-btn {
-            background: #e2e8f0;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-        
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: white;
-            min-width: 240px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-top: 5px;
-            z-index: 100;
-        }
-        
-        .dropdown-content a {
-            color: var(--dark);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-            border-bottom: 1px solid #f1f5f9;
-            cursor: pointer;
-        }
-        
-        .dropdown-content a:hover {
-            background-color: #f1f5f9;
-            color: var(--primary);
-        }
-        
-        .dropdown.open .dropdown-content {
-            display: block;
-        }
-        
-        .menu-btn {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* Centralized Main Form Container */
-        .main-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            border-top: 4px solid var(--success);
-        }
-        
-        .card h2 {
-            margin-bottom: 20px;
-            color: var(--success);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 22px;
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 10px;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 15px;
-        }
-
-        .form-group-full {
-            grid-column: 1 / -1;
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            font-weight: 600;
-            font-size: 13px;
-            color: #475569;
-        }
-        
-        .form-group input, .form-group select, .form-group textarea {
-            padding: 11px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-        }
-        
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--success);
-        }
-
-        /* Courses Checkbox Matrix */
-        .courses-label {
-            font-weight: 600;
-            font-size: 14px;
-            color: #334155;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .checkbox-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 10px;
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13.5px;
-            color: #475569;
-            cursor: pointer;
-        }
-
-        .checkbox-item input {
-            cursor: pointer;
-            width: 16px;
-            height: 16px;
-            accent-color: var(--success);
-        }
-
-        /* Hidden Note Box */
-        .other-note-box {
-            display: none;
-            margin-top: 10px;
-        }
-
-        .other-note-box.active {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        button {
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        
-        .btn-primary {
-            background: var(--success);
-            color: white;
-            padding: 14px;
-            width: 100%;
-            font-size: 16px;
-            margin-top: 15px;
-        }
-        .btn-primary:hover { background: #15803d; }
-        
-        .btn-success { background: var(--success); color: white; padding: 10px 15px; }
-        .btn-success:hover { background: #15803d; }
-        
-        .btn-danger { background: var(--danger); color: white; padding: 6px 12px; font-size: 13px; }
-        .btn-danger:hover { background: #b91c1c; }
-
-        .btn-secondary { background: #64748b; color: white; padding: 10px 15px; }
-
-        /* Director Modal Architecture */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(2px);
-        }
-        
-        .modal-content {
-            background: white;
-            width: 100%;
-            max-width: 1150px;
-            max-height: 90vh;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .modal-header {
-            padding: 15px 25px;
-            background: var(--dark);
-            color: white;
+            width: 94%;
+            margin: auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
-        .close-modal {
-            font-size: 26px;
-            cursor: pointer;
-            background: none;
-            color: white;
-        }
+        .logo-container { width: 530px; height: auto; display: flex; align-items: center; }
         
-        .modal-body {
-            padding: 25px;
-            overflow-y: auto;
-            flex: 1;
+        @keyframes subtlePulse {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; transform: scale(1.01); }
+            100% { opacity: 0.9; }
         }
+        .motto-banner { animation: subtlePulse 3s infinite ease-in-out; }
+        
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; background: none; border: none; padding: 5px; }
+        .menu-toggle span { width: 28px; height: 3px; background-color: white; margin: 4px 0; transition: 0.3s; }
 
-        /* Tabs System inside Director Panel */
-        .tab-navigation {
-            display: flex;
-            gap: 10px;
-            border-bottom: 2px solid #e2e8f0;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-        }
-        .tab-btn {
-            padding: 10px 20px;
-            background: #f1f5f9;
-            color: #475569;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        .tab-btn.active {
-            background: var(--primary);
-            color: white;
-        }
+        nav ul { display: flex; list-style: none; align-items: center; }
+        nav ul li { margin-left: 15px; position: relative; }
+        nav ul li a { color: white; text-decoration: none; font-size: 15px; font-weight: 600; transition: color 0.3s; padding: 10px 0; display: inline-block; }
+        nav ul li a:hover { color: #ffe259; }
 
-        .admin-table-wrapper {
-            overflow-x: auto;
-            margin-top: 15px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-        }
+        /* Admin Dropdown Styling */
+        .dropdown { display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 240px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1011; top: 100%; left: 0; border-radius: 6px; overflow: hidden; }
+        .dropdown-content a { color: #102a43; padding: 12px 16px; text-decoration: none; display: block; font-size: 14px; font-weight: bold; border-bottom: 1px solid #f0f4f8; transition: background 0.3s; }
+        .dropdown-content a:hover { background-color: #ffe259; color: #102a43; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        .hero-container-box { width: 90%; max-width: 1000px; margin: 25px auto 0 auto; background-color: #ffffff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .hero-slider-container { position: relative; width: 100%; height: 450px; overflow: hidden; border-radius: 8px; background-color: #eaeaea; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; z-index: 1; display: flex; justify-content: center; align-items: center; background-color: #102a43; }
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide img { width: 100%; height: 100%; object-fit: contain; }
+
+        .hero-banner-info { background: rgba(10, 25, 47, 0.95); color: white; padding: 15px 20px; text-align: center; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; margin-top: -4px; }
+        .hero-banner-info h2 { font-size: 32px; color: #ffe259; margin-bottom: 5px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-banner-info p { font-size: 18px; font-weight: 600; color: #f0f4f8; }
+
+        .container { width: 90%; max-width: 1000px; margin: 25px auto; }
+        section { padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); scroll-margin-top: 150px; }
         
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 13px;
-        }
+        #vision-mission { background-color: #ffffff; border-left: 8px solid #ffe259; }
+        #message { background-color: #ffffff; border-left: 8px solid #102a43; }
+        #regular { background-color: #e3fafc; border-left: 8px solid #0c8599; }
+        #special { background-color: #f3f0ff; border-left: 8px solid #6f2dbd; }
+        #exams { background-color: #fff9db; border-left: 8px solid #f59f00; }
+        #enquiry { background-color: #fff4e6; border-left: 8px solid #e8590c; }
         
-        .admin-table th, .admin-table td {
-            padding: 12px 14px;
-            border-bottom: 1px solid #e2e8f0;
-        }
+        section h3 { color: #102a43; font-size: 22px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid rgba(0,0,0,0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: stretch; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
+        .card h4 { color: #102a43; margin-bottom: 10px; font-size: 18px; }
         
-        .admin-table th { background: #f1f5f9; font-weight: 600; }
+        .director-layout-box { display: flex; flex-direction: row; gap: 25px; align-items: flex-start; }
+        .director-photo-container { flex: 0 0 190px; text-align: center; }
+        .director-photo { width: 190px; height: 210px; object-fit: cover; border-radius: 10px; border: 3px solid #102a43; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .director-details-container { flex: 1; }
+
+        .flash-announcement-bar { background: linear-gradient(90deg, #d9480f, #e8590c); color: white; padding: 12px; border-radius: 8px; margin-bottom: 22px; font-weight: bold; font-size: 15px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(232, 89, 12, 0.25); border-left: 6px solid #ffe259; overflow: hidden; }
+        .flash-announcement-label { background: #ffe259; color: #102a43; padding: 5px 12px; border-radius: 4px; font-size: 13px; text-transform: uppercase; font-weight: 800; margin-right: 15px; white-space: nowrap; }
+
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; background-color: white; }
+        button { background-color: #e8590c; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background 0.3s; }
+        button:hover { background-color: #b84306; }
         
-        /* Receipt Style */
-        .receipt-card {
-            background: #fff;
-            border: 2px dashed #cbd5e1;
-            padding: 25px;
-            border-radius: 8px;
-            max-width: 500px;
-            margin: 25px auto;
-            color: #334155;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
+        footer { text-align: center; padding: 25px; background: #0a192f; color: white; margin-top: 40px; font-size: 14px; border-top: 4px solid #f59f00; }
+
+        /* --- ADMIN PANEL MODAL --- */
+        .admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .admin-modal-content { background-color: white; width: 100%; max-width: 950px; max-height: 90vh; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; }
+        .admin-modal-header { background-color: #102a43; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-modal-header h3 { color: #ffe259; font-size: 22px; margin-bottom: 0; border: none; }
+        .close-modal-btn { background: none; border: none; color: white; font-size: 28px; cursor: pointer; font-weight: bold; }
+        .admin-modal-body { padding: 25px; overflow-y: auto; flex: 1; }
+        .admin-table-wrapper { width: 100%; overflow-x: auto; margin-top: 20px; border: 1px solid #cbd5e1; border-radius: 6px; }
+        .admin-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+        .admin-table th, .admin-table td { padding: 12px; border-bottom: 1px solid #cbd5e1; }
+        .admin-table th { background-color: #f1f5f9; color: #102a43; font-weight: bold; }
         
-        @media (max-width: 768px) {
-            nav { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; flex-direction: column; padding: 20px; gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-            nav.active { display: flex; }
-            .menu-btn { display: block; }
-            .dropdown { width: 100%; }
-            .dropdown-btn { justify-content: center; }
-            .dropdown-content { position: relative; width: 100%; }
+        .btn-success { background-color: #28a745; color: white;}
+        .btn-success:hover { background-color: #218838; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-danger { background-color: #dc3545; color: white; padding: 6px 12px; font-size: 13px; }
+        .btn-warning { background-color: #ffc107; color: #212529; }
+
+        /* Director Summary Cards Layout */
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .summary-card { padding: 15px; border-radius: 8px; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .sc-blue { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+        .sc-green { background: linear-gradient(135deg, #14532d, #22c55e); }
+        .sc-orange { background: linear-gradient(135deg, #7c2d12, #f97316); }
+        .sc-red { background: linear-gradient(135deg, #7f1d1d, #ef4444); }
+
+        /* Receipt Format for PDF Hidden on UI */
+        #receiptTemplate { display: none; padding: 30px; background: white; color: black; font-family: monospace; }
+
+        @media (max-width: 991px) {
+            .logo-container { width: 100%; max-width: 420px; }
+            .menu-toggle { display: flex; }
+            .nav-container { position: relative; flex-direction: column; align-items: flex-start; gap: 10px;}
+            .menu-toggle { position: absolute; right: 0; top: 18px; }
+            nav { position: absolute; top: 100%; left: 0; width: 100%; background: #0a192f; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
+            nav.active { max-height: 600px; overflow-y: auto; }
+            nav ul { flex-direction: column; align-items: flex-start; padding: 15px 20px; }
+            nav ul li { margin-left: 0; margin-bottom: 15px; width: 100%; }
+            .dropdown-content { position: relative; background-color: #1a3a5c; display: none; box-shadow: none;}
+            .dropdown.open .dropdown-content { display: block; }
+            .hero-slider-container { height: 320px; }
+            .director-layout-box { flex-direction: column; align-items: center; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Navigation Header -->
+    <!-- 🔥 CLICKABLE EFFECTIVE TOP BANNER -->
+    <a href="#enquiry" class="top-admission-bar">
+        ⚡ 🔥 ADMISSION OPEN! Please Click Here To Open Admission Form & Secure Your Seat! 🎯
+    </a>
+
     <header>
         <div class="nav-container">
-            <a href="#" class="logo"><i class="fa-solid fa-graduation-cap"></i> Shree Institute</a>
-            <div class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+            <div class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 130" width="100%">
+                  <defs>
+                    <linearGradient id="torchOrange" x1="0%" y1="100%" x2="0%" y2="0%">
+                      <stop offset="0%" stop-color="#FF4500" stop-opacity="1"/>
+                      <stop offset="100%" stop-color="#FFE259" stop-opacity="1"/>
+                    </linearGradient>
+                    <linearGradient id="goldText" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#FFE259" stop-opacity="1"/>
+                      <stop offset="100%" stop-color="#FFA751" stop-opacity="1"/>
+                    </linearGradient>
+                  </defs>
+                  <g transform="translate(15, 15)">
+                    <path d="M30,85 C35,65 20,45 35,20 C45,5 65,15 55,35 C70,15 80,30 75,50 C70,70 55,85 30,85 Z" fill="url(#torchOrange)" />
+                    <path d="M15,90 Q 52,70 90,90" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+                  </g>
+                  <text x="135" y="42" font-family="sans-serif" font-size="34" font-weight="900" fill="#FFFFFF">
+                    SHREE <tspan fill="url(#goldText)">INSTITUTE</tspan>
+                  </text>
+                  <text x="135" y="70" font-family="sans-serif" font-size="15" font-weight="700" fill="#A0AEC0">
+                    MANDANGAD <tspan fill="#FFE259">(S.I.M.)</tspan>
+                  </text>
+                  <g class="motto-banner" transform="translate(135, 84)">
+                    <rect x="0" y="0" width="485" height="28" rx="4" fill="#172a45" stroke="url(#goldText)" stroke-width="1.5"/>
+                    <text x="15" y="19" font-family="sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">
+                      Your Doubts, Our Mission... <tspan fill="#FFE259">YES, I'M THERE!</tspan>
+                    </text>
+                  </g>
+                </svg>
+            </div>
+            
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+
             <nav id="navbar">
-                <a onclick="closeMenu()">Home</a>
-                
-                <!-- Director Access Dropdown -->
-                <div class="dropdown" id="directorDropdown">
-                    <div class="dropdown-btn" onclick="toggleDirectorDropdown()">
-                        <i class="fa-solid fa-user-gear"></i> Director Panel <i class="fa-solid fa-caret-down"></i>
-                    </div>
-                    <div class="dropdown-content">
-                        <a onclick="accessDirector('admissions')"><i class="fa-solid fa-id-card"></i> Confirmed Admissions</a>
-                        <a onclick="accessDirector('backup')"><i class="fa-solid fa-database"></i> Backup & Restore</a>
-                    </div>
-                </div>
+                <ul>
+                    <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                    <li><a href="#vision-mission" onclick="closeMenu()">Vision & Mission</a></li>
+                    <li><a href="#enquiry" onclick="closeMenu()">Enquiry Form</a></li>
+                    <li class="dropdown" id="adminDropdown">
+                        <a href="javascript:void(0)" onclick="toggleAdminDropdown()" style="color: #ffe259;">Admin Panel ▾</a>
+                        <div class="dropdown-content">
+                            <a href="javascript:void(0)" onclick="accessAdmin('enquiry')">📥 Enquiry Dashboard</a>
+                            <a href="javascript:void(0)" onclick="accessAdmin('admissions')">🎓 Student Directory & Fees</a>
+                            <a href="javascript:void(0)" onclick="accessAdmin('director')">👑 Director Panel</a>
+                        </div>
+                    </li>
+                </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Centralized Main Container -->
-    <div class="main-container">
+    <div class="hero-container-box" id="home">
+        <div class="hero-slider-container">
+            <div class="slide active"><img src="WhatsApp Image 2026-06-06 at 19.20.02 (1).jpeg"></div>
+            <div class="slide"><img src="WhatsApp Image 2026-06-06 at 19.20.02.jpeg"></div>
+            <div class="slide"><img src="WhatsApp Image 2026-06-06 at 19.20.03.jpeg"></div>
+        </div>
+        <div class="hero-banner-info">
+            <h2>Shree Institute, Mandangad</h2>
+            <p>🎯 Unmatched Success in Education & Competitive Exams!</p>
+        </div>
+    </div>
+
+    <div class="container">
         
-        <!-- Main Form: Confirm Admission Form -->
-        <div class="card">
-            <h2><i class="fa-solid fa-circle-check"></i> Student Admission Form</h2>
-            <form id="admissionForm" onsubmit="event.preventDefault(); processAdmission();">
+        <section id="vision-mission">
+            <h3>👁️ Our Vision & Mission</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>🌟 Our Vision</h4>
+                    <p>To empower every student in rural areas by providing quality, modern, and competitive education.</p>
+                </div>
+                <div class="card">
+                    <h4>🎯 Our Mission</h4>
+                    <p>To develop the hidden talents of students and lead them to the pinnacle of success with a tradition of 100% results.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PUBLIC ENQUIRY FORM -->
+        <section id="enquiry">
+            <h3>📝 Student Admission Enquiry Form</h3>
+            <div class="flash-announcement-bar">
+                <div class="flash-announcement-label">🔥 ADMISSION OPEN</div>
+                <marquee behavior="scroll" direction="left" scrollamount="6">
+                    🎯 Shree Institute Mandangad: Fill the form below to secure admission and send via WhatsApp! 🚀
+                </marquee>
+            </div>
+
+            <form id="enquiryForm" onsubmit="event.preventDefault(); processEnquiry();">
                 <div class="grid">
+                    <div class="form-group"><label>Student Full Name</label><input type="text" id="enqName" required></div>
+                    <div class="form-group"><label>Parent's Mobile Number</label><input type="tel" id="enqPhone" required pattern="[0-9]{10}"></div>
+                    <div class="form-group"><label>Current Standard</label><input type="text" id="enqStd" required></div>
                     <div class="form-group">
-                        <label>Student Name</label>
-                        <input type="text" id="admName" required placeholder="Full Name">
-                    </div>
-                    <div class="form-group">
-                        <label>Contact Number</label>
-                        <input type="tel" id="admPhone" required pattern="[0-9]{10}" placeholder="10-digit Mobile">
-                    </div>
-                    <div class="form-group">
-                        <label>Standard / Class</label>
-                        <select id="admStd" required>
-                            <option value="">Select Class</option>
-                            <option value="Jr. KG">Jr. KG</option>
-                            <option value="Sr. KG">Sr. KG</option>
-                            <option value="1st">1st</option>
-                            <option value="2nd">2nd</option>
-                            <option value="3rd">3rd</option>
-                            <option value="4th">4th</option>
-                            <option value="5th">5th</option>
-                            <option value="6th">6th</option>
-                            <option value="7th">7th</option>
-                            <option value="8th">8th</option>
-                            <option value="9th">9th</option>
-                            <option value="10th">10th</option>
-                            <option value="11th">11th</option>
-                            <option value="12th">12th</option>
+                        <label>Select Board</label>
+                        <select id="enqBoard" required>
+                            <option value="MSBTE">MSBTE</option>
+                            <option value="CBSE">CBSE</option>
                         </select>
                     </div>
-
-                    <!-- Courses / Subjects Matrix Checklist Section -->
-                    <div class="form-group-full">
-                        <label class="courses-label">Select Courses / Subjects</label>
-                        <div class="checkbox-grid">
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="English"> English</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Mathematics"> Mathematics</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Science"> Science</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Basic Foundation Maths Course"> Basic Foundation Maths Course</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Basic Science"> Basic Science</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Proactive Abacus"> Proactive Abacus</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Proactive Vedic Maths"> Proactive Vedic Maths</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Scholarship"> Scholarship</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Navoday (JNV)"> Navoday (JNV)</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Manthan"> Manthan</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Brain Developm Scholarship"> Brain Developm Scholarship</label>
-                            <label class="checkbox-item"><input type="checkbox" name="admCourses" value="Other" id="otherCheckbox" onchange="toggleOtherNoteBox()"> <strong>Other (इतर)</strong></label>
-                        </div>
-                        
-                        <!-- Toggleable custom textual notes input field box -->
-                        <div class="form-group other-note-box" id="otherNoteContainer">
-                            <label style="color:var(--danger)">Specify Details for Other Course/Note</label>
-                            <input type="text" id="admOtherDetails" placeholder="उदा. स्पेशल बॅच, वेगळा विषय इ.">
-                        </div>
-                    </div>
-
                     <div class="form-group">
-                        <label>Total Final Fee (₹)</label>
-                        <input type="number" id="admTotalFee" required oninput="calcAdmissionRemaining()" placeholder="Total Quoted Amount">
+                        <label>Select Medium</label>
+                        <select id="enqMedium" required>
+                            <option value="Semi-English">Semi-English</option>
+                            <option value="Marathi">Marathi</option>
+                            <option value="English">English</option>
+                        </select>
                     </div>
+                    <div class="form-group"><label>Date of Birth</label><input type="date" id="enqDob" required></div>
                     <div class="form-group">
-                        <label>Admission Time Paid Fee (₹)</label>
-                        <input type="number" id="admPaidFee" required oninput="calcAdmissionRemaining()" placeholder="Amount Paid Now">
-                    </div>
-                    <div class="form-group">
-                        <label>Remaining Balance Owed (₹)</label>
-                        <input type="number" id="admRemainingFee" readonly value="0" style="background:#f1f5f9; font-weight:bold; color:var(--danger)">
+                        <label>Select Course</label>
+                        <select id="enqCourse" required>
+                            <option value="Regular Class">Regular Class</option>
+                            <option value="Scholarship Exam">Scholarship Exam</option>
+                            <option value="Navodaya JNV">Navodaya JNV</option>
+                            <option value="ABACUS">ABACUS</option>
+                            <option value="Vedic Maths">Vedic Maths</option>
+                        </select>
                     </div>
                 </div>
-                <button type="submit" class="btn-primary"><i class="fa-solid fa-cash-register"></i> Complete Admission & Lock Data</button>
+                <button type="submit" style="width: 100%; margin-top: 15px; background-color: #25d366;">🚀 Submit & Send Enquiry to WhatsApp</button>
             </form>
-        </div>
-
+        </section>
     </div>
 
-    <!-- Director Dashboard Modal -->
-    <div class="modal-overlay" id="directorModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fa-solid fa-chart-line"></i> Director Matrix Dashboard</h2>
-                <button class="close-modal" onclick="closeDirectorModal()">&times;</button>
+    <!-- --- ADMIN DYNAMIC CONTROL PANEL MODAL --- -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3 id="modalTitle">Admin Control Panel</h3>
+                <button class="close-modal-btn" onclick="closeAdminModal()">&times;</button>
             </div>
-            <div class="modal-body">
-                <div class="tab-navigation">
-                    <button id="tabBtnAdm" class="tab-btn" onclick="switchTab('admissions')">📜 Confirmed Admissions</button>
-                    <button id="tabBtnBack" class="tab-btn" onclick="switchTab('backup')">⚙️ System Backup / Restore</button>
-                </div>
-                <div id="tabContentArea">
-                    <!-- Dynamic tabs inject here -->
-                </div>
+            <div class="admin-modal-body" id="modalBody">
+                <!-- Content will dynamically load here -->
             </div>
         </div>
     </div>
 
-    <!-- Core App Engine JavaScript Backend -->
+    <!-- HIDDEN RECEIPT PRINTER LAYOUT -->
+    <div id="receiptTemplate">
+        <div style="text-align: center; border-bottom: 2px dashed #000; padding-bottom: 10px;">
+            <h2>SHREE INSTITUTE, MANDANGAD</h2>
+            <p>Your Doubts, Our Mission... YES, I'M THERE!</p>
+            <p>Mo. 8983383836</p>
+        </div>
+        <div style="margin: 20px 0; line-height: 1.8;">
+            <p><strong>Receipt No:</strong> <span id="rcptNo"></span></p>
+            <p><strong>Date:</strong> <span id="rcptDate"></span></p>
+            <p><strong>Student ID:</strong> <span id="rcptId"></span></p>
+            <p><strong>Name:</strong> <span id="rcptName"></span></p>
+            <p><strong>Course / Std:</strong> <span id="rcptCourse"></span></p>
+            <p><strong>Fee Structure:</strong> <span id="rcptType"></span></p>
+            <hr style="border-top: 1px dashed #000; margin: 10px 0;">
+            <p><strong>Total Fee Amount:</strong> ₹<span id="rcptTotal"></span></p>
+            <p><strong>Paid Amount:</strong> ₹<span id="rcptPaid"></span></p>
+            <p style="color: red;"><strong>Remaining Pending Balance:</strong> ₹<span id="rcptPending"></span></p>
+        </div>
+        <div style="text-align: center; margin-top: 30px; border-top: 2px dashed #000; padding-top: 10px;">
+            <p>Thank You for Your Payment!</p>
+            <p><em>Mahesh Sutar Sir (Director)</em></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Shree Institute, Mandangad. Designed for Mahesh Sir. All Rights Reserved.</p>
+    </footer>
+
     <script>
         function toggleMenu() { document.getElementById('navbar').classList.toggle('active'); }
         function closeMenu() { document.getElementById('navbar').classList.remove('active'); }
-        function toggleDirectorDropdown() { document.getElementById('directorDropdown').classList.toggle('open'); }
+        function toggleAdminDropdown() { document.getElementById('adminDropdown').classList.toggle('open'); }
+        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
 
-        // Dynamic Toggle Note Box visibility
-        function toggleOtherNoteBox() {
-            const chk = document.getElementById('otherCheckbox');
-            const box = document.getElementById('otherNoteContainer');
-            if(chk.checked) {
-                box.classList.add('active');
-            } else {
-                box.classList.remove('active');
-                document.getElementById('admOtherDetails').value = "";
+        // Hero Image Slider Code
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            if (slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 4000);
+
+        // Process Enquiry Form
+        function processEnquiry() {
+            const name = document.getElementById('enqName').value;
+            const phone = document.getElementById('enqPhone').value;
+            const std = document.getElementById('enqStd').value;
+            const board = document.getElementById('enqBoard').value;
+            const medium = document.getElementById('enqMedium').value;
+            const dob = document.getElementById('enqDob').value;
+            const course = document.getElementById('enqCourse').value;
+
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+            enquiries.push({ name, phone, std, board, medium, dob, course, date: new Date().toLocaleDateString() });
+            localStorage.setItem('enquiries', JSON.stringify(enquiries));
+
+            const message = `Hello Mahesh Sir,\nI want to enquire about admission.\n\n*Student Details:*\n📝 *Name:* ${name}\n📞 *Mobile:* ${phone}\n🏫 *Std:* ${std}\n🏛️ *Board:* ${board}\n🗣️ *Medium:* ${medium}\n📅 *DOB:* ${dob}\n🎯 *Course:* ${course}`;
+            window.open("https://api.whatsapp.com/send?phone=918983383836&text=" + encodeURIComponent(message), '_blank');
+            document.getElementById('enquiryForm').reset();
+        }
+
+        // Security gate for admin
+        function accessAdmin(type) {
+            closeMenu();
+            document.getElementById('adminDropdown').classList.remove('open');
+            setTimeout(() => {
+                const password = prompt("🔐 Enter Admin Password:");
+                if (password === '8983') {
+                    showAdminDashboard(type);
+                } else if (password !== null) {
+                    alert('❌ Access Denied: Wrong Password!');
+                }
+            }, 100);
+        }
+
+        // Master Route Controller for Admin Dashboard Panels
+        function showAdminDashboard(type) {
+            const modal = document.getElementById('adminModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            modal.style.display = 'flex';
+
+            if (type === 'enquiry') {
+                title.innerText = "📥 Student Enquiries Dashboard";
+                let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+                
+                if(enquiries.length === 0) {
+                    body.innerHTML = "<p>No active enquiries found.</p>";
+                    return;
+                }
+
+                let html = `<div class="admin-table-wrapper"><table class="admin-table">
+                    <tr><th>Date</th><th>Name</th><th>Phone</th><th>Class</th><th>Course</th><th>Action</th></tr>`;
+                enquiries.forEach((item, index) => {
+                    html += `<tr>
+                        <td>${item.date || ''}</td>
+                        <td><strong>${item.name}</strong></td>
+                        <td>${item.phone}</td>
+                        <td>${item.std} (${item.medium})</td>
+                        <td><span style="color:#e8590c; font-weight:bold;">${item.course}</span></td>
+                        <td><button class="btn-success" style="padding:5px 10px; font-size:12px;" onclick="convertEnqToAdmission(${index})">🎓 Accept Admission</button></td>
+                    </tr>`;
+                });
+                html += `</table></div>`;
+                body.innerHTML = html;
+
+            } else if (type === 'admissions') {
+                title.innerText = "🎓 Student Ledger & Registration Hub";
+                renderAdmissionsTab(body);
+            } else if (type === 'director') {
+                title.innerText = "👑 Director Panel - Master Control";
+                renderDirectorPanel(body);
             }
         }
 
-        // Live Fee Calculation Engine
-        function calcAdmissionRemaining() {
-            const total = parseFloat(document.getElementById('admTotalFee').value) || 0;
-            const paid = parseFloat(document.getElementById('admPaidFee').value) || 0;
-            document.getElementById('admRemainingFee').value = total - paid;
+        // Render Admissions and Fee Dashboard Interface
+        function renderAdmissionsTab(body) {
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+
+            let html = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                <button class="btn-success" onclick="openNewAdmissionForm()">➕ Register Direct New Student</button>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="searchBox" placeholder="🔍 Search by ID or Student Name..." onkeyup="filterStudents()" style="width:280px; padding:8px;">
+                </div>
+            </div>
+            
+            <h4>📋 Registered Student Directory</h4>
+            <div class="admin-table-wrapper">
+                <table class="admin-table" id="studentTable">
+                    <thead>
+                        <tr><th>Student ID</th><th>Name</th><th>Standard/Course</th><th>Fee Type</th><th>Financials (Total / Paid / Balance)</th><th>Manage Profile</th></tr>
+                    </thead>
+                    <tbody id="studentTableBody">`;
+            
+            if(students.length === 0) {
+                html += `<tr><td colspan="6" style="text-align:center;">No students registered yet. Click button above to add.</td></tr>`;
+            } else {
+                students.forEach((st, idx) => {
+                    let pending = parseFloat(st.totalFee) - parseFloat(st.paidFee);
+                    html += `<tr>
+                        <td><mark><strong>${st.id}</strong></mark></td>
+                        <td><strong>${st.name}</strong><br><small>📞 ${st.phone}</small></td>
+                        <td>${st.std} - ${st.course}</td>
+                        <td><span style="font-weight:bold; color:#6f2dbd;">${st.feeType}</span></td>
+                        <td>
+                            Total: ₹${st.totalFee}<br>
+                            Paid: <span style="color:green;font-weight:bold;">₹${st.paidFee}</span><br>
+                            Bal: <span style="color:red;font-weight:bold;">₹${pending}</span>
+                        </td>
+                        <td>
+                            <button class="btn-primary" style="padding:5px 10px; font-size:12px;" onclick="openFeeUpdateModal('${st.id}')">💰 Update Fees / Print Receipt</button>
+                        </td>
+                    </tr>`;
+                });
+            }
+            
+            html += `</tbody></table></div>`;
+            body.innerHTML = html;
         }
 
-        // Save Admission Data
-        function processAdmission() {
+        // Render Director Panel Dashboard (NEWLY ADDED)
+        function renderDirectorPanel(body) {
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+
+            let totalEnquiries = enquiries.length;
+            let totalStudents = students.length;
+            let totalFeesCollected = students.reduce((acc, st) => acc + parseFloat(st.paidFee || 0), 0);
+            let totalFeesPending = students.reduce((acc, st) => acc + (parseFloat(st.totalFee || 0) - parseFloat(st.paidFee || 0)), 0);
+
+            let html = `
+            <div class="summary-grid">
+                <div class="summary-card sc-blue">📥 एकूण चौकशी (Enquiries)<br><span style="font-size:24px;">${totalEnquiries}</span></div>
+                <div class="summary-card sc-orange">🎓 एकूण प्रवेश (Admissions)<br><span style="font-size:24px;">${totalStudents}</span></div>
+                <div class="summary-card sc-green">💵 जमा फी (Collected)<br><span style="font-size:24px;">₹${totalFeesCollected}</span></div>
+                <div class="summary-card sc-red">🛑 शिल्लक फी (Pending)<br><span style="font-size:24px;">₹${totalFeesPending}</span></div>
+            </div>
+
+            <div style="background:#f8fafc; padding:20px; border-radius:8px; border:1px solid #cbd5e1; margin-bottom:20px;">
+                <h4 style="color:#102a43; margin-bottom:15px;">📊 डेटा बॅकअप आणि एक्सेल डाऊनलोड (Excel Reports)</h4>
+                <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                    <button class="btn-primary" onclick="exportToExcel('admissions')">📥 Download Admissions Excel</button>
+                    <button class="btn-primary" onclick="exportToExcel('enquiries')">📥 Download Enquiries Excel</button>
+                </div>
+            </div>
+
+            <div style="background:#fff5f5; padding:20px; border-radius:8px; border:1px solid #feb2b2;">
+                <h4 style="color:#9b2c2c; margin-bottom:15px;">⚠️ डेंजर झोन - डेटा डिलीट करा (Danger Zone)</h4>
+                <p style="font-size:13px; color:#c53030; margin-bottom:15px;">*कृपया लक्षात घ्या: इथून डिलीट केलेला डेटा परत मिळवता येणार नाही.</p>
+                <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                    <button class="btn-danger" onclick="clearMasterData('enquiries')">🗑️ Clear All Enquiries</button>
+                    <button class="btn-danger" onclick="clearMasterData('students')">🗑️ Clear All Admissions Data</button>
+                </div>
+            </div>
+            `;
+            body.innerHTML = html;
+        }
+
+        // Export System Arrays Data directly to Client Side Excel Sheets (NEWLY ADDED)
+        function exportToExcel(type) {
+            let data = [];
+            let filename = "";
+
+            if (type === 'admissions') {
+                let students = JSON.parse(localStorage.getItem('students')) || [];
+                if(students.length === 0) { alert("No student data available to export!"); return; }
+                filename = "Shree_Institute_Admissions_2026.xlsx";
+                data = students.map(s => ({
+                    "Student ID": s.id,
+                    "Name": s.name,
+                    "Phone": s.phone,
+                    "Standard": s.std,
+                    "Board": s.board,
+                    "Medium": s.medium,
+                    "DOB": s.dob,
+                    "Course": s.course,
+                    "Fee Type": s.feeType,
+                    "Total Fee": s.totalFee,
+                    "Paid Fee": s.paidFee,
+                    "Balance Pending": parseFloat(s.totalFee) - parseFloat(s.paidFee)
+                }));
+            } else if (type === 'enquiries') {
+                let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+                if(enquiries.length === 0) { alert("No enquiry data available to export!"); return; }
+                filename = "Shree_Institute_Enquiries_2026.xlsx";
+                data = enquiries.map(e => ({
+                    "Date": e.date,
+                    "Name": e.name,
+                    "Phone": e.phone,
+                    "Standard": e.std,
+                    "Board": e.board,
+                    "Medium": e.medium,
+                    "DOB": e.dob,
+                    "Course Interested": e.course
+                }));
+            }
+
+            const worksheet = XLSX.utils.json_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Data Report");
+            XLSX.writeFile(workbook, filename);
+        }
+
+        // Reset/Clear LocalStorage Arrays safely with prompt confirmation (NEWLY ADDED)
+        function clearMasterData(key) {
+            let userConfirm = confirm("⚠️ तुम्हाला नक्की हा सर्व डेटा डिलीट करायचा आहे का? हा डेटा परत मिळणार नाही!");
+            if (userConfirm) {
+                let safetyPassword = prompt("🔐 सुरक्षेसाठी पुन्हा एकदा ॲडमिन पासवर्ड (8983) टाका:");
+                if (safetyPassword === '8983') {
+                    localStorage.removeItem(key);
+                    alert("🗑️ डेटा यशस्वीरीत्या डिलीट करण्यात आला आहे!");
+                    showAdminDashboard('director');
+                } else {
+                    alert("❌ चुकीचा पासवर्ड! डेटा डिलीट केला नाही.");
+                }
+            }
+        }
+
+        // Setup Single Window Form View for Manual Admissions with Autocomplete Feature
+        function openNewAdmissionForm() {
+            const body = document.getElementById('modalBody');
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+
+            let selectOptions = `<option value="">-- Choose Profile to Autofill (Optional) --</option>`;
+            enquiries.forEach((enq, idx) => {
+                selectOptions += `<option value="${idx}">${enq.name} (${enq.course})</option>`;
+            });
+
+            let formHtml = `
+            <button onclick="showAdminDashboard('admissions')" style="margin-bottom:15px; background-color:#6c757d;">⬅️ Back to Student List</button>
+            <div style="background:#f8fafc; padding:20px; border-radius:8px; border:1px solid #cbd5e1;">
+                <h3 style="margin-bottom:15px; color:#102a43; border:none;">Register Student Details</h3>
+                
+                <div class="form-group" style="background:#fff9db; padding:10px; border-radius:5px; margin-bottom:20px;">
+                    <label>⚡ Autofill From Enquiries List?</label>
+                    <select id="autofillSelect" onchange="triggerAutofill(this.value)">${selectOptions}</select>
+                </div>
+
+                <div class="grid">
+                    <div class="form-group"><label>Full Name</label><input type="text" id="admName" required></div>
+                    <div class="form-group"><label>Parent Mobile</label><input type="tel" id="admPhone" required></div>
+                    <div class="form-group"><label>Standard</label><input type="text" id="admStd" required></div>
+                    <div class="form-group"><label>Board</label><input type="text" id="admBoard" value="MSBTE"></div>
+                    <div class="form-group"><label>Medium</label><input type="text" id="admMedium" value="Semi-English"></div>
+                    <div class="form-group"><label>Date of Birth</label><input type="date" id="admDob"></div>
+                    <div class="form-group"><label>Course Allocated</label><input type="text" id="admCourse" required></div>
+                    <div class="form-group">
+                        <label>Fee Payment Type</label>
+                        <select id="admFeeType">
+                            <option value="Monthly Fee">Monthly Fee</option>
+                            <option value="Yearly / Term-Wise">Yearly / Term-Wise</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Total Agreed Fees Amount (₹)</label><input type="number" id="admTotalFee" value="0"></div>
+                    <div class="form-group"><label>Initial Paid Fees Amount (₹)</label><input type="number" id="admPaidFee" value="0"></div>
+                </div>
+                <button class="btn-success" style="width:100%; margin-top:15px;" onclick="saveNewAdmission()">💾 Confirm Admission & Generate ID</button>
+            </div>`;
+            body.innerHTML = formHtml;
+        }
+
+        // Convert Enquiry Directly from Table Hook
+        function convertEnqToAdmission(index) {
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+            let item = enquiries[index];
+            openNewAdmissionForm();
+            
+            // Populating data
+            document.getElementById('admName').value = item.name;
+            document.getElementById('admPhone').value = item.phone;
+            document.getElementById('admStd').value = item.std;
+            document.getElementById('admBoard').value = item.board;
+            document.getElementById('admMedium').value = item.medium;
+            document.getElementById('admDob').value = item.dob;
+            document.getElementById('admCourse').value = item.course;
+        }
+
+        // Trigger Autofill Event when select list changes
+        function triggerAutofill(index) {
+            if(index === "") return;
+            let enquiries = JSON.parse(localStorage.getItem('enquiries')) || [];
+            let item = enquiries[index];
+
+            document.getElementById('admName').value = item.name;
+            document.getElementById('admPhone').value = item.phone;
+            document.getElementById('admStd').value = item.std;
+            document.getElementById('admBoard').value = item.board;
+            document.getElementById('admMedium').value = item.medium;
+            document.getElementById('admDob').value = item.dob;
+            document.getElementById('admCourse').value = item.course;
+        }
+
+        // Save Form State to Local Storage Database & Increment Unique Auto Generated Serial ID Token
+        // 💡 FIXED ID OVERLAP: Now tracking based on a safe unique counter
+        function saveNewAdmission() {
             const name = document.getElementById('admName').value;
             const phone = document.getElementById('admPhone').value;
             const std = document.getElementById('admStd').value;
-            const total = parseFloat(document.getElementById('admTotalFee').value) || 0;
-            const paid = parseFloat(document.getElementById('admPaidFee').value) || 0;
-            const balance = total - paid;
-            const refNo = "SI-" + Math.floor(1000 + Math.random() * 9000);
-            const dateStr = new Date().toLocaleDateString();
+            const board = document.getElementById('admBoard').value;
+            const medium = document.getElementById('admMedium').value;
+            const dob = document.getElementById('admDob').value;
+            const course = document.getElementById('admCourse').value;
+            const feeType = document.getElementById('admFeeType').value;
+            const totalFee = document.getElementById('admTotalFee').value || 0;
+            const paidFee = document.getElementById('admPaidFee').value || 0;
 
-            // Extract selected courses array checklist elements
-            const checkboxes = document.querySelectorAll('input[name="admCourses"]:checked');
-            let selectedCourses = [];
-            checkboxes.forEach((cb) => {
-                if(cb.value !== 'Other') {
-                    selectedCourses.push(cb.value);
-                }
+            if(!name || !phone) { alert("Please complete required details!"); return; }
+
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            
+            // Safe Next ID Logic
+            let nextCounter = parseInt(localStorage.getItem('simIdCounter')) || 1;
+            let generatedId = `SIM-2026-${String(nextCounter).padStart(3, '0')}`;
+            localStorage.setItem('simIdCounter', nextCounter + 1);
+
+            students.push({
+                id: generatedId, name, phone, std, board, medium, dob, course, feeType, totalFee, paidFee
             });
-
-            // Append custom written other note structural data points if present inside fields
-            const otherText = document.getElementById('admOtherDetails').value.trim();
-            if(document.getElementById('otherCheckbox').checked && otherText !== "") {
-                selectedCourses.push(`Other (${otherText})`);
-            }
-
-            const coursesString = selectedCourses.join(', ') || 'None';
-
-            let localAdm = JSON.parse(localStorage.getItem('admissions')) || [];
-            const newRecord = { refNo, name, phone, std, courses: coursesString, total, paid, balance, date: dateStr };
-            localAdm.push(newRecord);
-            localStorage.setItem('admissions', JSON.stringify(localAdm));
-
-            // Reset Form and Note boxes safely
-            document.getElementById('admissionForm').reset();
-            document.getElementById('otherNoteContainer').classList.remove('active');
-            document.getElementById('admRemainingFee').value = 0;
-            
-            alert(`🎉 Admission Form Locked Successfully!\nReceipt ID: ${refNo}`);
-            showDirectorDashboard('admissions');
+            localStorage.setItem('students', JSON.stringify(students));
+            alert(`🎉 Admission Successful! Student ID: ${generatedId}`);
+            showAdminDashboard('admissions');
         }
 
-        // Secure Director Panel Password Verification
-        function accessDirector(targetTab) {
-            closeMenu();
-            document.getElementById('directorDropdown').classList.remove('open');
-            
-            setTimeout(() => {
-                const credential = prompt("🔑 Enter Director Secure Password:");
-                if (credential === '8983') {
-                    showDirectorDashboard(targetTab);
-                } else if (credential !== null) {
-                    alert('❌ Access Denied: Incorrect Password!');
+        // Live Real-Time Search Filter Function for Directories UI Engine
+        function filterStudents() {
+            let input = document.getElementById('searchBox').value.toUpperCase();
+            let table = document.getElementById('studentTable');
+            let tr = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < tr.length; i++) {
+                let tdId = tr[i].getElementsByTagName('td')[0];
+                let tdName = tr[i].getElementsByTagName('td')[1];
+                if (tdId || tdName) {
+                    let txtId = tdId.textContent || tdId.innerText;
+                    let txtName = tdName.textContent || tdName.innerText;
+                    if (txtId.toUpperCase().indexOf(input) > -1 || txtName.toUpperCase().indexOf(input) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }
-            }, 150);
-        }
-
-        function showDirectorDashboard(activeTab) {
-            document.getElementById('directorModal').style.display = 'flex';
-            switchTab(activeTab);
-        }
-
-        function closeDirectorModal() {
-            document.getElementById('directorModal').style.display = 'none';
-        }
-
-        // Internal Switch Tabs Inside Dashboard Modal
-        function switchTab(tabName) {
-            document.getElementById('tabBtnAdm').classList.remove('active');
-            document.getElementById('tabBtnBack').classList.remove('active');
-            
-            const renderArea = document.getElementById('tabContentArea');
-            
-            if (tabName === 'admissions') {
-                document.getElementById('tabBtnAdm').classList.add('active');
-                renderAdmissionsTab(renderArea);
-            } else if (tabName === 'backup') {
-                document.getElementById('tabBtnBack').classList.add('active');
-                renderBackupTab(renderArea);
             }
         }
 
-        // ADMISSIONS REPORT GENERATOR WITH LEDGER
-        function renderAdmissionsTab(area) {
-            let data = JSON.parse(localStorage.getItem('admissions')) || [];
-            if(data.length === 0) {
-                area.innerHTML = `<p style="padding:20px; text-align:center; color:var(--gray);">No confirmed admission structures processed yet.</p>`;
-                return;
-            }
+        // Render Student Profile Ledger For Specific Fee Payments Handling
+        function openFeeUpdateModal(studentId) {
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            let st = students.find(s => s.id === studentId);
+            if(!st) return;
+
+            let pending = parseFloat(st.totalFee) - parseFloat(st.paidFee);
+            const body = document.getElementById('modalBody');
+
             let html = `
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px; align-items:center; flex-wrap:wrap; gap:10px;">
-                    <h3>Confirmed Student Ledger Database</h3>
-                    <button onclick="exportTableToExcel('admissions', 'Confirmed_Admissions_Ledger')" class="btn-success"><i class="fa-solid fa-file-excel"></i> Export Ledger Excel</button>
-                </div>
-                <div class="admin-table-wrapper">
-                    <table class="admin-table">
-                        <thead>
-                            <tr><th>ID</th><th>Date</th><th>Student Name</th><th>Phone</th><th>Class</th><th>Courses / Subjects</th><th>Total Fee</th><th>Paid</th><th>Balance</th><th>Action</th></tr>
-                        </thead>
-                        <tbody>
-            `;
-            data.forEach((item, index) => {
-                const balStyle = item.balance > 0 ? 'color:var(--danger); font-weight:bold;' : 'color:var(--success); font-weight:bold;';
-                html += `
-                    <tr>
-                        <td><code>${item.refNo}</code></td>
-                        <td>${item.date}</td>
-                        <td><strong>${item.name}</strong></td>
-                        <td>${item.phone}</td>
-                        <td><span style="background:#e2e8f0; padding:2px 6px; border-radius:4px; font-weight:600;">${item.std}</span></td>
-                        <td style="max-width:220px; white-space:normal; color:#475569;">${item.courses || '-'}</td>
-                        <td>₹${item.total}</td>
-                        <td>₹${item.paid}</td>
-                        <td style="${balStyle}">₹${item.balance}</td>
-                        <td>
-                            <button class="btn-secondary" style="padding:4px 8px; font-size:12px; margin-right:5px;" onclick="printReceipt(${index})"><i class="fa-solid fa-print"></i> Receipt</button>
-                            <button class="btn-danger" onclick="deleteRowItem('admissions', ${index}, 'admissions')">Delete</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            html += `</tbody></table></div><div id="receiptPrintSandbox"></div>`;
-            area.innerHTML = html;
-        }
-
-        // BACKUP & RESTORE VIEW MODULE
-        function renderBackupTab(area) {
-            area.innerHTML = `
-                <div style="max-width:600px; margin: 10px auto; display:flex; flex-direction:column; gap:25px;">
-                    <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:20px; border-radius:8px;">
-                        <h4 style="color:var(--success); margin-bottom:8px;"><i class="fa-solid fa-download"></i> Download Secure Cloud Backup</h4>
-                        <p style="font-size:13px; color:#475569; margin-bottom:15px;">हा पर्याय वापरून तुमच्या ब्राउझर मधील चालू सर्व Admission डेटा सुरक्षित फाईल मध्ये डाऊनलोड करून ठेवा.</p>
-                        <button onclick="downloadSystemBackupFile()" class="btn-success"><i class="fa-solid fa-file-shield"></i> Download Complete Backup File</button>
+            <button onclick="showAdminDashboard('admissions')" style="margin-bottom:15px; background-color:#6c757d;">⬅️ Back to Student List</button>
+            <div style="background:#fff; padding:20px; border-radius:8px; border:1px solid #007bff;">
+                <h3 style="color:#102a43; border-bottom:2px solid #f59f00; padding-bottom:5px; border-top:none; border-left:none; border-right:none;">💰 Fees Account Management Profile</h3>
+                <p style="margin-top:10px;"><strong>Student ID:</strong> ${st.id} | <strong>Name:</strong> ${st.name}</p>
+                <p><strong>Course Target:</strong> ${st.std} (${st.course}) | <strong>Fee Billing Scheme:</strong> ${st.feeType}</p>
+                
+                <hr style="margin:15px 0;">
+                
+                <div style="background:#f1f5f9; padding:15px; border-radius:6px; margin-bottom:20px;">
+                    <div class="grid">
+                        <div><p>Total Class Fees Setup:</p><strong>₹${st.totalFee}</strong></div>
+                        <div><p>Total Cumulative Fees Paid:</p><strong style="color:green;">₹${st.paidFee}</strong></div>
+                        <div><p>Current Account Balance Due:</p><strong style="color:red;">₹${pending}</strong></div>
                     </div>
-                    
-                    <div style="background:#fef2f2; border:1px solid #fca5a5; padding:20px; border-radius:8px;">
-                        <h4 style="color:var(--danger); margin-bottom:8px;"><i class="fa-solid fa-upload"></i> Restore / Upload Lost Backup File</h4>
-                        <p style="font-size:13px; color:#475569; margin-bottom:15px;">तुमची जुनी सेव्ह केलेली बॅकअप फाईल (.json) किंवा एक्सपोर्ट केलेली एक्सेल शीट (.xlsx) निवडून रीस्टोर करा.</p>
-                        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-                            <input type="file" id="backupFileInputField" accept=".json, .xlsx, .xls" style="padding:5px; font-size:13px;">
-                            <button onclick="uploadSystemRestoreData()" class="btn-primary" style="width:auto; margin:0; padding:10px 20px; background:var(--dark);"><i class="fa-solid fa-cloud-arrow-up"></i> Upload & Restore</button>
+                </div>
+
+                <div style="background:#fff4e6; padding:15px; border-radius:6px; border-left:5px solid #e8590c;">
+                    <h4>➕ Record New Collection Payment</h4>
+                    <div class="grid" style="margin-top:10px;">
+                        <div class="form-group">
+                            <label>Amount Now Receiving (₹)</label>
+                            <input type="number" id="amtReceived" value="0">
                         </div>
                     </div>
+                    <button class="btn-success" onclick="executePaymentTransaction('${st.id}')">💾 Post Payment & Generate Receipt Docs</button>
                 </div>
-            `;
+            </div>`;
+            body.innerHTML = html;
         }
 
-        // Receipt Generator Invoice View
-        function printReceipt(index) {
-            let data = JSON.parse(localStorage.getItem('admissions')) || [];
-            const student = data[index];
-            if(!student) return;
+        // Execute Mathematical Balance Calculation and Save Final Transactions State
+        function executePaymentTransaction(studentId) {
+            let amt = parseFloat(document.getElementById('amtReceived').value) || 0;
+            if (amt <= 0) { alert("Please input valid amount!"); return; }
 
-            const box = document.getElementById('receiptPrintSandbox');
-            box.innerHTML = `
-                <div class="receipt-card">
-                    <div style="text-align:center; margin-bottom:12px;">
-                        <h2 style="color:var(--success); letter-spacing:1px; margin-bottom:2px;">SHREE INSTITUTE</h2>
-                        <p style="font-size:11px; color:var(--gray); text-transform:uppercase;">Admission Payment Status Report / Invoice Receipt</p>
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            let index = students.findIndex(s => s.id === studentId);
+            
+            let currentPaid = parseFloat(students[index].paidFee) || 0;
+            let total = parseFloat(students[index].totalFee) || 0;
+            let newPaid = currentPaid + amt;
+            let finalPending = total - newPaid;
+
+            students[index].paidFee = newPaid;
+            localStorage.setItem('students', JSON.stringify(students));
+
+            alert("💰 Transaction Posted Successfully!");
+
+            // Trigger Instant Receipt Variables Pipeline
+            document.getElementById('rcptNo').innerText = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('rcptDate').innerText = new Date().toLocaleDateString();
+            document.getElementById('rcptId').innerText = students[index].id;
+            document.getElementById('rcptName').innerText = students[index].name;
+            document.getElementById('rcptCourse').innerText = `${students[index].std} - ${students[index].course}`;
+            document.getElementById('rcptType').innerText = students[index].feeType;
+            document.getElementById('rcptTotal').innerText = total;
+            document.getElementById('rcptPaid').innerText = newPaid;
+            document.getElementById('rcptPending').innerText = finalPending;
+
+            // Trigger Whatsapp notification construct string builder
+            let billingClause = "";
+            if(students[index].feeType === "Monthly Fee") {
+                billingClause = `\n📌 *महत्त्वाची सूचना:* ही आपली *Monthly Fee* असल्याने कृपया प्रत्येक महिन्याच्या *१० तारखेच्या आत* फी जमा करावी.`;
+            } else {
+                billingClause = `\n📌 *महत्त्वाची सूचना:* ही आपली *Term/Yearly Fee* नियमांनुसार वेळेत जमा करावी.`;
+            }
+
+            let waMsg = `प्रिय पालक,\n*Shree Institute, Mandangad* कडून विद्यार्थ्याची फी पावती खालीलप्रमाणे:\n\n🧑‍🎓 विद्यार्थी नाव: *${students[index].name}*\n🆔 Student ID: *${students[index].id}*\n\n📊 *फी तपशील:*\n💵 एकूण फी: *₹${total}*\n✅ आतापर्यंत भरलेली फी: *₹${newPaid}*\n🛑 शिल्लक बाकी फी: *₹${finalPending}*\n${billingClause}\n\nधन्यवाद!\n*महेश सुतार सर (डायरेक्टर)*\n📞 8983383836`;
+            let waUrl = "https://api.whatsapp.com/send?phone=91" + students[index].phone + "&text=" + encodeURIComponent(waMsg);
+
+            // Re-render Receipt Prompt View Screen
+            const body = document.getElementById('modalBody');
+            body.innerHTML = `
+                <div style="text-align:center; padding:30px;">
+                    <h2 style="color:green;">💸 Payment Posted Successfully!</h2>
+                    <p style="margin:15px 0;">What would you like to do next?</p>
+                    <div style="display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+                        <a href="${waUrl}" target="_blank" class="btn-success" style="padding:12px 20px; text-decoration:none; border-radius:6px; font-weight:bold;">💬 Send Fee Alert Message on WhatsApp</a>
+                        <button class="btn-primary" onclick="downloadReceiptPDF('${students[index].id}')">📄 Download & Print PDF Receipt</button>
+                        <button onclick="showAdminDashboard('admissions')" style="background:#6c757d;">⬅️ Return to Dashboard</button>
                     </div>
-                    <hr style="border:0; border-top:1px dashed #cbd5e1; margin-bottom:12px;">
-                    <p style="font-size:13px; margin-bottom:5px;"><strong>Receipt ID:</strong> ${student.refNo} | <strong>Date:</strong> ${student.date}</p>
-                    <p style="font-size:13px; margin-bottom:5px;"><strong>Student Name:</strong> ${student.name}</p>
-                    <p style="font-size:13px; margin-bottom:5px;"><strong>Class/Standard:</strong> ${student.std}</p>
-                    <p style="font-size:13px; margin-bottom:5px; max-width:100%; white-space:normal;"><strong>Enrolled Courses:</strong> ${student.courses}</p>
-                    <p style="font-size:13px; margin-bottom:15px;"><strong>Contact No:</strong> ${student.phone}</p>
-                    <table style="width:100%; text-align:left; font-size:13.5px; border-top:1px solid #e2e8f0; padding-top:10px; border-collapse:collapse;">
-                        <tr style="height:25px;"><td>Total Finalized Course Fee:</td><td style="text-align:right; font-weight:600;">₹${student.total}</td></tr>
-                        <tr style="color:var(--success); font-weight:bold; height:25px;"><td>Amount Processed/Paid:</td><td style="text-align:right;">₹${student.paid}</td></tr>
-                        <tr style="color:var(--danger); font-weight:bold; font-size:15px; border-top:2px solid #cbd5e1; height:35px;"><td>Outstanding Balance Owed:</td><td style="text-align:right;">₹${student.balance}</td></tr>
-                    </table>
-                    <hr style="border:0; border-top:1px dashed #cbd5e1; margin-top:12px; margin-bottom:12px;">
-                    <p style="text-align:center; font-size:11px; font-style:italic; color:var(--gray)">Generated via Shree Institute Core Engine. System Confirmed.</p>
-                    <button onclick="window.print()" class="btn-secondary" style="width:100%; margin-top:15px; font-size:13px; padding:8px;"><i class="fa-solid fa-print"></i> Click to Print PDF Report / Receipt</button>
-                </div>
-            `;
-            box.scrollIntoView({ behavior: 'smooth' });
+                </div>`;
         }
 
-        // Delete Row Data Manager
-        function deleteRowItem(storageKey, targetIndex, currentTabName) {
-            if(confirm("Are you sure you want to delete this row entry?")) {
-                let data = JSON.parse(localStorage.getItem(storageKey)) || [];
-                data.splice(targetIndex, 1);
-                localStorage.setItem(storageKey, JSON.stringify(data));
-                switchTab(currentTabName);
-            }
-        }
-
-        // Export To Excel Sheet Data Function
-        function exportTableToExcel(storageKey, targetFileName) {
-            let rawData = JSON.parse(localStorage.getItem(storageKey)) || [];
-            if(rawData.length === 0) return alert("No valid data elements found to build excel sheet rows.");
-            const ws = XLSX.utils.json_to_sheet(rawData);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "MasterData");
-            XLSX.writeFile(wb, `${targetFileName}_${new Date().toISOString().slice(0,10)}.xlsx`);
-        }
-
-        // Backup Downloader
-        function downloadSystemBackupFile() {
-            const backupPayload = {
-                admissions: JSON.parse(localStorage.getItem('admissions')) || []
+        // PDF Generation Framework Integration Method
+        function downloadReceiptPDF(studentId) {
+            const element = document.getElementById('receiptTemplate');
+            element.style.display = "block"; // Temporarily make visible for render viewport capturing 
+            const opt = {
+                margin:       1,
+                filename:     `Receipt_${studentId}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupPayload));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `Shree_Institute_ADMISSION_BACKUP_${new Date().toISOString().slice(0,10)}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
-
-        // Restore File Parser Loader
-        function uploadSystemRestoreData() {
-            const inputElement = document.getElementById('backupFileInputField');
-            if(!inputElement.files || inputElement.files.length === 0) {
-                alert("⚠️ Please select a valid backup (.json or Excel) file first!");
-                return;
-            }
-            
-            const file = inputElement.files[0];
-            const fileReader = new FileReader();
-            
-            if(file.name.endsWith('.json')) {
-                fileReader.onload = function(e) {
-                    try {
-                        const parsedObj = JSON.parse(e.target.result);
-                        if(parsedObj.admissions) {
-                            localStorage.setItem('admissions', JSON.stringify(parsedObj.admissions));
-                            alert("✅ Database System Restored Successfully!");
-                            switchTab('admissions');
-                        } else {
-                            alert("❌ Invalid JSON structure detected.");
-                        }
-                    } catch(err) {
-                        alert("❌ System Error processing JSON file.");
-                    }
-                };
-                fileReader.readAsText(file);
-            } 
-            else if(file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
-                fileReader.onload = function(e) {
-                    try {
-                        const arrayBuffer = e.target.result;
-                        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-                        const firstSheetName = workbook.SheetNames[0];
-                        const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
-                        
-                        if(sheetData.length === 0) {
-                            alert("⚠️ Selected excel spreadsheet is blank.");
-                            return;
-                        }
-
-                        localStorage.setItem('admissions', JSON.stringify(sheetData));
-                        alert(`✅ Successfully imported ${sheetData.length} Confirmed Admission Ledgers.`);
-                        switchTab('admissions');
-                    } catch(excelError) {
-                        alert("❌ Excel parsing error: " + excelError);
-                    }
-                };
-                fileReader.readAsArrayBuffer(file);
-            }
+            html2pdf().set(opt).from(element).save().then(()=>{
+                element.style.display = "none"; // rehide
+            });
         }
     </script>
 </body>
