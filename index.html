@@ -134,42 +134,10 @@
             cursor: pointer;
         }
 
-        /* Top Menu Switcher Controls (For Single Page Feeling) */
-        .form-switcher-container {
-            max-width: 600px;
-            margin: 25px auto 0 auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .switch-tab-btn {
-            flex: 1;
-            padding: 12px;
-            font-size: 15px;
-            font-weight: 600;
-            background: #cbd5e1;
-            color: #334155;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .switch-tab-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-        }
-
         /* Centralized Main Form Container */
         .main-container {
             max-width: 700px;
-            margin: 20px auto 40px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
         
@@ -179,22 +147,12 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             border: 1px solid #e2e8f0;
-            display: none; /* Hidden by default, controlled via JS */
-        }
-
-        .card.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            border-top: 4px solid var(--success);
         }
         
         .card h2 {
             margin-bottom: 20px;
-            color: var(--primary);
+            color: var(--success);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -231,7 +189,7 @@
         }
         
         .form-group input:focus, .form-group select:focus {
-            border-color: var(--primary);
+            border-color: var(--success);
         }
         
         button {
@@ -243,14 +201,14 @@
         }
         
         .btn-primary {
-            background: var(--primary);
+            background: var(--success);
             color: white;
             padding: 12px;
             width: 100%;
             font-size: 15px;
             margin-top: 10px;
         }
-        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-primary:hover { background: #15803d; }
         
         .btn-success { background: var(--success); color: white; padding: 10px 15px; }
         .btn-success:hover { background: #15803d; }
@@ -313,7 +271,6 @@
             border-bottom: 2px solid #e2e8f0;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            overflow-x: auto;
         }
         .tab-btn {
             padding: 10px 20px;
@@ -321,7 +278,6 @@
             color: #475569;
             border-radius: 6px;
             font-size: 14px;
-            white-space: nowrap;
         }
         .tab-btn.active {
             background: var(--primary);
@@ -367,7 +323,6 @@
             .dropdown { width: 100%; }
             .dropdown-btn { justify-content: center; }
             .dropdown-content { position: relative; width: 100%; }
-            .form-switcher-container { flex-direction: column; }
         }
     </style>
 </head>
@@ -387,7 +342,6 @@
                         <i class="fa-solid fa-user-gear"></i> Director Panel <i class="fa-solid fa-caret-down"></i>
                     </div>
                     <div class="dropdown-content">
-                        <a onclick="accessDirector('enquiry')"><i class="fa-solid fa-address-book"></i> Enquiry Reports</a>
                         <a onclick="accessDirector('admissions')"><i class="fa-solid fa-id-card"></i> Confirmed Admissions</a>
                         <a onclick="accessDirector('backup')"><i class="fa-solid fa-database"></i> Backup & Restore</a>
                     </div>
@@ -396,59 +350,12 @@
         </div>
     </header>
 
-    <!-- Form Switcher Tabs (Single Page Controller) -->
-    <div class="form-switcher-container">
-        <button id="switchEnqBtn" class="switch-tab-btn active" onclick="switchForm('enquiry')">
-            <i class="fa-regular fa-comments"></i> 1. New Student Enquiry
-        </button>
-        <button id="switchAdmBtn" class="switch-tab-btn" onclick="switchForm('admission')">
-            <i class="fa-solid fa-circle-check"></i> 2. Confirm Admission
-        </button>
-    </div>
-
     <!-- Centralized Main Container -->
     <div class="main-container">
         
-        <!-- View 1: Student Enquiry Form -->
-        <div id="enquiryCard" class="card active">
-            <h2><i class="fa-regular fa-comments"></i> Student Enquiry Form</h2>
-            <form id="enquiryForm" onsubmit="event.preventDefault(); processEnquiry();">
-                <div class="grid">
-                    <div class="form-group">
-                        <label>Student Name</label>
-                        <input type="text" id="enqName" required placeholder="Full Name">
-                    </div>
-                    <div class="form-group">
-                        <label>Parent Contact Number</label>
-                        <input type="tel" id="enqPhone" required pattern="[0-9]{10}" placeholder="10-digit Mobile">
-                    </div>
-                    <div class="form-group">
-                        <label>Standard / Class</label>
-                        <select id="enqStd" required>
-                            <option value="">Select Class</option>
-                            <option value="8th">8th</option>
-                            <option value="9th">9th</option>
-                            <option value="10th">10th</option>
-                            <option value="11th">11th</option>
-                            <option value="12th">12th</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Education Board</label>
-                        <select id="enqBoard" required>
-                            <option value="State Board">State Board</option>
-                            <option value="CBSE">CBSE</option>
-                            <option value="ICSE">ICSE</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn-primary" style="background: #475569;"><i class="fa-brands fa-whatsapp"></i> Save & Send Enquiry Alert</button>
-            </form>
-        </div>
-
-        <!-- View 2: Confirm Admission Form -->
-        <div id="admissionCard" class="card" style="border-top: 4px solid var(--success);">
-            <h2><i class="fa-solid fa-circle-check" style="color:var(--success)"></i> Confirm Admission Form</h2>
+        <!-- Main Form: Confirm Admission Form -->
+        <div class="card">
+            <h2><i class="fa-solid fa-circle-check"></i> Student Admission Form</h2>
             <form id="admissionForm" onsubmit="event.preventDefault(); processAdmission();">
                 <div class="grid">
                     <div class="form-group">
@@ -460,8 +367,15 @@
                         <input type="tel" id="admPhone" required pattern="[0-9]{10}" placeholder="Mobile">
                     </div>
                     <div class="form-group">
-                        <label>Standard</label>
-                        <input type="text" id="admStd" required placeholder="e.g. 10th, 12th Sci">
+                        <label>Standard / Class</label>
+                        <select id="admStd" required>
+                            <option value="">Select Class</option>
+                            <option value="8th">8th</option>
+                            <option value="9th">9th</option>
+                            <option value="10th">10th</option>
+                            <option value="11th">11th</option>
+                            <option value="12th">12th</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Total Final Fee (₹)</label>
@@ -476,7 +390,7 @@
                         <input type="number" id="admRemainingFee" readonly value="0" style="background:#f1f5f9; font-weight:bold; color:var(--danger)">
                     </div>
                 </div>
-                <button type="submit" class="btn-primary" style="background: var(--success);"><i class="fa-solid fa-cash-register"></i> Complete Admission & Lock Data</button>
+                <button type="submit" class="btn-primary"><i class="fa-solid fa-cash-register"></i> Complete Admission & Lock Data</button>
             </form>
         </div>
 
@@ -491,7 +405,6 @@
             </div>
             <div class="modal-body">
                 <div class="tab-navigation">
-                    <button id="tabBtnEnq" class="tab-btn" onclick="switchTab('enquiry')">📥 Enquiry Leads</button>
                     <button id="tabBtnAdm" class="tab-btn" onclick="switchTab('admissions')">📜 Confirmed Admissions</button>
                     <button id="tabBtnBack" class="tab-btn" onclick="switchTab('backup')">⚙️ System Backup / Restore</button>
                 </div>
@@ -508,45 +421,11 @@
         function closeMenu() { document.getElementById('navbar').classList.remove('active'); }
         function toggleDirectorDropdown() { document.getElementById('directorDropdown').classList.toggle('open'); }
 
-        // MAIN SINGLE PAGE FORM SWITCHER
-        function switchForm(formType) {
-            document.getElementById('switchEnqBtn').classList.remove('active');
-            document.getElementById('switchAdmBtn').classList.remove('active');
-            document.getElementById('enquiryCard').classList.remove('active');
-            document.getElementById('admissionCard').classList.remove('active');
-
-            if(formType === 'enquiry') {
-                document.getElementById('switchEnqBtn').classList.add('active');
-                document.getElementById('enquiryCard').classList.add('active');
-            } else {
-                document.getElementById('switchAdmBtn').classList.add('active');
-                document.getElementById('admissionCard').classList.add('active');
-            }
-        }
-
         // Live Fee Calculation Engine
         function calcAdmissionRemaining() {
             const total = parseFloat(document.getElementById('admTotalFee').value) || 0;
             const paid = parseFloat(document.getElementById('admPaidFee').value) || 0;
             document.getElementById('admRemainingFee').value = total - paid;
-        }
-
-        // Save Enquiry Data
-        function processEnquiry() {
-            const name = document.getElementById('enqName').value;
-            const phone = document.getElementById('enqPhone').value;
-            const std = document.getElementById('enqStd').value;
-            const board = document.getElementById('enqBoard').value;
-
-            let localData = JSON.parse(localStorage.getItem('enquiries')) || [];
-            localData.push({ name, phone, std, board, date: new Date().toLocaleDateString() });
-            localStorage.setItem('enquiries', JSON.stringify(localData));
-
-            const message = `Hello Mahesh Sir,\nNew Student Enquiry Received.\n\n*Details:*\n📝 *Name:* ${name}\n📞 *Mobile:* ${phone}\n🏫 *Std:* ${std}\n🏛️ *Board:* ${board}`;
-            const url = "https://api.whatsapp.com/send?phone=918983383836&text=" + encodeURIComponent(message);
-            
-            document.getElementById('enquiryForm').reset();
-            window.open(url, '_blank');
         }
 
         // Save Admission Data
@@ -593,62 +472,24 @@
         }
 
         function closeDirectorModal() {
+            document.getElementById('directorModal').style.none = 'none';
             document.getElementById('directorModal').style.display = 'none';
         }
 
         // Internal Switch Tabs Inside Dashboard Modal
         function switchTab(tabName) {
-            document.getElementById('tabBtnEnq').classList.remove('active');
             document.getElementById('tabBtnAdm').classList.remove('active');
             document.getElementById('tabBtnBack').classList.remove('active');
             
             const renderArea = document.getElementById('tabContentArea');
             
-            if (tabName === 'enquiry') {
-                document.getElementById('tabBtnEnq').classList.add('active');
-                renderEnquiryTab(renderArea);
-            } else if (tabName === 'admissions') {
+            if (tabName === 'admissions') {
                 document.getElementById('tabBtnAdm').classList.add('active');
                 renderAdmissionsTab(renderArea);
             } else if (tabName === 'backup') {
                 document.getElementById('tabBtnBack').classList.add('active');
                 renderBackupTab(renderArea);
             }
-        }
-
-        // ENQUIRY REPORT GENERATOR
-        function renderEnquiryTab(area) {
-            let data = JSON.parse(localStorage.getItem('enquiries')) || [];
-            if(data.length === 0) {
-                area.innerHTML = `<p style="padding:20px; text-align:center; color:var(--gray);">No local enquiry leads currently stored.</p>`;
-                return;
-            }
-            let html = `
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px; align-items:center; flex-wrap:wrap; gap:10px;">
-                    <h3>Enquiry Database Master List</h3>
-                    <button onclick="exportTableToExcel('enquiries', 'Enquiry_Leads')" class="btn-success"><i class="fa-solid fa-file-excel"></i> Export Leads Excel</button>
-                </div>
-                <div class="admin-table-wrapper">
-                    <table class="admin-table">
-                        <thead>
-                            <tr><th>Date</th><th>Student Name</th><th>Phone</th><th>Class</th><th>Board</th><th>Action</th></tr>
-                        </thead>
-                        <tbody>
-            `;
-            data.forEach((item, index) => {
-                html += `
-                    <tr>
-                        <td>${item.date || '-'}</td>
-                        <td><strong>${item.name}</strong></td>
-                        <td><a href="tel:${item.phone}">${item.phone}</a></td>
-                        <td>${item.std}</td>
-                        <td>${item.board}</td>
-                        <td><button class="btn-danger" onclick="deleteRowItem('enquiries', ${index}, 'enquiry')">Delete</button></td>
-                    </tr>
-                `;
-            });
-            html += `</tbody></table></div>`;
-            area.innerHTML = html;
         }
 
         // ADMISSIONS REPORT GENERATOR WITH LEDGER
@@ -699,7 +540,7 @@
                 <div style="max-width:600px; margin: 10px auto; display:flex; flex-direction:column; gap:25px;">
                     <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:20px; border-radius:8px;">
                         <h4 style="color:var(--success); margin-bottom:8px;"><i class="fa-solid fa-download"></i> Download Secure Cloud Backup</h4>
-                        <p style="font-size:13px; color:#475569; margin-bottom:15px;">हा पर्याय वापरून तुमच्या ब्राउझर मधील चालू सर्व डेटा (Enquiry + Admission) सुरक्षित फाईल मध्ये डाऊनलोड करून ठेवा.</p>
+                        <p style="font-size:13px; color:#475569; margin-bottom:15px;">हा पर्याय वापरून तुमच्या ब्राउझर मधील चालू सर्व Admission डेटा सुरक्षित फाईल मध्ये डाऊनलोड करून ठेवा.</p>
                         <button onclick="downloadSystemBackupFile()" class="btn-success"><i class="fa-solid fa-file-shield"></i> Download Complete Backup File</button>
                     </div>
                     
@@ -725,7 +566,7 @@
             box.innerHTML = `
                 <div class="receipt-card">
                     <div style="text-align:center; margin-bottom:12px;">
-                        <h3 style="color:var(--primary)">SHREE INSTITUTE</h3>
+                        <h3 style="color:var(--success)">SHREE INSTITUTE</h3>
                         <p style="font-size:11px; color:var(--gray)">Admission Payment Status Report / Invoice Receipt</p>
                     </div>
                     <hr style="border:0; border-top:1px dashed #cbd5e1; margin-bottom:10px;">
@@ -766,22 +607,21 @@
             XLSX.writeFile(wb, `${targetFileName}_${new Date().toISOString().slice(0,10)}.xlsx`);
         }
 
-        // Backup Importer Logic
+        // Backup Downloader
         function downloadSystemBackupFile() {
             const backupPayload = {
-                enquiries: JSON.parse(localStorage.getItem('enquiries')) || [],
                 admissions: JSON.parse(localStorage.getItem('admissions')) || []
             };
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupPayload));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `Shree_Institute_FULL_MASTER_BACKUP_${new Date().toISOString().slice(0,10)}.json`);
+            downloadAnchor.setAttribute("download", `Shree_Institute_ADMISSION_BACKUP_${new Date().toISOString().slice(0,10)}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
         }
 
-        // Restore File Parser Loader Matrix
+        // Restore File Parser Loader
         function uploadSystemRestoreData() {
             const inputElement = document.getElementById('backupFileInputField');
             if(!inputElement.files || inputElement.files.length === 0) {
@@ -796,13 +636,12 @@
                 fileReader.onload = function(e) {
                     try {
                         const parsedObj = JSON.parse(e.target.result);
-                        if(parsedObj.enquiries || parsedObj.admissions) {
-                            if(parsedObj.enquiries) localStorage.setItem('enquiries', JSON.stringify(parsedObj.enquiries));
-                            if(parsedObj.admissions) localStorage.setItem('admissions', JSON.stringify(parsedObj.admissions));
+                        if(parsedObj.admissions) {
+                            localStorage.setItem('admissions', JSON.stringify(parsedObj.admissions));
                             alert("✅ Database System Restored Successfully!");
-                            switchTab('backup');
+                            switchTab('admissions');
                         } else {
-                            alert("❌ Invalid JSON scheme configuration matrix structure detected.");
+                            alert("❌ Invalid JSON structure detected.");
                         }
                     } catch(err) {
                         alert("❌ System Error processing JSON file.");
@@ -819,22 +658,19 @@
                         const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
                         
                         if(sheetData.length === 0) {
-                            alert("⚠️ Selected excel spreadsheet matches blank datasets.");
+                            alert("⚠️ Selected excel spreadsheet is blank.");
                             return;
                         }
 
-                        if(sheetData[0].hasOwnProperty('board')) {
-                            localStorage.setItem('enquiries', JSON.stringify(sheetData));
-                            alert(`✅ Successfully imported ${sheetData.length} Enquiry Rows.`);
-                        } else if(sheetData[0].hasOwnProperty('balance') || sheetData[0].hasOwnProperty('paid')) {
+                        if(sheetData[0].hasOwnProperty('balance') || sheetData[0].hasOwnProperty('paid') || sheetData[0].hasOwnProperty('name')) {
                             localStorage.setItem('admissions', JSON.stringify(sheetData));
                             alert(`✅ Successfully imported ${sheetData.length} Confirmed Admission Ledgers.`);
+                            switchTab('admissions');
                         } else {
                             alert("⚠️ Template Structure mismatch!");
                         }
-                        switchTab('backup');
                     } catch(excelError) {
-                        alert("❌ Excel SheetJS compilation error: " + excelError);
+                        alert("❌ Excel parsing error: " + excelError);
                     }
                 };
                 fileReader.readAsArrayBuffer(file);
