@@ -13,11 +13,14 @@
         body { background-color: #f1f5f9; color: #334155; padding: 20px; }
         .container { max-width: 1200px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
         
-        /* Official Banner Image Style */
+        /* Hero & Banner Styles */
+        .hero-banner { text-align: center; background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 30px 20px; border-radius: 8px; margin-bottom: 25px; }
+        .hero-banner h1 { font-size: 28px; margin-bottom: 10px; }
+        .hero-banner p { font-size: 18px; font-weight: bold; color: #fef08a; }
         .banner-img-container { text-align: center; margin-bottom: 25px; }
         .banner-img-container img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
 
-        /* Space-Saving Slideshow Styles */
+        /* Smart Space-Saving Slideshow Styles */
         .slideshow-container { max-width: 500px; position: relative; margin: 0 auto 30px auto; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background: #000; }
         .mySlides { display: none; text-align: center; }
         .mySlides img { width: 100%; height: 350px; object-fit: contain; vertical-align: middle; background-color: #000; }
@@ -25,13 +28,15 @@
         .next { right: 0; border-radius: 3px 0 0 3px; }
         .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
 
+        /* High-Impact Parent Features Section */
+        .highlight-features { background: #fffbeb; border: 2px solid #fef08a; padding: 25px; border-radius: 8px; margin-bottom: 30px; }
+        .highlight-features h3 { color: #b45309; font-size: 24px; margin-bottom: 15px; text-align: center; border-bottom: 2px dashed #fef08a; padding-bottom: 10px; }
+        .highlight-features ul { list-style-position: inside; font-size: 17px; line-height: 1.9; color: #451a03; font-weight: 600; }
+
         /* Institutional High-Impact Content Sections */
         .info-section { background: #f8fafc; border-left: 6px solid #1e3a8a; padding: 20px; margin-bottom: 25px; border-radius: 0 8px 8px 0; }
         .info-section h3 { color: #1e3a8a; font-size: 22px; margin-bottom: 10px; }
         .info-section p { font-size: 16px; line-height: 1.6; color: #334155; }
-        .highlight-features { background: #fffbeb; border: 2px solid #fef08a; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
-        .highlight-features h3 { color: #b45309; font-size: 22px; margin-bottom: 12px; text-align: center; }
-        .highlight-features ul { list-style-position: inside; font-size: 16px; line-height: 1.8; color: #451a03; font-weight: 600; }
 
         /* Common Form/Grid Elements */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 15px; }
@@ -59,40 +64,46 @@
 <body>
 
 <div class="container">
-
-    <!-- 1. Official Banner Image -->
-    <div class="banner-img-container">
-        <img src="65289311_2225046517590884_8494935726503231488_n.jpg" alt="Shree Institute Mandangad Official Course Banner">
+    <!-- Hero Header section according to official banner graphics -->
+    <div class="hero-banner">
+        <h1>SHREE INSTITUTE MANDANGAD</h1>
+        <p>विद्यार्थ्यांची शैक्षणिक गुणवत्ता वाढवणारे एकमेवセンター — Admission Open</p>
+        <span style="font-size:13px; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:20px; display:inline-block; margin-top:10px;">एकवेळ अवश्य भेट द्या</span>
     </div>
 
-    <!-- 2. Smart Space-Saving Congratulations Slideshow -->
+    <!-- Official Banner Image Container -->
+    <div class="banner-img-container">
+        <img src="65289311_2225046517590884_8494935726503231488_n.jpg" alt="Shree Institute Mandangad Official Course Banner Grid">
+    </div>
+
+    <!-- Smart Space-Saving Congratulations Slideshow Components -->
     <h3 style="text-align: center; margin-bottom: 15px; color:#1e3a8a;">🏆 आमचे गुणवंत विद्यार्थी (Success Slideshow)</h3>
     <div class="slideshow-container">
         <div class="mySlides">
-            <img src="congratulations1.jpg" alt="Student Achievement 1">
+            <img src="congratulations1.jpg" alt="Shree Institute Meritorious Student Achievement Pic 1">
         </div>
         <div class="mySlides">
-            <img src="congratulations2.jpg" alt="Student Achievement 2">
+            <img src="congratulations2.jpg" alt="Shree Institute Meritorious Student Achievement Pic 2">
         </div>
         <div class="mySlides">
-            <img src="congratulations3.jpg" alt="Student Achievement 3">
+            <img src="congratulations3.jpg" alt="Shree Institute Meritorious Student Achievement Pic 3">
         </div>
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
 
-    <!-- 3. High-Impact Parent Conversion Features (Weekly Test, Individual Attention) -->
+    <!-- High-Impact Parent Convincing Points Box -->
     <div class="highlight-features">
-        <h3>🎯 श्री इन्स्टिट्यूटमध्येच प्रवेश का घ्यावा? (पालकांसाठी खास वैशिष्ट्ये)</h3>
+        <h3>🎯 श्री इन्स्टिट्यूटमध्येच पाल्याचा प्रवेश का घ्यावा? (पालकांसाठी खास वैशिष्ट्ये)</h3>
         <ul>
             <li>📝 **प्रकरणनिहाय परीक्षा (Chapterwise Tests):** प्रत्येक धडा शिकवून संपल्यानंतर विद्यार्थ्याला तो कितपत समजला, हे तपासण्यासाठी आम्ही विशेष चाचणी घेतो.</li>
             <li>📊 **नियमित साप्ताहिक परीक्षा (Weekly Tests):** दर आठवड्याला घेतलेल्या सराव परीक्षांमुळे विद्यार्थ्यांमधील परीक्षेची भीती पूर्णपणे नाहीशी होते.</li>
             <li>🎯 **वैयक्तिक लक्ष (Separate Attention):** प्रत्येक विद्यार्थ्याची शिकण्याची गती वेगळी असते, म्हणूनच आम्ही प्रत्येक मुलाच्या प्रगतीवर वैयक्तिकरित्या स्वतंत्र लक्ष देतो.</li>
-            <li>🗣️ **पालकांशी थेट संवाद (Parent-Teacher Interaction):** विद्यार्थ्याच्या अभ्यासातील प्रगती किंवा अडचणींबद्दल आम्ही पालकांशी सतत संपर्कात राहून संवाद साधतो.</li>
+            <li>🗣️ **पालकांशी थेट संवाद (Parent-Teacher Interaction):** विद्यार्थ्याच्या अभ्यासातील प्रगती किंवा अडचणींबद्दल आम्ही पालकांशी सतत संपर्कात राहून वैयक्तिक संवाद साधतो.</li>
         </ul>
     </div>
 
-    <!-- 4. Institutional Pillars: Vision, Mission & Director Message -->
+    <!-- Institutional Pillars: Vision, Mission & Director Message -->
     <div class="info-section">
         <h3>👁️ आमचे ध्येय (Vision)</h3>
         <p>ग्रामीण भागातील प्रत्येक विद्यार्थ्याचा पायाभूत शैक्षणिक दर्जा उंचावणे, त्यांच्यातील गणिताची व इंग्रजीची भीती दूर करून त्यांना आधुनिक स्पर्धा परीक्षांना सामोरे जाण्यासाठी सक्षम बनवणे, हेच आमचे अंतिम ध्येय आहे.</p>
@@ -104,11 +115,11 @@
     </div>
 
     <div class="info-section">
-        <h3>👨‍‍संचालकांचा संदेश (Director Message)</h3>
+        <h3>👨‍💼 संचालकांचा संदेश (Director Message)</h3>
         <p><strong>प्रिय पालक आणि विद्यार्थी मित्रांनो,</strong><br>श्री इन्स्टिट्यूट, मंडणगडमध्ये आम्ही केवळ वर्ग चालवत नाही, तर विद्यार्थ्यांच्या उज्ज्वल भविष्याचा पाया रचतो. "जोपर्यंत समजत नाही, तोपर्यंत सोप्या भाषेत पुन्हा-पुन्हा शिकवणे" हे आमचे ब्रीद आहे. शालेय अभ्यासासोबतच स्पर्धा परीक्षांचा सराव करून घेऊन आम्ही मुलांमध्ये अफाट आत्मविश्वास निर्माण करतो. तुमच्या पाल्याची शैक्षणिक गुणवत्ता वाढवण्यासाठी एकवेळ सेंटरला अवश्य भेट द्या.<br><br><strong>- महेश सुतार सर (संचालक, श्री इन्स्टिट्यूट)</strong></p>
     </div>
 
-    <!-- 5. Public Quick Enquiry Intake Form Block (Original UI) -->
+    <!-- Public Quick Enquiry Intake Form Block -->
     <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 25px; border-radius: 8px; margin-bottom: 30px;">
         <h3 style="color:#1e3a8a; margin-bottom: 15px;">📞 पालकांसाठी त्वरित चौकशी फॉर्म (Enquiry Form)</h3>
         <div class="grid">
@@ -131,7 +142,7 @@
         <button class="btn-success" onclick="savePublicEnquiry()">⚡ चौकशी नोंदवा (Submit Enquiry)</button>
     </div>
 
-    <!-- 6. Administrative Portal Authentication Secure Section Entry point -->
+    <!-- Administrative Portal Authentication Secure Section Entry point -->
     <div class="admin-trigger-zone">
         <h3 style="color:#1e3a8a; margin-bottom:10px;">🔐 श्री इन्स्टिट्यूट ॲडमिन मॅनेजमेंट पॅनेल (Director Access)</h3>
         <p style="font-size: 14px; margin-bottom:15px; color:#64748b;">हा विभाग केवळ संचालक आणि अधिकृत कर्मचाऱ्यांच्या वापरासाठी आहे.</p>
@@ -245,7 +256,7 @@
             <div class="grid">
                 <div style="background:#eff6ff; padding:15px; border-radius:8px; border-left:5px solid #3b82f6;"><h4>एकूण कन्फर्म प्रवेश</h4><strong style="font-size:22px;">${students.length}</strong></div>
                 <div style="background:#fefce8; padding:15px; border-radius:8px; border-left:5px solid #eab308;"><h4>एकूण आलेल्या चौकशी नोंदी</h4><strong style="font-size:22px;">${enquiries.length}</strong></div>
-                <div style="background:#ecfdf5; padding:15px; border-radius:8px; border-left:5px solid #10b981;"><h4>जमा झालेली एकूण फी</h4><strong style="font-size:22px; color:green;">₹${totalRevenuePaid}</strong></div>
+                <div style="background:#ecfdf5; padding:15px; border-radius:8px; border-left:5px solid #10b981;"><h4>जма झालेली एकूण फी</h4><strong style="font-size:22px; color:green;">₹${totalRevenuePaid}</strong></div>
                 <div style="background:#fef2f2; padding:15px; border-radius:8px; border-left:5px solid #ef4444;"><h4>एकूण शिल्लक फी बाकी</h4><strong style="font-size:22px; color:red;">₹${netBalanceDue}</strong></div>
             </div>
             
@@ -257,7 +268,7 @@
             <!-- Highly Secure Local JSON Storage File Backup Component replacing old clear utility -->
             <div style="background:#f0fdf4; padding:20px; border-radius:8px; border:1px solid #bbf7d0; margin-top:30px;">
                 <h4 style="color:#166534; margin-bottom:8px;">📥 डेटा बॅकअप व सुरक्षा केंद्र (Secure Data Backup Hub)</h4>
-                <p style="font-size:13px; color:#1e824c; margin-bottom:15px;">तुमचा डेटा सुरक्षित ठेवण्यासाठी नियमित बॅकअप डाउनलोड करा.</p>
+                <p style="font-size:13px; color:#1e824c; margin-bottom:15px;">तुमचा डेटा कधीही गमावू नये म्हणून सुरक्षित बॅकअप डाउनलोड करा. ही फाईल तुमच्या कॉम्प्युटर किंवा मोबाईलमध्ये सुरक्षित सेव्ह करून ठेवा.</p>
                 <button class="btn-success" style="background-color:#16a34a;" onclick="downloadDataBackup()">💾 संपूर्ण डेटा बॅकअप डाउनलोड करा (Download Backup)</button>
             </div>`;
             body.innerHTML = html;
@@ -333,7 +344,7 @@
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         downloadAnchor.remove();
-        alert("📥 श्री इन्स्टिट्यूटचा संपूर्ण डेटा बॅकअप यशस्वीरित्या डाउनलोड झाला आहे!");
+        alert("📥 श्री इन्स्टिट्यूटचा संपूर्ण डेटा बॅकअप यशस्वीरित्या डाउनलोड झाला आहे! ही फाईल सुरक्षित जागी जतन करा.");
     }
 
     // Professional JSON-to-Sheet Reporting Engine
@@ -437,7 +448,6 @@
         document.getElementById('admCourse').value = item.course;
     }
 
-    // Core Business Rule logic setup according to system instructions format for 2026 data entry
     function saveNewAdmission() {
         const name = document.getElementById('admName').value;
         const phone = document.getElementById('admPhone').value;
